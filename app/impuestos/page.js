@@ -1,7 +1,7 @@
 import Image from "next/image";
 import "./page.css";
 
-export default function Home() {
+export default function Impuestos() {
   return (
     <main className="home">
       <div className="parent">
