@@ -10,7 +10,7 @@ const Sidebar = () => {
       {" "}
       <div className="sidebar">
         <div className="list-son">
-          <a href="/">Resumen</a>
+          <a href="/resumen">Resumen</a>
         </div>
         <div className="list-son">
           <Link href="/ingresos">Ingresos</Link>
@@ -38,6 +38,9 @@ const Sidebar = () => {
         </div>
         <div className="list-son">
           <Link href="/sumar">Añadir</Link>
+        </div>
+        <div className="list-son">
+          <Link href="/">Cerrar</Link>
         </div>
       </div>
     </section>
