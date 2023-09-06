@@ -14,10 +14,8 @@ export default function Home() {
       setIsMounted(true);
   }, []);
 
-  let router;
-  if (isMounted) {
-      router = useRouter();
-  }
+      const router = useRouter();
+
  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

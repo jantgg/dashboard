@@ -13,9 +13,9 @@ const tareaSchema = new mongoose.Schema({
     descripcion: {
         type: String,
     },
-    fechaCreacion: {
-        type: Date,
-        default: Date.now,
+    urgente: {
+        type: Boolean,
+        default: false,
     },
     fechaVencimiento: {
         type: Date,
