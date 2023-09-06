@@ -23,11 +23,7 @@ export default function Tareas() {
     fechaVencimiento: new Date(),
     completada: false,
   });
-  // <button onClick={() => updateTarea(tareaId, updatedData)}>Actualizar tarea</button>
-
-  //delete
-  const [tareaIdToDelete, setTareaIdToDelete] = useState(null); // Id de la tarea que quieres eliminar
-  //<button onClick={() => deleteTarea(tareaIdToDelete)}>Eliminar tarea</button>
+  
   useEffect(() => {
     fetchTareas();
   }, []);
@@ -35,7 +31,7 @@ export default function Tareas() {
   const fetchTareas = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/tarea", {
+      const response = await fetch( `${process.env.NEXT_PUBLIC_DATABASE_URL}/tarea`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -141,7 +137,7 @@ export default function Tareas() {
       const token = localStorage.getItem("token"); // Recuperar el token del localStorage
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/tareas/${tareaId}`,
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/tarea/${tareaId}`,
         {
           method: "DELETE",
           headers: {
@@ -153,7 +149,7 @@ export default function Tareas() {
       const data = await response.json();
 
       if (response.ok) {
-        // Gestión tras la eliminación exitosa
+        fetchTareas();
       } else {
         throw new Error(data.message);
       }
@@ -174,12 +170,13 @@ export default function Tareas() {
                         <button onClick={() => toggleCompletada(tarea._id, tarea.completada)}>
                             {tarea.completada ? "Marcar como no completada" : "Marcar como completada"}
                         </button>
+                        <button onClick={() => deleteTarea(tarea._id)}>Borrar</button>
                     </li>
                 ))}
             </ul>
         </div>
 
-        <div className="div2">
+        <div className="div4">
           {" "}
           <h2>Añadir tareas</h2>
           <div className="task-inputs">
@@ -257,24 +254,42 @@ export default function Tareas() {
           <h2>Tareas para hoy</h2>
           <ul>
             {tareasParaHoy.map((tarea) => (
-              <li key={tarea._id}>{tarea.titulo}</li>
-            ))}
+                    <li key={tarea._id}>
+                        {tarea.titulo}
+                        <button onClick={() => toggleCompletada(tarea._id, tarea.completada)}>
+                            {tarea.completada ? "Marcar como no completada" : "Marcar como completada"}
+                        </button>
+                        <button onClick={() => deleteTarea(tarea._id)}>Borrar</button>
+                    </li>
+                ))}
           </ul>
         </div>
-        <div className="div4">
+        <div className="div2">
           <h2>Tareas urgentes</h2>
           <ul>
             {tareasUrgentes.map((tarea) => (
-              <li key={tarea._id}>{tarea.titulo}</li>
-            ))}
+                    <li key={tarea._id}>
+                        {tarea.titulo}
+                        <button onClick={() => toggleCompletada(tarea._id, tarea.completada)}>
+                            {tarea.completada ? "Marcar como no completada" : "Marcar como completada"}
+                        </button>
+                        <button onClick={() => deleteTarea(tarea._id)}>Borrar</button>
+                    </li>
+                ))}
           </ul>
         </div>
         <div className="div5">
           <h2>Tareas realizadas</h2>
           <ul>
             {tareasRealizadas.map((tarea) => (
-              <li key={tarea._id}>{tarea.titulo}</li>
-            ))}
+                    <li key={tarea._id}>
+                        {tarea.titulo}
+                        <button onClick={() => toggleCompletada(tarea._id, tarea.completada)}>
+                            {tarea.completada ? "Marcar como no completada" : "Marcar como completada"}
+                        </button>
+                        <button onClick={() => deleteTarea(tarea._id)}>Borrar</button>
+                    </li>
+                ))}
           </ul>
         </div>
       </div>

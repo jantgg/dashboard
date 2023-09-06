@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Tarea = require('./models/Tarea');
+const Producto = require('./models/Producto');
 const verifyToken = require('./verifyToken');
 const router = express.Router();
 
@@ -90,7 +91,7 @@ router.put('/tarea/:id', verifyToken, async (req, res) => {
 });
 
 
-// Eliminar una tarea (nuevamente, asegúrate de verificar la propiedad)--------------------------------------------------------------------------------------------------------------
+// Eliminar una tarea --------------------------------------------------------------------------------------------------------------
 router.delete('/tarea/:id', verifyToken, async (req, res) => {
     try {
         const tarea = await Tarea.findById(req.params.id);
@@ -109,6 +110,51 @@ router.delete('/tarea/:id', verifyToken, async (req, res) => {
         res.status(500).json({ message: 'Error de servidor al eliminar la tarea' });
     }
 });
+// Obtener todas las productos del usuario autenticado--------------------------------------------------------------------------------------------------------------
+router.get('/product', verifyToken, async (req, res) => {
+    try {
+        const producto = await Producto.find({ usuario: req.userId });
+        res.status(200).json(producto);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al obtener las productos' });
+    }
+});
+// Crear una nuevo Producto--------------------------------------------------------------------------------------------------------------
+router.post('/product', verifyToken, async (req, res) => {
+    try {
+        const nuevoProducto = new Producto({
+            ...req.body,
+            usuario: req.userId // asumiendo que el ID del usuario decodificado se almacena en req.userId
+        });
+        await nuevoProducto.save();
+        res.status(201).json({ message: 'Producto creado con éxito', producto: nuevoProducto });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al crear el producto' });
+    }
+});
+// Eliminar una tarea --------------------------------------------------------------------------------------------------------------
+router.delete('/product/:id', verifyToken, async (req, res) => {
+    try {
+        const producto = await Producto.findById(req.params.id);
+        if (!producto) {
+            return res.status(404).json({ message: 'producto no encontrada' });
+        }
+
+        if (producto.usuario.toString() !== req.userId) {
+            return res.status(403).json({ message: 'No tienes permiso para eliminar esta producto' });
+        }
+
+        await Producto.findByIdAndRemove(req.params.id);
+        res.status(200).json({ message: 'producto eliminada con éxito' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al eliminar la producto' });
+    }
+});
+
+
 
 
 module.exports = router;
