@@ -3,13 +3,25 @@ import Image from "next/image";
 import "./page.css";
 import { useEffect, useState } from "react";
 import ProductoNuevo from "../components/crearProducto.js";
+import SingleProducto from "../components/singleProducto.js";
 
 export default function Productos() {
   const [productos, setProductos] = useState([]);
+  const [singleProducto, setSingleProducto] = useState({
+    nombre: "",
+    descripcion: "",
+    precioCompra: "",
+    precioVenta: "",
+    iva: "",
+    numeroSerie: "",
+    stock: "",
+  });
+
 
   useEffect(() => {
     document.title = "Productos";
     getProductos();
+
   }, []);
 
   const getProductos = async () => {
@@ -26,6 +38,7 @@ export default function Productos() {
       );
       const data = await response.json();
       setProductos(data);
+      setSingleProducto(data[0]);
     } catch (error) {
       console.error("Error al obtener las productos:", error);
     }
@@ -87,7 +100,12 @@ export default function Productos() {
           <h2>Añadir producto</h2>
           <ProductoNuevo />
         </div>
-        <div className="div5"> Detalles del producto</div>
+        <div className="div5"> <h2>Detalles del producto</h2>
+<SingleProducto producto={singleProducto}/>
+
+
+
+        </div>
       </div>
     </main>
   );

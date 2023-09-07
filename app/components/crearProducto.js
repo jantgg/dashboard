@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./crearProducto.css";
 
 function ProductoNuevo() {
+  
   const [productoData, setProductoData] = useState({
     nombre: "",
     descripcion: "",
@@ -43,6 +44,7 @@ function ProductoNuevo() {
           stock: "",
         });
         getProductos();
+
       } else {
         throw new Error(data.message);
       }

@@ -24,7 +24,14 @@ app.prepare().then(() => {
     const uri = `mongodb+srv://smosh360:${password}@clusterdashboard.sh8p1mx.mongodb.net/dashboarddata?retryWrites=true&w=majority`;
   
     
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Conexión a MongoDB establecida.');
+    })
+    .catch(error => {
+        console.error("Error al conectar con MongoDB:", error);
+    });
+
 
     const connection = mongoose.connection;
     connection.once('open', () => {
