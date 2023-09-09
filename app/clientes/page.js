@@ -1,17 +1,112 @@
+"use client";
 import Image from "next/image";
 import "./page.css";
+import { useEffect, useState } from "react";
+import ClienteNuevo from "../components/crearCliente.js";
+import SingleCliente from "../components/singleCliente.js";
 
 export default function Clientes() {
+  const [clientes, setClientes] = useState([]);
+  const [singleCliente, setSingleCliente] = useState({
+    nombre: "",
+    cif: "",
+    direccion: "",
+    telefono: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    document.title = "clientes";
+    getClientes();
+  }, []);
+
+  const getClientes = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setClientes(data);
+      if (data && data.length > 0) {
+        setSingleCliente(data[0]);
+      }
+    } catch (error) {
+      console.error("Error al obtener las clientes:", error);
+    }
+  };
+
+    // delete de cliiente-----------------------------------------------------------------------
+    const deleteCliente = async (tareaId) => {
+      try {
+        const token = localStorage.getItem("token"); // Recuperar el token del localStorage
+  
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients/${tareaId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          getClientes();
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error("Error al eliminar Cliente:", error);
+      }
+    };
+    const handleDeleteCliente = (id) => {
+      if (window.confirm("¿Estás seguro de que deseas eliminar este Cliente?")) {
+        deleteCliente(id);
+      }
+    };
+
   return (
     <main className="home">
-      <div class="parent">
-        <div class="div1">Lista de clientes </div>
-        <div class="div2">Incremento de clientes por mes </div>
-        <div class="div3">
-          {" "}
-          Vista detallada del cliente con Historial de compra del cliente
+      <div className="parent">
+        <div className="div1">
+          <h2>Lista de clientes </h2>
+          <button onClick={()=>{getClientes()}}>Refresh</button>
+          <ul>
+            {clientes.map((cliente) => (
+              <li key={cliente._id}>
+                {cliente.nombre}
+                <button onClick={() => handleDeleteCliente(cliente._id)}>
+                  Borrar
+                </button>
+                <button onClick={() => setSingleCliente(cliente)}>
+                  Detalles
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div class="div4"> Añadir Cliente</div>
+        <div className="div2">Incremento de clientes por mes </div>
+        <div className="div3">
+          {" "}
+          <h2>
+            Vista detallada del cliente con Historial de compra del cliente
+          </h2>
+          <SingleCliente cliente={singleCliente} />
+        </div>
+        <div className="div4">
+          {" "}
+          <h2>Añadir Cliente</h2>
+          <ClienteNuevo />
+        </div>
       </div>
     </main>
   );

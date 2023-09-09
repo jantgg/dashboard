@@ -32,6 +32,12 @@ const productoSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    vecesVendido:{
+        type: Number, 
+    },
+    vecesComprado:{
+        type:Number,
+    }
 });
 
 module.exports = mongoose.model('Producto', productoSchema);

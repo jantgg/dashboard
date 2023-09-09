@@ -15,13 +15,13 @@ export default function Productos() {
     iva: "",
     numeroSerie: "",
     stock: "",
+    vecesVendido: "",
+    vecesComrpado:"",
   });
-
 
   useEffect(() => {
     document.title = "Productos";
     getProductos();
-
   }, []);
 
   const getProductos = async () => {
@@ -38,7 +38,9 @@ export default function Productos() {
       );
       const data = await response.json();
       setProductos(data);
-      setSingleProducto(data[0]);
+      if (data && data.length > 0) {
+        setSingleProducto(data[0]);
+      }
     } catch (error) {
       console.error("Error al obtener las productos:", error);
     }
@@ -100,11 +102,10 @@ export default function Productos() {
           <h2>Añadir producto</h2>
           <ProductoNuevo />
         </div>
-        <div className="div5"> <h2>Detalles del producto</h2>
-<SingleProducto producto={singleProducto}/>
-
-
-
+        <div className="div5">
+          {" "}
+          <h2>Detalles del producto</h2>
+          <SingleProducto producto={singleProducto} />
         </div>
       </div>
     </main>

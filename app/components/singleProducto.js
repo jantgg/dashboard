@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./singleProducto.css";
 
-function SingleProducto({producto}) {
+function SingleProducto({ producto }) {
   return (
     <div>
       <div>

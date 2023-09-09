@@ -12,6 +12,7 @@ function ProductoNuevo() {
     iva: "",
     numeroSerie: "",
     stock: "",
+    vecesComprado:"",
   });
 
   const addProducto = async (productoData) => {
@@ -154,6 +155,7 @@ function ProductoNuevo() {
             setProductoData((prev) => ({
               ...prev,
               stock: e.target.value,
+              vecesComprado: e.target.value,
             }))
           }
         />

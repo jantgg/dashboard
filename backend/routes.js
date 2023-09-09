@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Tarea = require('./models/Tarea');
 const Producto = require('./models/Producto');
+const Cliente = require('./models/Cliente');
+const Proveedor = require('./models/Proveedor');
 const verifyToken = require('./verifyToken');
 const router = express.Router();
 
@@ -134,7 +136,7 @@ router.post('/product', verifyToken, async (req, res) => {
         res.status(500).json({ message: 'Error de servidor al crear el producto' });
     }
 });
-// Eliminar una tarea --------------------------------------------------------------------------------------------------------------
+// Eliminar un producto --------------------------------------------------------------------------------------------------------------
 router.delete('/product/:id', verifyToken, async (req, res) => {
     try {
         const producto = await Producto.findById(req.params.id);
@@ -154,8 +156,90 @@ router.delete('/product/:id', verifyToken, async (req, res) => {
     }
 });
 
+// Obtener todas los clientes del usuario autenticado--------------------------------------------------------------------------------------------------------------
+router.get('/clients', verifyToken, async (req, res) => {
+    try {
+        const client = await Cliente.find({ usuario: req.userId });
+        res.status(200).json(client);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al obtener los clientes' });
+    }
+});
+// Crear una nuevo Cliente--------------------------------------------------------------------------------------------------------------
+router.post('/clients', verifyToken, async (req, res) => {
+    try {
+        const nuevoCliente = new Cliente({
+            ...req.body,
+            usuario: req.userId // asumiendo que el ID del usuario decodificado se almacena en req.userId
+        });
+        await nuevoCliente.save();
+        res.status(201).json({ message: 'Cliente creado con éxito', Cliente: nuevoCliente });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al crear el Cliente' });
+    }
+});
+// Eliminar un cliente --------------------------------------------------------------------------------------------------------------
+router.delete('/clients/:id', verifyToken, async (req, res) => {
+    try {
+        const cliente = await Cliente.findById(req.params.id);
+        if (!cliente) {
+            return res.status(404).json({ message: 'cliente no encontrada' });
+        }
 
+        if (cliente.usuario.toString() !== req.userId) {
+            return res.status(403).json({ message: 'No tienes permiso para eliminar esta cliente' });
+        }
 
+        await Cliente.findByIdAndRemove(req.params.id);
+        res.status(200).json({ message: 'cliente eliminada con éxito' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al eliminar la cliente' });
+    }
+});
+// Obtener todas los proveedor  del usuario autenticado--------------------------------------------------------------------------------------------------------------
+router.get('/suppliers', verifyToken, async (req, res) => {
+    try {
+        const proveedor = await Proveedor.find({ usuario: req.userId });
+        res.status(200).json(proveedor);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al obtener los proveedores' });
+    }
+});
+// Crear una nuevo proveedor --------------------------------------------------------------------------------------------------------------
+router.post('/suppliers', verifyToken, async (req, res) => {
+    try {
+        const nuevoProveedor = new Proveedor({
+            ...req.body,
+            usuario: req.userId // asumiendo que el ID del usuario decodificado se almacena en req.userId
+        });
+        await nuevoProveedor.save();
+        res.status(201).json({ message: 'Proveedor creado con éxito', Proveedor: nuevoProveedor });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al crear el Proveedor' });
+    }
+});
+// Eliminar un proveedor  --------------------------------------------------------------------------------------------------------------
+router.delete('/suppliers/:id', verifyToken, async (req, res) => {
+    try {
+        const proveedor = await Proveedor.findById(req.params.id);
+        if (!proveedor) {
+            return res.status(404).json({ message: 'proveedor no encontrada' });
+        }
+        if (proveedor.usuario.toString() !== req.userId) {
+            return res.status(403).json({ message: 'No tienes permiso para eliminar esta proveedor' });
+        }
+        await Proveedor.findByIdAndRemove(req.params.id);
+        res.status(200).json({ message: 'proveedor eliminada con éxito' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error de servidor al eliminar la proveedor' });
+    }
+});
 
 module.exports = router;
 
