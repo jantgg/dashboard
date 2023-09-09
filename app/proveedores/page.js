@@ -4,43 +4,17 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import ProveedorNuevo from "../components/crearProveedor.js";
 import SingleProveedor from "../components/singleProveedor.js";
+import { Toaster, toast } from "sonner";
+import useProveedores from "../hooks/useProveedores.js";
 
 export default function Proveedores() {
-  const [proveedores, setProveedores] = useState([]);
-  const [singleProveedor, setSingleProveedor] = useState({
-    nombre: "",
-    cif: "",
-    direccion: "",
-    telefono: "",
-    email: "",
-  });
+  const { proveedores, singleProveedor, setSingleProveedor, loading, error, getProveedores } =
+    useProveedores();
 
   useEffect(() => {
     document.title = "Proveedores";
-    getProveedores();
+    console.log(singleProveedor)
   }, []);
-
-  const getProveedores = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/suppliers`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setProveedores(data);
-      if (data && data.length > 0) {
-        setSingleProveedor(data[0]);
-      }
-    } catch (error) {
-      console.error("Error al obtener las Proveedores:", error);
-    }
-  };
 
   // delete de cliiente-----------------------------------------------------------------------
   const deleteProveedor = async (tareaId) => {
@@ -56,16 +30,16 @@ export default function Proveedores() {
           },
         }
       );
-
       const data = await response.json();
-
       if (response.ok) {
+        toast.success("Proveedor eliminado con éxito!");
         getProveedores();
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error("Error al eliminar Proveedor:", error);
+      toast.error(`Error al eliminar Proveedor: ${error.message}`);
     }
   };
   const handleDeleteProveedor = (id) => {
@@ -78,6 +52,7 @@ export default function Proveedores() {
 
   return (
     <main className="home">
+      <Toaster />
       <div className="parent">
         <div className="div1">
           {" "}

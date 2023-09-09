@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import "./crearProducto.css";
+import { Toaster, toast } from "sonner";
+import useProductos from "../hooks/useProductos";
 
 function ProductoNuevo() {
-  
+  const { productos, singleProducto, loading, error, getProductos } =
+    useProductos();
   const [productoData, setProductoData] = useState({
     nombre: "",
     descripcion: "",
@@ -12,12 +15,12 @@ function ProductoNuevo() {
     iva: "",
     numeroSerie: "",
     stock: "",
-    vecesComprado:"",
+    vecesComprado: "",
   });
 
   const addProducto = async (productoData) => {
     try {
-      const token = localStorage.getItem("token"); // Recuperar el token del localStorage
+      const token = localStorage.getItem("token");
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/product`,
@@ -45,32 +48,21 @@ function ProductoNuevo() {
           stock: "",
         });
         getProductos();
-
+        // Mostrar una notificación de éxito
+        toast.success("Producto añadido con éxito!");
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error("Error al añadir producto:", error);
-    }
-  };
-  const getProductos = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch( `${process.env.NEXT_PUBLIC_DATABASE_URL}/product`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      setProductos(data);
-    } catch (error) {
-      console.error("Error al obtener las productos:", error);
-    }
-  };
 
+      // Mostrar una notificación de error
+      toast.error(`Error al añadir producto: ${error.message}`);
+    }
+  };
   return (
     <div>
+      <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
       <label>
         Nombre:
         <input
@@ -81,7 +73,6 @@ function ProductoNuevo() {
           }
         />
       </label>
-
       <label>
         Descripción:
         <textarea
@@ -94,11 +85,9 @@ function ProductoNuevo() {
           }
         />
       </label>
-
       <label>
         Precio de compra sin IVA
         <input
- 
           value={productoData.precioCompra}
           onChange={(e) =>
             setProductoData((prev) => ({
@@ -108,11 +97,9 @@ function ProductoNuevo() {
           }
         />
       </label>
-
       <label>
         Precio de venta sin IVA
         <input
-        
           value={productoData.precioVenta}
           onChange={(e) =>
             setProductoData((prev) => ({
@@ -122,7 +109,6 @@ function ProductoNuevo() {
           }
         />
       </label>
-
       <label>
         IVA
         <input
@@ -160,7 +146,6 @@ function ProductoNuevo() {
           }
         />
       </label>
-
       <button onClick={() => addProducto(productoData)}>Añadir Producto</button>
     </div>
   );

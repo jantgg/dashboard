@@ -4,53 +4,21 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import ProductoNuevo from "../components/crearProducto.js";
 import SingleProducto from "../components/singleProducto.js";
+import useProductos from "../hooks/useProductos";
+import { Toaster, toast } from "sonner";
 
 export default function Productos() {
-  const [productos, setProductos] = useState([]);
-  const [singleProducto, setSingleProducto] = useState({
-    nombre: "",
-    descripcion: "",
-    precioCompra: "",
-    precioVenta: "",
-    iva: "",
-    numeroSerie: "",
-    stock: "",
-    vecesVendido: "",
-    vecesComrpado:"",
-  });
+  const { productos, singleProducto, loading, error, getProductos } =
+    useProductos();
 
   useEffect(() => {
     document.title = "Productos";
-    getProductos();
   }, []);
-
-  const getProductos = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/product`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setProductos(data);
-      if (data && data.length > 0) {
-        setSingleProducto(data[0]);
-      }
-    } catch (error) {
-      console.error("Error al obtener las productos:", error);
-    }
-  };
 
   // delete de productos-----------------------------------------------------------------------
   const deleteProducto = async (tareaId) => {
     try {
-      const token = localStorage.getItem("token"); // Recuperar el token del localStorage
-
+      const token = localStorage.getItem("token");
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/product/${tareaId}`,
         {
@@ -60,18 +28,21 @@ export default function Productos() {
           },
         }
       );
-
       const data = await response.json();
-
       if (response.ok) {
         getProductos();
+        // Mostrar una notificación de éxito
+        toast.success("Producto eliminado con éxito!");
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error("Error al eliminar producto:", error);
+      // Mostrar una notificación de error
+      toast.error(`Error al eliminar producto: ${error.message}`);
     }
   };
+
   const handleDeleteProducto = (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
       deleteProducto(id);
@@ -80,6 +51,7 @@ export default function Productos() {
 
   return (
     <main className="home">
+      <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
       <div className="parent">
         <div className="div1">
           {" "}

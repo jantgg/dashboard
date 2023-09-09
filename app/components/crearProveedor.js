@@ -1,8 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import "./crearProveedor.css";
+import useProveedores from "../hooks/useProveedores";
+import { Toaster, toast } from "sonner";
 
 function ProveedorNuevo() {
+  const {
+    proveedores,
+    singleProveedor,
+    setSingleProveedor,
+    loading,
+    error,
+    getProveedores,
+  } = useProveedores();
+
   const [proveedorData, setProveedorData] = useState({
     nombre: "",
     cif: "",
@@ -32,41 +43,25 @@ function ProveedorNuevo() {
       if (response.ok) {
         // Limpiar el formulario
         setProveedorData({
-            nombre: "",
-            cif: "",
-            direccion: "",
-            telefono: "",
-            email: "",
+          nombre: "",
+          cif: "",
+          direccion: "",
+          telefono: "",
+          email: "",
         });
+        toast.success("Proveedor añadido con éxito!");
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error("Error al añadir Proveedor:", error);
-    }
-  };
-
-  const getProveedores = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/suppliers`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setProveedores(data);
-    } catch (error) {
-      console.error("Error al obtener las Proveedores:", error);
+      toast.error(`Error al añadir proveedor: ${error.message}`);
     }
   };
 
   return (
     <div>
+      <Toaster/>
       <label>
         Nombre:
         <input
@@ -118,7 +113,7 @@ function ProveedorNuevo() {
       </label>
 
       <label>
-       email:
+        email:
         <input
           value={proveedorData.email}
           onChange={(e) =>
@@ -130,7 +125,9 @@ function ProveedorNuevo() {
         />
       </label>
 
-      <button onClick={() => addProveedor(  proveedorData)}>Añadir Proveedor</button>
+      <button onClick={() => addProveedor(proveedorData)}>
+        Añadir Proveedor
+      </button>
     </div>
   );
 }

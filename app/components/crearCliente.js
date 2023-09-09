@@ -1,8 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import "./crearProducto.css";
+import { Toaster, toast } from "sonner";
+import useClientes from "../hooks/useClientes";
 
 function ClienteNuevo() {
+  const { clientes, singleCliente, setSingleCliente, loading, error, getClientes } = useClientes();
+
   const [clienteData, setClienteData] = useState({
     nombre: "",
     cif: "",
@@ -14,7 +18,6 @@ function ClienteNuevo() {
   const addCliente = async (clienteData) => {
     try {
       const token = localStorage.getItem("token"); // Recuperar el token del localStorage
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients`,
         {
@@ -26,48 +29,29 @@ function ClienteNuevo() {
           body: JSON.stringify(clienteData),
         }
       );
-
       const data = await response.json();
-
       if (response.ok) {
-        // Limpiar el formulario
+        toast.success("Cliente creado con éxito!");
         setClienteData({
-            nombre: "",
-            cif: "",
-            direccion: "",
-            telefono: "",
-            email: "",
+          nombre: "",
+          cif: "",
+          direccion: "",
+          telefono: "",
+          email: "",
         });
-   
+        getClientes();
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
       console.error("Error al añadir cliente:", error);
-    }
-  };
-
-  const getClientes = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setClientes(data);
-    } catch (error) {
-      console.error("Error al obtener las clientes:", error);
+      toast.error(`Error al añadir Cliente: ${error.message}`);
     }
   };
 
   return (
     <div>
+      <Toaster/>
       <label>
         Nombre:
         <input
@@ -119,7 +103,7 @@ function ClienteNuevo() {
       </label>
 
       <label>
-       email:
+        email:
         <input
           value={clienteData.email}
           onChange={(e) =>
