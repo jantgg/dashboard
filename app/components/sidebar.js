@@ -13,7 +13,7 @@ const Sidebar = () => {
           <a href="/resumen">Resumen</a>
         </div>
         <div className="list-son">
-          <Link href="/ingresos">Ingresos</Link>
+          <Link href="/ventas">Ventas</Link>
         </div>
         <div className="list-son">
           <Link href="/gastos">Gastos</Link>

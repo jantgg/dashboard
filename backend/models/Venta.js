@@ -20,11 +20,6 @@ const ventaSchema = new mongoose.Schema({
         ref: 'FacturaCliente',
         required: true,
     },
-    tipo: {
-        type: String,
-        enum: ['cliente', 'venta'],
-        required: true,
-    },
     fecha: {
         type: Date,
         required: true,

@@ -1,7 +1,15 @@
+"use client"
 import Image from "next/image";
 import "./page.css";
+import { useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
+import useVentas from "../hooks/useVentas";
 
 export default function Ingresos() {
+  const { ventas, singleVenta, setSingleVenta, loading, error, getVentas } =
+    useVentas();
+
+
   return (
     <main className="home">
       <div className="parent">

@@ -16,7 +16,6 @@ const facturaClienteSchema = new mongoose.Schema({
         ref: 'Venta',
         required: true,
     },
- 
     numeroFactura: {
         type: String,
         required: true,
@@ -59,6 +58,12 @@ const facturaClienteSchema = new mongoose.Schema({
     cuotaTributaria: {
         type: Number,
     },
+    servicio:{
+        type: String,
+    },
+    valorServicio:{
+        type: Number,
+    }
 });
 
 module.exports = mongoose.model('FacturaCliente', facturaClienteSchema);
