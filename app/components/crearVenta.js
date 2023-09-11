@@ -185,7 +185,10 @@ function VentaNueva() {
                 (cliente) => cliente._id === e.target.value
               );
               setVentaData((prev) => ({ ...prev, cliente: selectedCliente }));
-              setFacturaClienteData((prev) => ({ ...prev, cliente: selectedCliente }));
+              setFacturaClienteData((prev) => ({
+                ...prev,
+                cliente: selectedCliente,
+              }));
             }}
           >
             <option value="">Seleccione un cliente</option>
@@ -299,25 +302,9 @@ function VentaNueva() {
               }
             />
           </label>
-
-          <label>
-            PDF Factura:
-            <input
-              type="text"
-              value={facturaClienteData.pdfFactura}
-              onChange={(e) =>
-                setFacturaClienteData((prev) => ({
-                  ...prev,
-                  pdfFactura: e.target.value,
-                }))
-              }
-            />
-          </label>
-
           <label>
             Estado:
-            <input
-              type="text"
+            <select
               value={facturaClienteData.estado}
               onChange={(e) =>
                 setFacturaClienteData((prev) => ({
@@ -325,7 +312,11 @@ function VentaNueva() {
                   estado: e.target.value,
                 }))
               }
-            />
+            >
+              <option value="pagada">Pagada</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="vencida">Vencida</option>
+            </select>
           </label>
 
           <label>
