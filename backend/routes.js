@@ -10,6 +10,8 @@ const Venta = require("./models/Venta");
 const verifyToken = require("./verifyToken");
 const FacturaCliente = require("./models/FacturaCliente");
 const router = express.Router();
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
 
 // ruta protegida
 // router.get('/protected', verifyToken, (req, res) => {
@@ -21,11 +23,9 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   // Validación de entrada
   if (!email || !password) {
-    return res
-      .status(400)
-      .json({
-        message: "Por favor, introduzca su correo electrónico y contraseña.",
-      });
+    return res.status(400).json({
+      message: "Por favor, introduzca su correo electrónico y contraseña.",
+    });
   }
   try {
     // Comprueba si el usuario existe
@@ -252,12 +252,10 @@ router.post("/suppliers", verifyToken, async (req, res) => {
       usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
     });
     await nuevoProveedor.save();
-    res
-      .status(201)
-      .json({
-        message: "Proveedor creado con éxito",
-        Proveedor: nuevoProveedor,
-      });
+    res.status(201).json({
+      message: "Proveedor creado con éxito",
+      Proveedor: nuevoProveedor,
+    });
   } catch (error) {
     console.error(error);
     res
@@ -313,29 +311,86 @@ router.get("/clientbills", verifyToken, async (req, res) => {
   }
 });
 
-// Crear Vetna y facturas del usuario autenticado---Imitacion de lo que seria transacciones en mongoose-----------------------------------------------------------------------------------------------------------
-router.post("/sales", async (req, res) => {
-  let savedVenta = null; // Declaramos fuera del try para poder acceder en el catch
+// Crear Venta y facturas del usuario autenticado---Imitacion de lo que seria transacciones en mongoose-----------------------------------------------------------------------------------------------------------
+router.post("/sales", verifyToken, async (req, res) => {
+  let savedFactura = null; // Declaramos fuera del try para poder acceder en el catch
+
   try {
     const { venta, facturaCliente } = req.body;
-    // Creando la Venta
-    const newVenta = new Venta(venta);
-    savedVenta = await newVenta.save();
-    // Asignar el ID de la venta a la factura
-    facturaCliente.venta = savedVenta._id;
+
+    // Añadiendo el usuario a la información de factura
+    facturaCliente.usuario = req.userId;
+
     // Creando la FacturaCliente
     const newFacturaCliente = new FacturaCliente(facturaCliente);
-    await newFacturaCliente.save();
+    savedFactura = await newFacturaCliente.save();
+
+    // Asignar el ID de la factura a la venta
+    venta.factura = savedFactura._id;
+
+    // Añadiendo el usuario a la información de venta
+    venta.usuario = req.userId;
+
+    // Creando la Venta
+    const newVenta = new Venta(venta);
+    await newVenta.save();
+
     res.status(201).json({ message: "Venta y factura creadas con éxito!" });
   } catch (error) {
     console.error("Error al crear Venta y Factura:", error);
-    // Si hay un error y ya se ha creado la Venta, la eliminamos
-    if (savedVenta) {
-      await Venta.findByIdAndDelete(savedVenta._id);
-      console.error("Venta eliminada debido a un error al crear la factura.");
+
+    // Si hay un error y ya se ha creado la FacturaCliente, la eliminamos
+    if (savedFactura) {
+      await FacturaCliente.findByIdAndDelete(savedFactura._id);
+      console.error("Factura eliminada debido a un error al crear la venta.");
     }
     res.status(500).json({ message: error.message });
   }
 });
+
+//GENERAR PDF -----------------------------------------------------------------------------------------------------
+router.get("/generatePDF/:facturaId", verifyToken, async (req, res) => {
+  try {
+      const facturaId = req.params.facturaId;
+      const facturaCliente = await FacturaCliente.findById(facturaId);
+
+      if (!facturaCliente) {
+          return res.status(404).json({ message: "Factura no encontrada" });
+      }
+
+      // Usando PDFKit para generar el PDF
+      const doc = new PDFDocument();
+
+      // Configuraciones generales
+      doc.fontSize(20);
+      doc.text("Factura Cliente", {
+          align: 'center',
+          underline: true
+      });
+
+      // Espacio entre secciones
+      doc.moveDown(2);
+      
+      doc.fontSize(14);
+      doc.text(`Número de Factura: ${facturaCliente.numeroFactura}`);
+      doc.moveDown(0.5);
+      doc.text(`Fecha de Emisión: ${facturaCliente.fechaEmision}`);
+      doc.moveDown(0.5);
+      doc.text(`Fecha de Operación: ${facturaCliente.fechaOperacion}`);
+      doc.moveDown(0.5);
+      doc.text(`Cantidad Neta: ${facturaCliente.cantidadNeta}`);
+      doc.moveDown(0.5);
+
+      // Puedes seguir añadiendo más campos de la factura de la misma forma.
+
+      doc.pipe(res); // Enviar directamente el PDF como respuesta
+      doc.end();
+
+  } catch (error) {
+      console.error("Error generando el PDF:", error);
+      res.status(500).json({ message: "Error de servidor al generar el PDF" });
+  }
+});
+
 
 module.exports = router;

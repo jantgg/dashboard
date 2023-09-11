@@ -64,7 +64,8 @@ export default function Clientes() {
             Refresh
           </button>
           <ul>
-            {clientes.map((cliente) => (
+          {Array.isArray(clientes) &&
+              clientes.map((cliente) => (
               <li key={cliente._id}>
                 {cliente.nombre}
                 <button onClick={() => handleDeleteCliente(cliente._id)}>
