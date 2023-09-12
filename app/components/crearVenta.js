@@ -5,6 +5,7 @@ import { Toaster, toast } from "sonner";
 import useVentas from "../hooks/useVentas";
 import useClientes from "../hooks/useClientes";
 import useProductos from "../hooks/useProductos";
+import generarPdf from "../hooks/generarPdf";
 
 function VentaNueva() {
   const productoRef = useRef(null);
@@ -35,7 +36,7 @@ function VentaNueva() {
 
   const [facturaClienteData, setFacturaClienteData] = useState({
     productos: [],
-    cliente: null, // De nuevo, usando null.
+    cliente: null, 
     numeroFactura: "",
     fechaEmision: "",
     fechaOperacion: "",
@@ -44,7 +45,7 @@ function VentaNueva() {
     iva: 0,
     detalles: "",
     pdfFactura: "",
-    estado: "",
+    estado: "pagada",
     cuotaTributaria: "",
     servicio: "",
     valorServicio: 0,
@@ -131,6 +132,8 @@ function VentaNueva() {
       const data = await response.json();
       if (response.ok) {
         toast.success("Venta y factura creadas con éxito!");
+        
+         generarPdf(data.facturaId)
         // Aquí puedes resetear los estados si lo consideras necesario
         setVentaData({
           productos: [],

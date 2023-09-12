@@ -24,6 +24,12 @@ const useFacturasCliente = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const selectFactura = (numeroFactura) => {
+    const selectedFactura = facturas.find(factura => factura._id === numeroFactura);
+    setSingleFactura(selectedFactura);
+  };
+  
+
   const fetchFacturas = async () => {
     const token = localStorage.getItem("token");
     setLoading(true);
@@ -62,6 +68,7 @@ const useFacturasCliente = () => {
     loading,
     error,
     getFacturas: fetchFacturas,
+    selectFactura,
   };
 };
 

@@ -60,6 +60,7 @@ function ProductoNuevo() {
       toast.error(`Error al añadir producto: ${error.message}`);
     }
   };
+  
   return (
     <div>
       <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
@@ -86,7 +87,7 @@ function ProductoNuevo() {
         />
       </label>
       <label>
-        Precio de compra sin IVA
+        Precio de compra con IVA
         <input
           value={productoData.precioCompra}
           onChange={(e) =>
@@ -98,7 +99,7 @@ function ProductoNuevo() {
         />
       </label>
       <label>
-        Precio de venta sin IVA
+        Precio de venta con IVA
         <input
           value={productoData.precioVenta}
           onChange={(e) =>

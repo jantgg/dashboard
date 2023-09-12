@@ -10,13 +10,24 @@ const Venta = require("./models/Venta");
 const verifyToken = require("./verifyToken");
 const FacturaCliente = require("./models/FacturaCliente");
 const router = express.Router();
-const PDFDocument = require("pdfkit");
 const fs = require("fs");
+const PDFDocument = require("pdfkit");
+let doc = new PDFDocument({ size: "A4", margin: 50 });
 
 // ruta protegida
 // router.get('/protected', verifyToken, (req, res) => {
 //     res.send('Esta es una ruta protegida');
 // });
+function formatDate(date) {
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+
+  return `${day}/${month}/${year}`;
+}
 
 // Login de usuario -----------------------------------------------------------------------------------------------------
 router.post("/login", async (req, res) => {
@@ -335,7 +346,10 @@ router.post("/sales", verifyToken, async (req, res) => {
     const newVenta = new Venta(venta);
     await newVenta.save();
 
-    res.status(201).json({ message: "Venta y factura creadas con éxito!" });
+    res.status(201).json({
+      message: "Venta y factura creadas con éxito!",
+      facturaId: savedFactura._id,
+    });
   } catch (error) {
     console.error("Error al crear Venta y Factura:", error);
 
@@ -347,50 +361,144 @@ router.post("/sales", verifyToken, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-//GENERAR PDF -----------------------------------------------------------------------------------------------------
+// GENERARA PDF -----------------------------------------------------------------------------------------------------------------------------------------------
 router.get("/generatePDF/:facturaId", verifyToken, async (req, res) => {
   try {
-      const facturaId = req.params.facturaId;
-      const facturaCliente = await FacturaCliente.findById(facturaId);
+    const facturaId = req.params.facturaId;
+    const facturaCliente = await FacturaCliente.findById(facturaId).populate([
+      "productos",
+      "cliente",
+    ]);
 
-      if (!facturaCliente) {
-          return res.status(404).json({ message: "Factura no encontrada" });
-      }
+    if (!facturaCliente) {
+      return res.status(404).json({ message: "Factura no encontrada" });
+    }
 
-      // Usando PDFKit para generar el PDF
-      const doc = new PDFDocument();
+    if (facturaCliente.usuario.toString() !== req.userId) {
+      return res
+        .status(403)
+        .json({ message: "No tienes permiso para acceder a esta factura" });
+    }
 
-      // Configuraciones generales
-      doc.fontSize(20);
-      doc.text("Factura Cliente", {
-          align: 'center',
-          underline: true
-      });
+    const PDFDocument = require("pdfkit");
+    const doc = new PDFDocument();
 
-      // Espacio entre secciones
-      doc.moveDown(2);
-      
-      doc.fontSize(14);
-      doc.text(`Número de Factura: ${facturaCliente.numeroFactura}`);
-      doc.moveDown(0.5);
-      doc.text(`Fecha de Emisión: ${facturaCliente.fechaEmision}`);
-      doc.moveDown(0.5);
-      doc.text(`Fecha de Operación: ${facturaCliente.fechaOperacion}`);
-      doc.moveDown(0.5);
-      doc.text(`Cantidad Neta: ${facturaCliente.cantidadNeta}`);
-      doc.moveDown(0.5);
+    doc
+      .fontSize(20)
+      .text("Factura Cliente", { align: "center", underline: true })
+      .moveDown(1);
 
-      // Puedes seguir añadiendo más campos de la factura de la misma forma.
+    doc.fontSize(14);
+    const startX = 50;
+    doc.text(`Número de Factura: ${facturaCliente.numeroFactura}`, startX);
+    doc.text(
+      `Fecha de Emisión: ${new Date(
+        facturaCliente.fechaEmision
+      ).toLocaleDateString()}`,
+      startX
+    );
+    doc.text(
+      `Fecha de Operación: ${new Date(
+        facturaCliente.fechaOperacion
+      ).toLocaleDateString()}`,
+      startX
+    );
+    doc.moveDown(2);
 
-      doc.pipe(res); // Enviar directamente el PDF como respuesta
-      doc.end();
+    const startX1 = 50;
+    const startX2 = 300;
+    const lineHeight = 20;
 
+    // Guardamos la posición actual en el eje Y para usarla en ambos grupos
+    let initialY = doc.y;
+    let yCliente = initialY;
+    let yEmisor = initialY;
+
+    // Datos del Cliente
+    doc.text(`Cliente: ${facturaCliente.cliente.nombre}`, startX1, yCliente);
+    yCliente += lineHeight;
+
+    doc.text(`NIF/NIE/CIF: ${facturaCliente.cliente.cif}`, startX1, yCliente);
+    yCliente += lineHeight;
+
+    doc.text(
+      `Direccion: ${facturaCliente.cliente.direccion}`,
+      startX1,
+      yCliente
+    );
+    yCliente += lineHeight;
+
+    // Datos del Emisor usando el y inicial
+    doc.text(`Emisor: Negocio`, startX2, yEmisor);
+    yEmisor += lineHeight;
+
+    doc.text(`NIF/NIE/CIF: 234345345`, startX2, yEmisor);
+    yEmisor += lineHeight;
+
+    doc.text(`Direccion: C. Pacoland`, startX2, yEmisor);
+
+    doc.moveDown(2);
+    let startY = doc.y;
+
+    const columns = [
+      { title: "Nombre", width: 150 },
+      { title: "Número de Serie", width: 150 },
+      { title: "Precio sin IVA", width: 150 },
+    ];
+
+    // Dibujar encabezados de la tabla
+    let x = 50;
+    columns.forEach((column) => {
+      doc.text(column.title, x, startY);
+      x += column.width;
+    });
+
+    // Línea horizontal después de encabezados
+    doc
+      .moveTo(50, startY + 20)
+      .lineTo(x, startY + 20)
+      .stroke();
+
+    // Dibujar contenido de la tabla desde facturaCliente.productos
+    startY += 25; // Mover abajo para empezar a dibujar los datos
+    facturaCliente.productos.forEach((producto) => {
+      let x = 50;
+      doc.text(producto.nombre, x, startY);
+      x += columns[0].width;
+
+      doc.text(producto.numeroSerie, x, startY);
+      x += columns[1].width;
+
+      doc.text(`${producto.precioVenta} €`, x, startY);
+      x += columns[2].width;
+
+      startY += 20;
+    });
+
+    // Línea horizontal al final de la tabla
+    doc.moveTo(50, startY).lineTo(x, startY).stroke();
+    doc.moveDown(2);
+
+
+    doc.text(`Bruto: ${facturaCliente.cantidadBruta}`);
+    doc.text(
+      `IVA (${facturaCliente.iva}%): ${(
+        facturaCliente.cantidadNeta *
+        (facturaCliente.iva / 100)
+      ).toFixed(2)}`
+    );
+    doc.text(`Total: ${facturaCliente.cantidadNeta}`);
+   
+
+    doc.pipe(res); // Enviar el PDF como respuesta
+    doc.end();
   } catch (error) {
-      console.error("Error generando el PDF:", error);
-      res.status(500).json({ message: "Error de servidor al generar el PDF" });
+    console.error("Error generando el PDF:", error);
+    res.status(500).json({
+      message: "Error de servidor al generar el PDF",
+      error: error.message,
+    });
   }
 });
-
 
 module.exports = router;
