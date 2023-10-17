@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
-const useFacturasCliente = () => {
-  const [facturas, setFacturas] = useState([]);
-  const [singleFactura, setSingleFactura] = useState({
+const useFacturasProveedor = () => {
+  const [facturasP, setFacturasP] = useState([]);
+  const [singleFacturaP, setSingleFacturaP] = useState({
     productos: [],
     servicios: [],
-    cliente: {},
-    venta: {},
+    proveedor: {},
+    gasto: {},
     numeroFactura: "",
     fechaEmision: "",
     fechaOperacion: "",
@@ -19,24 +19,22 @@ const useFacturasCliente = () => {
     pdfFactura: "",
     estado: "",
     cuotaTributaria: "",
-    servicio: "",
-    valorServicio: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const selectFactura = (numeroFactura) => {
-    const selectedFactura = facturas.find(factura => factura._id === numeroFactura);
-    setSingleFactura(selectedFactura);
+    const selectedFactura = facturasP.find(factura => factura._id === numeroFactura);
+    setSingleFacturaP(selectedFactura);
   };
   
 
-  const fetchFacturas = async () => {
+  const fetchFacturasP = async () => {
     const token = localStorage.getItem("token");
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/clientbills`,
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/supplierbills`,
         {
           method: "GET",
           headers: {
@@ -45,9 +43,9 @@ const useFacturasCliente = () => {
         }
       );
       const data = await response.json();
-      setFacturas(data);
+      setFacturasP(data);
       if (data && data.length > 0) {
-        setSingleFactura(data[0]);
+        setSingleFacturaP(data[0]);
       }
       setLoading(false);
     } catch (error) {
@@ -59,18 +57,18 @@ const useFacturasCliente = () => {
   };
 
   useEffect(() => {
-    fetchFacturas();
+    fetchFacturasP();
   }, []);
 
   return {
-    facturas,
-    singleFactura,
-    setSingleFactura,
+    facturasP,
+    singleFacturaP,
+    setSingleFacturaP,
     loading,
     error,
-    getFacturas: fetchFacturas,
+    getFacturas: fetchFacturasP,
     selectFactura,
   };
 };
 
-export default useFacturasCliente;
+export default useFacturasProveedor;

@@ -44,6 +44,12 @@ const facturaClienteSchema = new mongoose.Schema({
       ref: "Producto",
     },
   ],
+  servicios: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Servicio",
+    },
+  ],
   pdfFactura: {
     type: String,
   },

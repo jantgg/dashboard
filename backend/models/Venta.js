@@ -10,6 +10,10 @@ const ventaSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Producto',
     }],
+    servicios: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Servicio',
+    }],
     cliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cliente',

@@ -9,7 +9,7 @@ const gastoSchema = new mongoose.Schema({
     tipo: {
         type: String,
         enum: ['proveedor', 'gasto fijo'],
-        required: true
+        required:false,
     },
     fecha: {
         type: Date,
@@ -29,11 +29,15 @@ const gastoSchema = new mongoose.Schema({
     },
     detalles: {
         type: String,
-        required: true
+        required: false
     },
     productos: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Producto'
+    }],
+    servicios:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ServicioProveedor'
     }],
     proveedor: {
         type: mongoose.Schema.Types.ObjectId,

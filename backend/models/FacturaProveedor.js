@@ -14,7 +14,7 @@ const facturaProveedorSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    fechaOperaciones: {
+    fechaOperacion: {
         type: Date,
         required: true
     },
@@ -38,9 +38,12 @@ const facturaProveedorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Producto'
     }],
+    servicios:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ServicioProveedor'
+    }],
     pdfFactura: {
         type: String,
-        required: true
     },
     estado: {
         type: String,
@@ -54,11 +57,6 @@ const facturaProveedorSchema = new mongoose.Schema({
     proveedor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Proveedor',
-        required: true
-    },
-    gasto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Gasto',
         required: true
     }
 });

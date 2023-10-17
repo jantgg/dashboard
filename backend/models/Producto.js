@@ -6,6 +6,11 @@ const productoSchema = new mongoose.Schema({
         ref: 'Usuario',
         required: true,
     },
+    proveedor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Proveedor',
+        required: false,
+    },
     nombre: {
         type: String,
         required: true,

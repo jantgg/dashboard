@@ -15,6 +15,7 @@ const useProductos = () => {
     stock: "",
     vecesVendido: "",
     vecesComprado: "",
+    proveedor: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

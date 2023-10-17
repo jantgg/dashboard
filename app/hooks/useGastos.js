@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react';
 import { toast } from "sonner";
 
-const useVentas = () => {
-    const [ventas, setVentas] = useState([]);
-    const [singleVenta, setSingleVenta] = useState({
+const useGastos = () => {
+    const [gastos, setGastos] = useState([]);
+    const [singleGasto, setSingleGasto] = useState({
         productos: [],
         servicios: [],
-        cliente: {},
-        factura: {},
+        proveedor: {},
+        facturaProveedor: {},
         fecha: "",
         cantidadNeta: 0,
         cantidadBruta: 0,
@@ -18,12 +18,12 @@ const useVentas = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchVentas = async () => {
+    const fetchGastos = async () => {
         const token = localStorage.getItem("token");
         setLoading(true);
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_DATABASE_URL}/sales`,
+                `${process.env.NEXT_PUBLIC_DATABASE_URL}/expenses`,
                 {
                     method: "GET",
                     headers: {
@@ -32,24 +32,24 @@ const useVentas = () => {
                 }
             );
             const data = await response.json();
-            setVentas(data);
+            setGastos(data);
             if (data && data.length > 0) {
-                setSingleVenta(data[0]);
+                setSingleGasto(data[0]);
             }
             setLoading(false);
         } catch (error) {
-            console.error("Error al obtener los Ventas:", error);
+            console.error("Error al obtener los Gastos:", error);
             setError(error);
-            toast.error("Error al obtener los Ventas");
+            toast.error("Error al obtener los Gastos");
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchVentas();
+        fetchGastos();
     }, []);
 
-    return { ventas, singleVenta, setSingleVenta, loading, error, getVentas: fetchVentas };
+    return { gastos, singleGasto, setSingleGasto, loading, error, getGastos: fetchGastos };
 };
 
-export default useVentas;
+export default useGastos;

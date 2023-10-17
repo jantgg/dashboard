@@ -1,12 +1,16 @@
 import Image from "next/image";
 import "./page.css";
 import VentaNueva from "../components/crearVenta";
+import GastoNuevo from "../components/crearGasto";
+
 
 export default function Sumar() {
   return (
     <main className="home">
       <div class="parent">
-        <div class="div1">Añadir Gasto y producto</div>
+        <div class="div1">Añadir Gasto y producto
+        <GastoNuevo/>
+        </div>
         <div class="div2">Añadir Venta
         <VentaNueva/>
         
