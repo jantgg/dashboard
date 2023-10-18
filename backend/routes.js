@@ -13,6 +13,7 @@ const Gasto = require("./models/Gasto");
 const FacturaCliente = require("./models/FacturaCliente");
 const FacturaProveedor = require("./models/FacturaProveedor");
 const verifyToken = require("./verifyToken");
+const mongoose = require("mongoose");
 
 const router = express.Router();
 const fs = require("fs");
@@ -161,34 +162,33 @@ router.get("/product", verifyToken, async (req, res) => {
 // Crear una nuevo Producto--------------------------------------------------------------------------------------------------------------
 router.post("/product", verifyToken, async (req, res) => {
   try {
-      const { nombre, stock } = req.body;
+    const { nombre, stock } = req.body;
+    // Buscar si el producto ya existe en la base de datos
+    let productoExistente = await Producto.findOne({ nombre: nombre });
+    if (productoExistente) {
+      // Si el producto ya existe, actualizamos el stock
+      productoExistente.vecesComprado =
+        Number(productoExistente.vecesComprado || 0) + Number(stock);
+      productoExistente.stock = Number(productoExistente.stock) + Number(stock);
+      await productoExistente.save();
 
-      // Buscar si el producto ya existe en la base de datos
-      let productoExistente = await Producto.findOne({ nombre: nombre });
-
-      if (productoExistente) {
-          // Si el producto ya existe, actualizamos el stock
-          productoExistente.vecesComprado = Number(productoExistente.vecesComprado || 0) + Number(stock);
-          productoExistente.stock = Number(productoExistente.stock) + Number(stock);
-          await productoExistente.save();
-
-          return res.status(200).json({
-              message: "Producto ya registrado en la base, se ha añadido el stock",
-              producto: productoExistente
-          });
-      }
-
-      // Si el producto no existe, creamos uno nuevo
-      const nuevoProducto = new Producto({
-          ...req.body,
-          usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
+      return res.status(200).json({
+        message: "Producto ya registrado en la base, se ha añadido el stock",
+        producto: productoExistente,
       });
-      await nuevoProducto.save();
-      res.status(201).json({ message: "Producto creado con éxito", producto: nuevoProducto });
-
+    }
+    // Si el producto no existe, creamos uno nuevo
+    const nuevoProducto = new Producto({
+      ...req.body,
+      usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
+    });
+    await nuevoProducto.save();
+    res
+      .status(201)
+      .json({ message: "Producto creado con éxito", producto: nuevoProducto });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error de servidor al crear el producto" });
+    console.error(error);
+    res.status(500).json({ message: "Error de servidor al crear el producto" });
   }
 });
 
@@ -236,12 +236,10 @@ router.post("/servicep", verifyToken, async (req, res) => {
       usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
     });
     await nuevoServicio.save();
-    res
-      .status(201)
-      .json({
-        message: "Servicio proveedor creado con éxito",
-        servicio: nuevoServicio,
-      });
+    res.status(201).json({
+      message: "Servicio proveedor creado con éxito",
+      servicio: nuevoServicio,
+    });
   } catch (error) {
     console.error(error);
     res
@@ -439,11 +437,9 @@ router.get("/clientbills", verifyToken, async (req, res) => {
     res.status(200).json(facturas);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: "Error de servidor al obtener las facturas de clientes",
-      });
+    res.status(500).json({
+      message: "Error de servidor al obtener las facturas de clientes",
+    });
   }
 });
 // Obtener todas las facturas de proveedor del usuario autenticado--------------------------------------------------------------------------------------------------------------
@@ -453,11 +449,9 @@ router.get("/supplierbills", verifyToken, async (req, res) => {
     res.status(200).json(facturas);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: "Error de servidor al obtener las facturas de proveedores",
-      });
+    res.status(500).json({
+      message: "Error de servidor al obtener las facturas de proveedores",
+    });
   }
 });
 
@@ -466,66 +460,65 @@ router.post("/sales", verifyToken, async (req, res) => {
   let savedFactura = null; // Declaramos fuera del try para poder acceder en el catch
 
   try {
-      const { venta, facturaCliente } = req.body;
+    const { venta, facturaCliente } = req.body;
 
-      // Añadiendo el usuario a la información de factura
-      facturaCliente.usuario = req.userId;
+    // Añadiendo el usuario a la información de factura
+    facturaCliente.usuario = req.userId;
 
-      // Creando la FacturaCliente
-      const newFacturaCliente = new FacturaCliente(facturaCliente);
-      savedFactura = await newFacturaCliente.save();
+    // Creando la FacturaCliente
+    const newFacturaCliente = new FacturaCliente(facturaCliente);
+    savedFactura = await newFacturaCliente.save();
 
-      // Actualizar stock y vecesVendido para cada producto vendido
-      for (let producto of venta.productos) {
-          await Producto.findOneAndUpdate(
-              { _id: producto._id },
-              {
-                  $inc: {
-                      stock: -1,  // Reducir stock en 1
-                      vecesVendido: 1  // Incrementar vecesVendido en 1
-                  }
-              }
-          );
-      }
+    // Actualizar stock y vecesVendido para cada producto vendido
+    for (let producto of venta.productos) {
+      await Producto.findOneAndUpdate(
+        { _id: producto._id },
+        {
+          $inc: {
+            stock: -1, // Reducir stock en 1
+            vecesVendido: 1, // Incrementar vecesVendido en 1
+          },
+        }
+      );
+    }
 
-      // Actualizar vecesVendido para cada servicio vendido
-      for (let servicio of venta.servicios) {
-          await Servicio.findOneAndUpdate(
-              { _id: servicio._id },
-              {
-                  $inc: {
-                      vecesVendido: 1  // Incrementar vecesVendido en 1
-                  }
-              }
-          );
-      }
+    // Actualizar vecesVendido para cada servicio vendido
+    for (let servicio of venta.servicios) {
+      await Servicio.findOneAndUpdate(
+        { _id: servicio._id },
+        {
+          $inc: {
+            vecesVendido: 1, // Incrementar vecesVendido en 1
+          },
+        }
+      );
+    }
 
-      // Asignar el ID de la factura a la venta
-      venta.factura = savedFactura._id;
+    // Asignar el ID de la factura a la venta
+    venta.factura = savedFactura._id;
 
-      // Añadiendo el usuario a la información de venta
-      venta.usuario = req.userId;
+    // Añadiendo el usuario a la información de venta
+    venta.usuario = req.userId;
 
-      // Creando la Venta
-      const newVenta = new Venta(venta);
-      await newVenta.save();
+    // Creando la Venta
+    const newVenta = new Venta(venta);
+    await newVenta.save();
 
-      res.status(201).json({
-          message: "Venta y factura creadas con éxito!",
-          facturaId: savedFactura._id,
-      });
+    res.status(201).json({
+      message: "Venta y factura creadas con éxito!",
+      facturaId: savedFactura._id,
+    });
   } catch (error) {
-      console.error("Error al crear Venta y Factura:", error);
+    console.error("Error al crear Venta y Factura:", error);
 
-      // Si hay un error y ya se ha creado la FacturaCliente, la eliminamos
-      if (savedFactura) {
-          await FacturaCliente.findByIdAndDelete(savedFactura._id);
-          console.error("Factura eliminada debido a un error al crear la venta.");
-      }
-      res.status(500).json({ message: error.message });
+    // Si hay un error y ya se ha creado la FacturaCliente, la eliminamos
+    if (savedFactura) {
+      await FacturaCliente.findByIdAndDelete(savedFactura._id);
+      console.error("Factura eliminada debido a un error al crear la venta.");
+    }
+    res.status(500).json({ message: error.message });
   }
 });
-
 
 // Crear GASTO y facturas del usuario autenticado---Imitacion de lo que seria transacciones en mongoose-----------------------------------------------------------------------------------------------------------
 router.post("/expenses", verifyToken, async (req, res) => {
@@ -535,13 +528,44 @@ router.post("/expenses", verifyToken, async (req, res) => {
   try {
     const { gasto, facturaProveedor } = req.body;
 
-    // Creando los servicios
+    // Lógica para los servicios
     const serviciosConUsuario = gasto.servicios.map((servicio) => ({
       ...servicio,
       usuario: req.userId,
     }));
-    const servicios = await ServicioProveedor.insertMany(serviciosConUsuario);
-    const servicioIds = servicios.map((servicio) => servicio._id);
+
+    for (const servicio of serviciosConUsuario) {
+      let servicioExistente = await ServicioProveedor.findOne({
+        nombre: servicio.nombre,
+        proveedor: servicio.proveedor,
+      });
+
+      if (servicioExistente) {
+        servicioExistente.vecesComprado =
+          Number(servicioExistente.vecesComprado) + 1;
+        await servicioExistente.save();
+        createdServicios.push(servicioExistente);
+      } else {
+        const nuevoServicio = new ServicioProveedor(servicio);
+        const savedServicio = await nuevoServicio.save();
+        createdServicios.push(savedServicio);
+      }
+    }
+
+    // Lógica para productos
+    for (const producto of gasto.productos) {
+      let productoToUpdate = await Producto.findById(producto._id);
+      if (productoToUpdate) {
+        productoToUpdate.stock = Number(productoToUpdate.stock) + 1; // Disminuimos el stock en 1 por cada gasto.
+        productoToUpdate.vecesComprado =
+          Number(productoToUpdate.vecesComprado || 0) + 1;
+        await productoToUpdate.save();
+      } else {
+        console.error(`No se encontró el producto con el ID: ${producto._id}`);
+      }
+    }
+
+    const servicioIds = createdServicios.map((servicio) => servicio._id);
     gasto.servicios = servicioIds;
     facturaProveedor.servicios = servicioIds;
 
@@ -571,7 +595,7 @@ router.post("/expenses", verifyToken, async (req, res) => {
 
     // Si hay un error, eliminamos cualquier servicio que se haya creado
     if (createdServicios.length) {
-      await Servicio.deleteMany({
+      await ServicioProveedor.deleteMany({
         _id: { $in: createdServicios.map((servicio) => servicio._id) },
       });
       console.error(
@@ -950,9 +974,6 @@ router.get("/generatePDFP/:facturaId", verifyToken, async (req, res) => {
 
       startY += 5;
     });
-
-
-  
 
     // Línea horizontal al final de la tabla
     doc.moveTo(50, startY).lineTo(x, startY).stroke();

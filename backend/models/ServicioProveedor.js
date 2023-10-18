@@ -23,6 +23,7 @@ const servicioProveedorSchema = new mongoose.Schema({
     },
     vecesComprado:{
         type: Number, 
+        default: 0,
     },
     proveedor: {
         type: mongoose.Schema.Types.ObjectId,
