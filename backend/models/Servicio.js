@@ -9,6 +9,7 @@ const servicioSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
+        unique: true,
     },
     descripcion: {
         type: String,
@@ -23,6 +24,7 @@ const servicioSchema = new mongoose.Schema({
     },
     vecesVendido:{
         type: Number, 
+        default: 0,
     },
 });
 

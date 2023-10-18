@@ -14,6 +14,7 @@ const productoSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
+        unique: true,
     },
     descripcion: {
         type: String,
@@ -39,9 +40,11 @@ const productoSchema = new mongoose.Schema({
     },
     vecesVendido:{
         type: Number, 
+         default: 0,
     },
     vecesComprado:{
         type:Number,
+         default: 0,
     }
 });
 

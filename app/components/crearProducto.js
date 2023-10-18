@@ -61,7 +61,7 @@ function ProductoNuevo() {
         });
         getProductos();
         // Mostrar una notificación de éxito
-        toast.success("Producto añadido con éxito!");
+        toast.success(data.message);
       } else {
         throw new Error(data.message);
       }
@@ -100,7 +100,7 @@ function ProductoNuevo() {
         });
         getServicios();
         // Mostrar una notificación de éxito
-        toast.success("Servicio añadido con éxito!");
+        toast.success(data.message);
       } else {
         throw new Error(data.message);
       }

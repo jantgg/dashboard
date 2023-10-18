@@ -161,19 +161,37 @@ router.get("/product", verifyToken, async (req, res) => {
 // Crear una nuevo Producto--------------------------------------------------------------------------------------------------------------
 router.post("/product", verifyToken, async (req, res) => {
   try {
-    const nuevoProducto = new Producto({
-      ...req.body,
-      usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
-    });
-    await nuevoProducto.save();
-    res
-      .status(201)
-      .json({ message: "Producto creado con éxito", producto: nuevoProducto });
+      const { nombre, stock } = req.body;
+
+      // Buscar si el producto ya existe en la base de datos
+      let productoExistente = await Producto.findOne({ nombre: nombre });
+
+      if (productoExistente) {
+          // Si el producto ya existe, actualizamos el stock
+          productoExistente.vecesComprado = Number(productoExistente.vecesComprado || 0) + Number(stock);
+          productoExistente.stock = Number(productoExistente.stock) + Number(stock);
+          await productoExistente.save();
+
+          return res.status(200).json({
+              message: "Producto ya registrado en la base, se ha añadido el stock",
+              producto: productoExistente
+          });
+      }
+
+      // Si el producto no existe, creamos uno nuevo
+      const nuevoProducto = new Producto({
+          ...req.body,
+          usuario: req.userId, // asumiendo que el ID del usuario decodificado se almacena en req.userId
+      });
+      await nuevoProducto.save();
+      res.status(201).json({ message: "Producto creado con éxito", producto: nuevoProducto });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error de servidor al crear el producto" });
+      console.error(error);
+      res.status(500).json({ message: "Error de servidor al crear el producto" });
   }
 });
+
 // Eliminar un producto --------------------------------------------------------------------------------------------------------------
 router.delete("/product/:id", verifyToken, async (req, res) => {
   try {
@@ -448,40 +466,66 @@ router.post("/sales", verifyToken, async (req, res) => {
   let savedFactura = null; // Declaramos fuera del try para poder acceder en el catch
 
   try {
-    const { venta, facturaCliente } = req.body;
+      const { venta, facturaCliente } = req.body;
 
-    // Añadiendo el usuario a la información de factura
-    facturaCliente.usuario = req.userId;
+      // Añadiendo el usuario a la información de factura
+      facturaCliente.usuario = req.userId;
 
-    // Creando la FacturaCliente
-    const newFacturaCliente = new FacturaCliente(facturaCliente);
-    savedFactura = await newFacturaCliente.save();
+      // Creando la FacturaCliente
+      const newFacturaCliente = new FacturaCliente(facturaCliente);
+      savedFactura = await newFacturaCliente.save();
 
-    // Asignar el ID de la factura a la venta
-    venta.factura = savedFactura._id;
+      // Actualizar stock y vecesVendido para cada producto vendido
+      for (let producto of venta.productos) {
+          await Producto.findOneAndUpdate(
+              { _id: producto._id },
+              {
+                  $inc: {
+                      stock: -1,  // Reducir stock en 1
+                      vecesVendido: 1  // Incrementar vecesVendido en 1
+                  }
+              }
+          );
+      }
 
-    // Añadiendo el usuario a la información de venta
-    venta.usuario = req.userId;
+      // Actualizar vecesVendido para cada servicio vendido
+      for (let servicio of venta.servicios) {
+          await Servicio.findOneAndUpdate(
+              { _id: servicio._id },
+              {
+                  $inc: {
+                      vecesVendido: 1  // Incrementar vecesVendido en 1
+                  }
+              }
+          );
+      }
 
-    // Creando la Venta
-    const newVenta = new Venta(venta);
-    await newVenta.save();
+      // Asignar el ID de la factura a la venta
+      venta.factura = savedFactura._id;
 
-    res.status(201).json({
-      message: "Venta y factura creadas con éxito!",
-      facturaId: savedFactura._id,
-    });
+      // Añadiendo el usuario a la información de venta
+      venta.usuario = req.userId;
+
+      // Creando la Venta
+      const newVenta = new Venta(venta);
+      await newVenta.save();
+
+      res.status(201).json({
+          message: "Venta y factura creadas con éxito!",
+          facturaId: savedFactura._id,
+      });
   } catch (error) {
-    console.error("Error al crear Venta y Factura:", error);
+      console.error("Error al crear Venta y Factura:", error);
 
-    // Si hay un error y ya se ha creado la FacturaCliente, la eliminamos
-    if (savedFactura) {
-      await FacturaCliente.findByIdAndDelete(savedFactura._id);
-      console.error("Factura eliminada debido a un error al crear la venta.");
-    }
-    res.status(500).json({ message: error.message });
+      // Si hay un error y ya se ha creado la FacturaCliente, la eliminamos
+      if (savedFactura) {
+          await FacturaCliente.findByIdAndDelete(savedFactura._id);
+          console.error("Factura eliminada debido a un error al crear la venta.");
+      }
+      res.status(500).json({ message: error.message });
   }
 });
+
 
 // Crear GASTO y facturas del usuario autenticado---Imitacion de lo que seria transacciones en mongoose-----------------------------------------------------------------------------------------------------------
 router.post("/expenses", verifyToken, async (req, res) => {
