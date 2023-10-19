@@ -420,8 +420,20 @@ router.get("/expenses", verifyToken, async (req, res) => {
 // Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/sales", verifyToken, async (req, res) => {
   try {
-    const ventas = await Venta.find({ usuario: req.userId });
-    res.status(200).json(ventas);
+    const ventas = await Venta.find({ usuario: req.userId })
+                              .populate('cliente', 'nombre') // Solo traer el campo 'nombre' del modelo Cliente
+                              .exec();
+
+    const ventasConNombreCliente = ventas.map(venta => {
+      const ventaObj = venta.toObject();
+
+      ventaObj.nombreCliente = venta.cliente.nombre;
+      ventaObj.cliente = venta.cliente._id.toString(); // Asignar solo el valor ID (convertido a string) de cliente
+
+      return ventaObj;
+    });
+
+    res.status(200).json(ventasConNombreCliente);
   } catch (error) {
     console.error(error);
     res
@@ -429,6 +441,8 @@ router.get("/sales", verifyToken, async (req, res) => {
       .json({ message: "Error de servidor al obtener las ventas" });
   }
 });
+
+
 
 // Obtener todas las facturas de cliente  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/clientbills", verifyToken, async (req, res) => {
