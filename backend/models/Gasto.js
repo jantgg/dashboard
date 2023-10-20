@@ -6,11 +6,6 @@ const gastoSchema = new mongoose.Schema({
         ref: 'Usuario',
         required: true
     },
-    tipo: {
-        type: String,
-        enum: ['proveedor', 'gasto fijo'],
-        required:false,
-    },
     fecha: {
         type: Date,
         required: true

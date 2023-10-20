@@ -407,15 +407,28 @@ router.delete("/suppliers/:id", verifyToken, async (req, res) => {
 // Obtener todas los GASTOS  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/expenses", verifyToken, async (req, res) => {
   try {
-    const gastos = await Gasto.find({ usuario: req.userId });
-    res.status(200).json(gastos);
+    const gastos = await Gasto.find({ usuario: req.userId })
+                              .populate('proveedor', 'nombre') // Solo traer el campo 'nombre' del modelo Proveedor
+                              .exec();
+
+    const gastosConNombreProveedor = gastos.map(gasto => {
+      const gastoObj = gasto.toObject();
+
+      gastoObj.nombreProveedor = gasto.proveedor.nombre;
+      gastoObj.proveedor = gasto.proveedor._id.toString(); // Asignar solo el valor ID (convertido a string) de proveedor
+
+      return gastoObj;
+    });
+
+    res.status(200).json(gastosConNombreProveedor);
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ message: "Error de servidor al obtener las gastos" });
+      .json({ message: "Error de servidor al obtener los gastos" });
   }
 });
+
 
 // Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/sales", verifyToken, async (req, res) => {
