@@ -2,6 +2,9 @@ import Image from "next/image";
 import "./page.css";
 import VentaNueva from "../components/crearVenta";
 import GastoNuevo from "../components/crearGasto";
+import CrearTarea from "../components/crearTarea";
+import CrearCliente from "../components/crearCliente";
+import CrearProveedor from "../components/crearProveedor";
 
 
 export default function Sumar() {
@@ -15,9 +18,15 @@ export default function Sumar() {
         <VentaNueva/>
         
         </div>
-        <div class="div3">Añadir Tarea </div>
-        <div class="div4"> Añadir Cliente</div>
-        <div class="div5"> Añadir Proveedor</div>
+        <div class="div3">Añadir Tarea
+        <CrearTarea/>
+         </div>
+        <div class="div4"> Añadir Cliente
+        <CrearCliente/>
+        </div>
+        <div class="div5"> Añadir Proveedor
+        <CrearProveedor/>
+        </div>
 
       </div>
     </main>

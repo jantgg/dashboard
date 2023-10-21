@@ -71,6 +71,7 @@ function GastoNuevo() {
     cantidadBruta: 0,
     iva: 0,
     detalles: "",
+    tipo: "proveedor",
   });
 
   const [facturaProveedorData, setFacturaProveedorData] = useState({
@@ -354,6 +355,20 @@ function GastoNuevo() {
             ))}
           </ul>
         </div>
+        <label>
+          Gasto Fijo:
+          <input
+            type="checkbox"
+            checked={gastoData.tipo === "fijo"}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setGastoData((prev) => ({ ...prev, tipo: "fijo" }));
+              } else {
+                setGastoData((prev) => ({ ...prev, tipo: "proveedor" }));
+              }
+            }}
+          />
+        </label>
       </div>
 
       <div>

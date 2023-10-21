@@ -13,41 +13,51 @@ function ClienteNuevo() {
     direccion: "",
     telefono: "",
     email: "",
+    fechaRegistro: "", //
   });
 
-  const addCliente = async (clienteData) => {
+  const addCliente = async () => {
+    const fechaActual = new Date().toISOString().split("T")[0];
+    const updatedClienteData = {
+        ...clienteData,
+        fechaRegistro: fechaActual
+    };
+
     try {
-      const token = localStorage.getItem("token"); // Recuperar el token del localStorage
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(clienteData),
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_DATABASE_URL}/clients`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(updatedClienteData),
+            }
+        );
+
+        const data = await response.json();
+        if (response.ok) {
+            toast.success("Cliente creado con éxito!");
+            setClienteData({
+                nombre: "",
+                cif: "",
+                direccion: "",
+                telefono: "",
+                email: "",
+            });
+            getClientes();
+        } else {
+            throw new Error(data.message);
         }
-      );
-      const data = await response.json();
-      if (response.ok) {
-        toast.success("Cliente creado con éxito!");
-        setClienteData({
-          nombre: "",
-          cif: "",
-          direccion: "",
-          telefono: "",
-          email: "",
-        });
-        getClientes();
-      } else {
-        throw new Error(data.message);
-      }
     } catch (error) {
-      console.error("Error al añadir cliente:", error);
-      toast.error(`Error al añadir Cliente: ${error.message}`);
+        console.error("Error al añadir cliente:", error);
+        toast.error(`Error al añadir Cliente: ${error.message}`);
     }
-  };
+};
+
+
 
   return (
     <div>

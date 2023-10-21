@@ -328,29 +328,6 @@ router.post("/clients", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error de servidor al crear el Cliente" });
   }
 });
-// Eliminar un cliente --------------------------------------------------------------------------------------------------------------
-router.delete("/clients/:id", verifyToken, async (req, res) => {
-  try {
-    const cliente = await Cliente.findById(req.params.id);
-    if (!cliente) {
-      return res.status(404).json({ message: "cliente no encontrada" });
-    }
-
-    if (cliente.usuario.toString() !== req.userId) {
-      return res
-        .status(403)
-        .json({ message: "No tienes permiso para eliminar esta cliente" });
-    }
-
-    await Cliente.findByIdAndRemove(req.params.id);
-    res.status(200).json({ message: "cliente eliminada con éxito" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error de servidor al eliminar la cliente" });
-  }
-});
 // Obtener todas los proveedor  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/suppliers", verifyToken, async (req, res) => {
   try {
@@ -382,33 +359,14 @@ router.post("/suppliers", verifyToken, async (req, res) => {
       .json({ message: "Error de servidor al crear el Proveedor" });
   }
 });
-// Eliminar un proveedor  --------------------------------------------------------------------------------------------------------------
-router.delete("/suppliers/:id", verifyToken, async (req, res) => {
-  try {
-    const proveedor = await Proveedor.findById(req.params.id);
-    if (!proveedor) {
-      return res.status(404).json({ message: "proveedor no encontrada" });
-    }
-    if (proveedor.usuario.toString() !== req.userId) {
-      return res
-        .status(403)
-        .json({ message: "No tienes permiso para eliminar esta proveedor" });
-    }
-    await Proveedor.findByIdAndRemove(req.params.id);
-    res.status(200).json({ message: "proveedor eliminada con éxito" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error de servidor al eliminar la proveedor" });
-  }
-});
 
 // Obtener todas los GASTOS  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/expenses", verifyToken, async (req, res) => {
   try {
     const gastos = await Gasto.find({ usuario: req.userId })
-                              .populate('proveedor', 'nombre') // Solo traer el campo 'nombre' del modelo Proveedor
+                              .populate('proveedor', 'nombre')
+                              .populate('servicios', 'nombre') // Población de servicios con solo el campo 'nombre'
+                              .populate('productos', 'nombre') // Población de productos con solo el campo 'nombre'
                               .exec();
 
     const gastosConNombreProveedor = gastos.map(gasto => {
@@ -416,6 +374,15 @@ router.get("/expenses", verifyToken, async (req, res) => {
 
       gastoObj.nombreProveedor = gasto.proveedor.nombre;
       gastoObj.proveedor = gasto.proveedor._id.toString(); // Asignar solo el valor ID (convertido a string) de proveedor
+      
+      // Lógica para asignar "nombreGasto" basándose en los servicios y productos asociados
+      if (gasto.servicios && gasto.servicios.length > 0) {
+        gastoObj.nombreGasto = gasto.servicios[0].nombre;
+      } else if (gasto.productos && gasto.productos.length > 0) {
+        gastoObj.nombreGasto = gasto.productos[0].nombre;
+      } else {
+        gastoObj.nombreGasto = null; // En caso de que no haya ni servicios ni productos asociados
+      }
 
       return gastoObj;
     });
@@ -430,30 +397,34 @@ router.get("/expenses", verifyToken, async (req, res) => {
 });
 
 
-// Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
-router.get("/sales", verifyToken, async (req, res) => {
-  try {
-    const ventas = await Venta.find({ usuario: req.userId })
-                              .populate('cliente', 'nombre') // Solo traer el campo 'nombre' del modelo Cliente
-                              .exec();
 
-    const ventasConNombreCliente = ventas.map(venta => {
-      const ventaObj = venta.toObject();
+ //Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
+ router.get("/sales", verifyToken, async (req, res) => {
+   try {
+     const ventas = await Venta.find({ usuario: req.userId })
+                               .populate('cliente', 'nombre') // Solo traer el campo 'nombre' del modelo Cliente
+                             .exec();
 
-      ventaObj.nombreCliente = venta.cliente.nombre;
-      ventaObj.cliente = venta.cliente._id.toString(); // Asignar solo el valor ID (convertido a string) de cliente
+   const ventasConNombreCliente = ventas.map(venta => {
+     const ventaObj = venta.toObject();
 
-      return ventaObj;
-    });
+     ventaObj.nombreCliente = venta.cliente.nombre;
+     ventaObj.cliente = venta.cliente._id.toString(); // Asignar solo el valor ID (convertido a string) de cliente
 
-    res.status(200).json(ventasConNombreCliente);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error de servidor al obtener las ventas" });
-  }
+     return ventaObj;
+   });
+
+   res.status(200).json(ventasConNombreCliente);
+ } catch (error) {
+   console.error(error);
+   res
+     .status(500)
+     .json({ message: "Error de servidor al obtener las ventas" });
+ }
 });
+
+
+
 
 
 

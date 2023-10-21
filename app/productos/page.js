@@ -4,6 +4,8 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import ProductoNuevo from "../components/crearProducto.js";
 import SingleProducto from "../components/singleProducto.js";
+import MasVendido from "../components/ventaComponents/masVendido.js";
+import MasVendidoS from "../components/ventaComponents/masVendidoS.js";
 import useProductos from "../hooks/useProductos";
 import { Toaster, toast } from "sonner";
 
@@ -67,8 +69,14 @@ export default function Productos() {
             ))}
           </ul>
         </div>
-        <div className="div2"> Productos mas vendidos</div>
-        <div className="div3"> Servicios mas solicitados </div>
+        <div className="div2"> Productos mas vendidos
+        <MasVendido/>
+        
+        </div>
+        <div className="div3"> Servicios mas solicitados 
+        <MasVendidoS/>
+        
+        </div>
         <div className="div4">
           {" "}
           <h2>Añadir producto</h2>

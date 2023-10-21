@@ -26,6 +26,10 @@ const clienteSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    fechaRegistro:{
+        type: String,
+        required: true,
+    },
     ventas: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Venta',

@@ -9,6 +9,7 @@ import MasComprado from "../components/gastoComponents/masComprado.js";
 import ResumenGastos from "../components/gastoComponents/resumenGastos.js";
 import ComparacionGastos from "../components/gastoComponents/comparacionGastos.js";
 import HistorialGastos from "../components/gastoComponents/historialGastos.js";
+import HistorialGastosFijos from "../components/gastoComponents/historialGastosFijos.js";
 
 export default function Gastos() {
   const { gastos} =
@@ -30,7 +31,7 @@ export default function Gastos() {
         </div>
         <div className="div4">
           {" "}
-      
+          <HistorialGastosFijos />
         </div>
         <div className="div5">
           <HistorialGastos />

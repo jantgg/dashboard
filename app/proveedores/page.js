@@ -4,6 +4,7 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import ProveedorNuevo from "../components/crearProveedor.js";
 import SingleProveedor from "../components/singleProveedor.js";
+import ComparacionGastos from "../components/gastoComponents/comparacionGastos.js";
 import { Toaster, toast } from "sonner";
 import useProveedores from "../hooks/useProveedores.js";
 
@@ -78,7 +79,10 @@ export default function Proveedores() {
             ))}
           </ul>{" "}
         </div>
-        <div className="div2">Gasto en proveedores por mes </div>
+        <div className="div2">Gasto en proveedores por mes
+        <ComparacionGastos/>
+   
+         </div>
         <div className="div3">
           {" "}
           <h2>

@@ -4,6 +4,7 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import ClienteNuevo from "../components/crearCliente.js";
 import SingleCliente from "../components/singleCliente.js";
+import ComparacionClientes from "../components/comparacionClientes.js";
 import { Toaster, toast } from "sonner";
 import useClientes from "../hooks/useClientes";
 
@@ -78,7 +79,9 @@ export default function Clientes() {
             ))}
           </ul>
         </div>
-        <div className="div2">Incremento de clientes por mes </div>
+        <div className="div2">Incremento de clientes por mes
+        <ComparacionClientes/>
+         </div>
         <div className="div3">
           {" "}
           <h2>
