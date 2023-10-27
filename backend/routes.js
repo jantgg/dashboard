@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
     }
     // Creación de token de autenticación
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "4h",
     });
 
     res.json({ message: "Inicio de sesión exitoso", token });
