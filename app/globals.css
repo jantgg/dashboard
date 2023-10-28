@@ -12,3 +12,21 @@ position:relative;
   position: absolute;
   z-index: -1;
 }
+.poppins {
+  font-family: "Poppins", cursive;
+}
+.merri {
+  font-family: "Merriweather", serif;
+}
+.allura {
+  font-family: "Allura", cursive;
+}
+.gabarito {
+  font-family: "Gabarito", cursive;
+}
+.unifrak {
+  font-family: "UnifrakturCook", cursive;
+}
+.rocker{
+  font-family: 'New Rocker', cursive;
+}

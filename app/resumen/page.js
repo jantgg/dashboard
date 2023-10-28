@@ -13,12 +13,12 @@ export default function Resumen() {
   return (
     <main className="home">
       <div className="parent">
-        <div className="div1"> <VentasGastosResumen/></div>
-        <div className="div2"> <TareasUrgentesResumen/></div>
-        <div className="div3"><ComparacionVentas/> </div>
-        <div className="div4"> <ComparacionGastos/></div>
-        <div className="div5"> <MasVendido/></div>
-        <div className="div6"> <MasVendidoS/></div>
+        <div className="div1R"> <VentasGastosResumen/></div>
+        <div className="div2R"> <TareasUrgentesResumen/></div>
+        <div className="div3R"><ComparacionVentas/> </div>
+        <div className="div4R"> <ComparacionGastos/></div>
+        <div className="div5R"> <MasVendido/></div>
+        <div className="div6R"> <MasVendidoS/></div>
       </div>
     </main>
   );

@@ -1,3 +1,20 @@
+.sectionRVG {
+  display: flex;
+  flex-direction: column;
+}
+
+.h2RVG {
+  width: 90%;
+  font-size: 2.7vw;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.098);
+  color: white;
+  margin-top: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  margin-bottom: 3vh;
+}
 .chartVentasGastos {
   position: relative;
   width: 100%;
@@ -9,18 +26,142 @@
 }
 
 .tower-container {
+  width: 48%;
+   background-color: rgba(255, 255, 255, 0.098);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-end;
-  height: 300px; /* o cualquier valor que quieras */
+  height: auto; /* o cualquier valor que quieras */
   position: relative; /* para posicionar correctamente los hijos con posición absoluta */
- 
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  border-radius: 15px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
-.tower {
-  width: 40%;
+.tower1RVG {
+  width: 30%;
   background-color: #ddd;
   text-align: center;
-
   bottom: 0; /* para que crezcan desde la base del contenedor */
+  border-radius: 15px;
+  background-color: green;
+}
+.tower2RVG {
+  width: 30%;
+  background-color: #ddd;
+  text-align: center;
+  bottom: 0; /* para que crezcan desde la base del contenedor */
+  border-radius: 15px;
+  background-color: red;
+}
+
+.containerGastosRVG {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+   background-color: rgba(255, 255, 255, 0.098);
+  border-radius: 10px;
+  color: #ddd;
+  align-items: center;
+  margin-top: 2vh;
+}
+.containerVentasRVG {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+   background-color: rgba(255, 255, 255, 0.098);
+  border-radius: 10px;
+  color: #ddd;
+  align-items: center;
+  margin-top: 2vh;
+}
+.containerTotalRVG {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+   background-color: rgba(255, 255, 255, 0.098);
+  border-radius: 10px;
+  color: #ddd;
+  align-items: center;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+.tittle1RVG {
+  width: 100%;
+  padding-top: 1vh;
+  padding-left: 1vw;
+  font-size: 1.1vw;
+}
+
+.number1RVG {
+  padding-top: 0;
+  width: 100%;
+  font-size: 3vw;
+  font-weight: 600;
+  display: flex;
+  justify-content:end;
+  margin-right: 1vw;
+}
+.euro1RVG {
+  font-size: 1.3vw;
+  align-self: end;
+  padding-bottom: 1vh;
+  padding-left: 0.1vw;
+}
+.flechaup {
+  color: green;
+  font-size: 1.8vw;
+  margin-right: 0.8vw;
+  position: absolute;
+  left:7%
+}
+.flechadown {
+  color: red;
+  font-size: 1.8vw;
+  margin-right: 0.8vw;
+  position: absolute;
+  left:7%
+}
+
+.bottomcontainerRVG {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.selectorscontainer1RVG {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  align-items: center;
+  justify-content: space-between;
+}
+.selectors1SVG {
+  width: 48%;
+  font-size: 1.5vw;
+  text-align: center;
+   background-color: rgba(255, 255, 255, 0.098);
+  color: white;
+  border-radius: 15px;
+  padding: 5px;
+}
+.numeros1RVG {
+  width: 48%;
+}
+.negativeRVG{
+  color: red;
+
+}
+.positiveRVG{
+  color: green;
+
 }

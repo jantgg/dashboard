@@ -30,12 +30,7 @@ const Sidebar = () => {
         <div className="list-son">
           <Link href="/productos">Productos</Link>
         </div>
-        <div className="list-son">
-          <Link href="/facturacion">Facturación</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/impuestos">Impuestos</Link>
-        </div>
+   
         <div className="list-son">
           <Link href="/sumar">Añadir</Link>
         </div>

@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css"; // Estilos para el datepick
 import useVentas from "app/hooks/useVentas.js";
 import useGastos from "app/hooks/useGastos.js";
 import "./ventasGastosResumen.css";
+import { BsArrowUp } from "react-icons/bs";
+import { BsArrowDown } from "react-icons/bs";
 
 function VentasGastosResumen() {
   const { ventas } = useVentas();
@@ -60,6 +62,9 @@ function VentasGastosResumen() {
     (sum, gasto) => sum + gasto.cantidadNeta,
     0
   );
+  const roundedVentas = Math.round(totalVentas);
+  const roundedGastos = Math.round(totalGastos);
+  const roundedTotal = Math.round(totalVentas - totalGastos);
 
   const handleMonthChange = (e) => {
     setSelectedMonth(Number(e.target.value));
@@ -74,48 +79,76 @@ function VentasGastosResumen() {
   const gastosPercentage = (totalGastos / maxValue) * 100;
 
   return (
-    <div>
-      <h2>Historial de ventas y gastos</h2>
-      <div>
-        <label>
-          Mes:
-          <select value={selectedMonth} onChange={handleMonthChange}>
-            {monthNames.map((month, index) => (
-              <option key={index} value={index}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Año:
-          <select value={selectedYear} onChange={handleYearChange}>
-            {Array.from({ length: 10 }, (_, i) => currentYear - i).map(
-              (year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              )
-            )}
-          </select>
-        </label>
+    <section className="sectionRVG">
+      <h2 className="h2RVG">Balance general</h2>
+
+      <div className="selectorscontainer1RVG">
+        <select
+          className="selectors1SVG"
+          value={selectedMonth}
+          onChange={handleMonthChange}
+        >
+          {monthNames.map((month, index) => (
+            <option key={index} value={index}>
+              {month}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className="selectors1SVG"
+          value={selectedYear}
+          onChange={handleYearChange}
+        >
+          {Array.from({ length: 10 }, (_, i) => currentYear - i).map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
       </div>
 
-      <h2>
-        Resumen de {monthNames[selectedMonth]} {selectedYear}
-      </h2>
-      <p>Total Ventas: {totalVentas.toFixed(2)}€</p>
-      <p>Total Gastos: {totalGastos.toFixed(2)}€</p>
+      <div className="bottomcontainerRVG">
       <div className="tower-container">
-    <div className="tower" style={{ height: `${ventasPercentage}%` }}>
-        Ventas: {totalVentas.toFixed(2)}€
-    </div>
-    <div className="tower" style={{ height: `${gastosPercentage}%` }}>
-        Gastos: {totalGastos.toFixed(2)}€
-    </div>
-</div>
-
-    </div>
+          <div
+            className="tower1RVG"
+            style={{ height: `${ventasPercentage}%` }}
+          ></div>
+          <div
+            className="tower2RVG"
+            style={{ height: `${gastosPercentage}%` }}
+          ></div>
+        </div>
+        <div className="numeros1RVG">
+          <div className="containerVentasRVG">
+            <span className="number1RVG">
+              {roundedVentas} <span className="euro1RVG">€</span>
+            </span>
+            <span className="flechaup">
+              <BsArrowUp />
+            </span>
+          </div>
+          <div className="containerGastosRVG">
+            <span className="number1RVG">
+              {roundedGastos} <span className="euro1RVG">€</span>
+            </span>
+            <span className="flechadown">
+              <BsArrowDown />
+            </span>
+          </div>
+          <div className="containerTotalRVG">
+            <span
+              className={`number1RVG ${
+                roundedTotal < 0 ? "negativeRVG" : "positiveRVG"
+              }`}
+            >
+              {roundedTotal} <span className="euro1RVG">€</span>
+            </span>
+          </div>
+        </div>
+  
+      </div>
+    </section>
   );
 }
 
