@@ -81,7 +81,6 @@ function VentasGastosResumen() {
   return (
     <section className="sectionRVG">
       <h2 className="h2RVG">Balance general</h2>
-
       <div className="selectorscontainer1RVG">
         <select
           className="selectors1SVG"
@@ -89,7 +88,7 @@ function VentasGastosResumen() {
           onChange={handleMonthChange}
         >
           {monthNames.map((month, index) => (
-            <option key={index} value={index}>
+            <option key={index} value={index} className="txt-black">
               {month}
             </option>
           ))}
@@ -101,7 +100,7 @@ function VentasGastosResumen() {
           onChange={handleYearChange}
         >
           {Array.from({ length: 10 }, (_, i) => currentYear - i).map((year) => (
-            <option key={year} value={year}>
+            <option key={year} value={year} className="txt-black">
               {year}
             </option>
           ))}

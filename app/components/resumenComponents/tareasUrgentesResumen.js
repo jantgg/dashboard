@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import useTareas from "app/hooks/useTareas";
+import "./tareasUrgentesResumen.css";
+import { AiOutlineWarning } from "react-icons/ai";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BsCheckCircle } from "react-icons/bs";
 
-
- function TareasUrgentesResumen() {
+function TareasUrgentesResumen() {
   const { tareas, getTareas } = useTareas();
 
   const tareasUrgentes = tareas.filter(
@@ -78,26 +81,29 @@ import useTareas from "app/hooks/useTareas";
   };
   return (
     <section>
-      <div className="div2">
-        <h2>Tareas urgentes</h2>
-        <ul>
-          {tareasUrgentes.map((tarea) => (
-            <li key={tarea._id}>
-              {tarea.titulo}
+      <h2 className="tittletareasRVG">Tareas urgentes</h2>
+      <ul className="listatareasRVG">
+        {tareasUrgentes.map((tarea) => (
+          <li key={tarea._id} className="tareaRVG">
+            {/* <AiOutlineWarning className="warningRVG" /> */}
+            <span className="tareanombreRVG"> {tarea.titulo}</span>
+            <div className="buttonstareaRVG">
+              {" "}
               <button
+              className="checkRVG"
                 onClick={() => toggleCompletada(tarea._id, tarea.completada)}
               >
-                {tarea.completada
-                  ? "Marcar como no completada"
-                  : "Marcar como completada"}
+                <BsCheckCircle  />
               </button>
-              <button onClick={() => deleteTarea(tarea._id)}>Borrar</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+              <button className="trashRVG" onClick={() => deleteTarea(tarea._id)}>
+                <FaRegTrashAlt  />
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
 
-export default  TareasUrgentesResumen;
+export default TareasUrgentesResumen;
