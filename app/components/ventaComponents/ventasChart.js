@@ -16,8 +16,8 @@ function VentasChart({ data }) {
         width: chartContainerRef.current.clientWidth,
         height: chartContainerRef.current.clientHeight,
         layout: {
-          backgroundColor: "#808080", // Asegúrate de que este es el color gris que quieres.
-          textColor: "rgba(0, 0, 0, 1)",
+          textColor: "black",
+          background: { type: "solid", color: "rgb(196, 196, 196)" },
         },
         grid: {
           vertLines: {
@@ -38,6 +38,8 @@ function VentasChart({ data }) {
 
       const lineSeries = chart.addLineSeries({
         color: "rgba(0, 150, 0, 1)",
+        topColor: "rgba(0, 150, 0, 0.8)",
+        bottomColor: "rgba(0, 150, 0, 0.2)",
         lineWidth: 2,
       });
 
@@ -62,11 +64,7 @@ function VentasChart({ data }) {
   }, [data]);
 
   return (
-    <div
-      ref={chartContainerRef}
-  
-      className="containerChartVentasRVG"
-    ></div>
+    <div ref={chartContainerRef} className="containerChartVentasRVG"></div>
   );
 }
 

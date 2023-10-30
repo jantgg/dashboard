@@ -1,0 +1,97 @@
+.sectionResumenV {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.h2V {
+  width: 100%;
+  font-size: 2.7vw;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.098);
+  color: white;
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  margin-bottom: 3vh;
+  font-weight: 500;
+}
+.containerTexto1V {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+.texto1V {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 68%;
+  background-color: rgba(255, 255, 255, 0.098);
+  border-radius: 10px;
+  color: #ddd;
+  align-items: center;
+  font-size: 2vw;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.number1V {
+  width: 28%;
+  padding-top: 0;
+  color: rgb(0, 0, 0);
+  font-size: 2vw;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  background-color: green;
+
+  border-radius: 15px;
+}
+.euro1V {
+  font-size: 1.3vw;
+  align-self: flex-end;
+  padding-bottom: 1vh;
+  padding-left: 0.1vw;
+}
+.containerTexto2V {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 2vh;
+}
+.texto2V {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 68%;
+  background-color: rgba(255, 255, 255, 0.098);
+  border-radius: 10px;
+  color: #ddd;
+  align-items: center;
+  font-size: 2vw;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.number2V {
+  width: 28%;
+  padding-top: 0;
+  color: rgb(0, 0, 0);
+  font-size: 2vw;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  background-color: green;
+
+  border-radius: 15px;
+}

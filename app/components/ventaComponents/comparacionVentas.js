@@ -44,20 +44,19 @@ function ComparacionVentas() {
 
   return (
     <section className="sectionVentasRVG">
-
+      {" "}
+      <h2 className="tittleVentasRVG"> Resumen Mensual de Ventas</h2>
+      <div className="containerSelectorVentasRVG">
         {" "}
-        <h2 className="tittleVentasRVG"> Resumen Mensual de Ventas</h2>
-        <div className="containerSelectorVentasRVG">   <select
+        <select
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
           className="selectorVentasRVG"
         >
           <option value="cantidadNeta">Cantidad Neta</option>
           <option value="cantidadBruta">Cantidad Bruta</option>
-        </select></div>
-     
-
-
+        </select>
+      </div>
       <VentasChart data={chartData} />
     </section>
   );

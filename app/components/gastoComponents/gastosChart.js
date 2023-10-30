@@ -7,7 +7,7 @@ function GastosChart({ data }) {
     const chartContainerRef = useRef(null);
     // Declara chart fuera de useEffect para que sea accesible en la función de limpieza
     let chart = null;
-  
+
     useEffect(() => {
       if (chartContainerRef.current) {
         // Aquí se asigna el chart si el contenedor está disponible
@@ -15,8 +15,8 @@ function GastosChart({ data }) {
           width: chartContainerRef.current.clientWidth,
           height: chartContainerRef.current.clientHeight,
           layout: {
-            backgroundColor: "#808080", // Asegúrate de que este es el color gris que quieres.
-            textColor: "rgba(0, 0, 0, 1)",
+            textColor: "black",
+            background: { type: "solid", color: "rgb(196, 196, 196)" },
           },
           grid: {
             vertLines: {
@@ -37,6 +37,8 @@ function GastosChart({ data }) {
   
         const lineSeries = chart.addLineSeries({
           color: "rgba(230, 0, 0, 1)",
+          topColor: "rgba(230, 0, 0, 0.8)",
+          bottomColor: "rgba(230, 0, 0, 0.2)",
           lineWidth: 2,
         });
   

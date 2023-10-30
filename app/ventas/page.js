@@ -20,22 +20,22 @@ export default function Ingresos() {
   return (
     <main className="home">
       <div className="parent">
-        <div className="div1">
+        <div className="div1V">
           {" "}
           <ResumenVentas />
         </div>
-        <div className="div2">
+        <div className="div2V">
           {" "}
           <ComparacionVentas />
         </div>
-        <div className="div3">
+        <div className="div3V">
           <MasVendido />
         </div>
-        <div className="div4">
+        <div className="div4V">
           {" "}
           <MasVendidoS />
         </div>
-        <div className="div5">
+        <div className="div5V">
           <HistorialVentas />
         </div>
       </div>

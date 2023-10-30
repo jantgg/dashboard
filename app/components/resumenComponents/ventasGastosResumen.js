@@ -108,7 +108,7 @@ function VentasGastosResumen() {
       </div>
 
       <div className="bottomcontainerRVG">
-      <div className="tower-container">
+        <div className="tower-container">
           <div
             className="tower1RVG"
             style={{ height: `${ventasPercentage}%` }}
@@ -145,7 +145,6 @@ function VentasGastosResumen() {
             </span>
           </div>
         </div>
-  
       </div>
     </section>
   );

@@ -13,27 +13,27 @@
   width: 100%;
 }
 
-.div1 {
+.div1V {
   grid-area: 1 / 1 / 6 / 5;
-    background-color: #e9e9e9;
+  background-color: rgb(32, 32, 32);
   border-radius: 10px;
 }
-.div2 {
+.div2V {
   grid-area: 6 / 1 / 10 / 5;
     background-color: #e9e9e9;
   border-radius: 10px;
 }
-.div3 {
+.div3V {
   grid-area: 1 / 5 / 4 / 8;
     background-color: #e9e9e9;
   border-radius: 10px;
 }
-.div4 {
+.div4V {
   grid-area: 1 / 8 / 4 / 11;
     background-color: #e9e9e9;
   border-radius: 10px;
 }
-.div5 {
+.div5V {
   grid-area: 4 / 5 / 10 / 11;
     background-color: #e9e9e9;
   border-radius: 10px;
