@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import useVentas from "app/hooks/useVentas.js";
 import VentasChart from "./ventasChart";
+import "./comparacionVentas.css";
 
 function ComparacionVentas() {
   const { ventas } = useVentas();
@@ -32,32 +33,33 @@ function ComparacionVentas() {
       setResumenMensual(Object.values(resumen));
     }
   }, [ventas]);
-  console.log(resumenMensual)
+  console.log(resumenMensual);
 
   const chartData = resumenMensual.map((d) => {
     return {
-        time: `${d.year}-${String(d.mes + 1).padStart(2, '0')}-01`,  // Ajustado para representar correctamente el mes/año
-        value: d[selectedValue],
+      time: `${d.year}-${String(d.mes + 1).padStart(2, "0")}-01`, // Ajustado para representar correctamente el mes/año
+      value: d[selectedValue],
     };
-});
-
-  console.log(chartData);
+  });
 
   return (
-    <div>
-      <h2>Resumen Mensual de Ventas</h2>
-      <select
-    value={selectedValue}
-    onChange={(e) => setSelectedValue(e.target.value)}
->
-    <option value="cantidadNeta">Cantidad Neta</option>
-    <option value="cantidadBruta">Cantidad Bruta</option>
-</select>
+    <section className="sectionVentasRVG">
+
+        {" "}
+        <h2 className="tittleVentasRVG"> Resumen Mensual de Ventas</h2>
+        <div className="containerSelectorVentasRVG">   <select
+          value={selectedValue}
+          onChange={(e) => setSelectedValue(e.target.value)}
+          className="selectorVentasRVG"
+        >
+          <option value="cantidadNeta">Cantidad Neta</option>
+          <option value="cantidadBruta">Cantidad Bruta</option>
+        </select></div>
+     
 
 
-<VentasChart data={chartData} />
-
-    </div>
+      <VentasChart data={chartData} />
+    </section>
   );
 }
 
