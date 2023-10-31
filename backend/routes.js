@@ -364,17 +364,17 @@ router.post("/suppliers", verifyToken, async (req, res) => {
 router.get("/expenses", verifyToken, async (req, res) => {
   try {
     const gastos = await Gasto.find({ usuario: req.userId })
-                              .populate('proveedor', 'nombre')
-                              .populate('servicios', 'nombre') // Población de servicios con solo el campo 'nombre'
-                              .populate('productos', 'nombre') // Población de productos con solo el campo 'nombre'
-                              .exec();
+      .populate("proveedor", "nombre")
+      .populate("servicios", "nombre") // Población de servicios con solo el campo 'nombre'
+      .populate("productos", "nombre") // Población de productos con solo el campo 'nombre'
+      .exec();
 
-    const gastosConNombreProveedor = gastos.map(gasto => {
+    const gastosConNombreProveedor = gastos.map((gasto) => {
       const gastoObj = gasto.toObject();
 
       gastoObj.nombreProveedor = gasto.proveedor.nombre;
       gastoObj.proveedor = gasto.proveedor._id.toString(); // Asignar solo el valor ID (convertido a string) de proveedor
-      
+
       // Lógica para asignar "nombreGasto" basándose en los servicios y productos asociados
       if (gasto.servicios && gasto.servicios.length > 0) {
         gastoObj.nombreGasto = gasto.servicios[0].nombre;
@@ -396,36 +396,38 @@ router.get("/expenses", verifyToken, async (req, res) => {
   }
 });
 
+//Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
+//Obtener todas las ventas del usuario autenticado--------------------------------------------------------------------------------------------------------------
+router.get("/sales", verifyToken, async (req, res) => {
+  try {
+    const ventas = await Venta.find({ usuario: req.userId })
+      .populate('cliente', 'nombre') // Traer el campo 'nombre' del modelo Cliente
+      .populate('productos', 'nombre') // Asumiendo que 'nombre' es el campo que quieres del modelo Producto
+      .populate('servicios', 'nombre') // Asumiendo que 'nombre' es el campo que quieres del modelo Servicio
+      .exec();
 
+    const ventasConNombres = ventas.map((venta) => {
+      const ventaObj = venta.toObject();
+      
+      // Reemplaza el ID del cliente por su nombre
+      ventaObj.nombreCliente = venta.cliente.nombre;
+      ventaObj.cliente = venta.cliente._id.toString();
 
- //Obtener todas las ventas  del usuario autenticado--------------------------------------------------------------------------------------------------------------
- router.get("/sales", verifyToken, async (req, res) => {
-   try {
-     const ventas = await Venta.find({ usuario: req.userId })
-                               .populate('cliente', 'nombre') // Solo traer el campo 'nombre' del modelo Cliente
-                             .exec();
+      // Mapea los productos y servicios para reemplazar los IDs con nombres
+      ventaObj.productos = venta.productos.map(producto => producto.nombre);
+      ventaObj.servicios = venta.servicios.map(servicio => servicio.nombre);
 
-   const ventasConNombreCliente = ventas.map(venta => {
-     const ventaObj = venta.toObject();
+      return ventaObj;
+    });
 
-     ventaObj.nombreCliente = venta.cliente.nombre;
-     ventaObj.cliente = venta.cliente._id.toString(); // Asignar solo el valor ID (convertido a string) de cliente
-
-     return ventaObj;
-   });
-
-   res.status(200).json(ventasConNombreCliente);
- } catch (error) {
-   console.error(error);
-   res
-     .status(500)
-     .json({ message: "Error de servidor al obtener las ventas" });
- }
+    res.status(200).json(ventasConNombres);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error de servidor al obtener las ventas" });
+  }
 });
-
-
-
-
 
 
 // Obtener todas las facturas de cliente  del usuario autenticado--------------------------------------------------------------------------------------------------------------

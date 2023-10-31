@@ -12,6 +12,7 @@ import MasVendidoS from "../components/ventaComponents/masVendidoS.js";
 import ResumenVentas from "../components/ventaComponents/resumenVentas.js";
 import ComparacionVentas from "../components/ventaComponents/comparacionVentas.js";
 import HistorialVentas from "../components/ventaComponents/historialVentas.js";
+import ComparacionVentasDiario from "../components/ventaComponents/comparacionVentasDiario.js";
 
 export default function Ingresos() {
   const { ventas, singleVenta, setSingleVenta, loading, error, getVentas } =
@@ -26,7 +27,7 @@ export default function Ingresos() {
         </div>
         <div className="div2V">
           {" "}
-          <ComparacionVentas />
+          <ComparacionVentasDiario />
         </div>
         <div className="div3V">
           <MasVendido />

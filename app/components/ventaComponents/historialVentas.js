@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import useServicios from "app/hooks/useServicios.js";
 import useProductos from "app/hooks/useProductos.js";
 import useVentas from "app/hooks/useVentas.js";
-import "./masVendidoS.css";
+import "./historialVentas.css";
+import {AiOutlineDownload} from "react-icons/ai";
 
 function HistorialVentas() {
   const { ventas, singleVenta, setSingleVenta, loading, error, getVentas } =
@@ -83,54 +84,95 @@ function HistorialVentas() {
     (sum, venta) => sum + venta.cantidadNeta,
     0
   );
+  const roundedBruto = Math.round(totalBruto);
+  const roundedNeto = Math.round(totalNeto);
 
   return (
-    <div>
-      <h2>Historial de ventas</h2>
-      <div>
-        <label>
-          Mes:
-          <select value={selectedMonth} onChange={handleMonthChange}>
+    <section className="sectionHistorialV">
+      <header className="headerHistorialV">
+        <h2 className="h2HeaderHistorialV">Historial de ventas</h2>
+        <div className="headerRowHistorialV">
+          <select
+            className="selectorsHistorialV"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+          >
             {monthNames.map((month, index) => (
-              <option key={index} value={index}>
+              <option className="txt-black" key={index} value={index}>
                 {month}
               </option>
             ))}
           </select>
-        </label>
-        <label>
-          Año:
-          <select value={selectedYear} onChange={handleYearChange}>
+
+          <select
+            className="selectorsHistorialV"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
             {/* Rango de años (puedes adaptarlo) */}
             {Array.from({ length: 10 }, (_, i) => currentYear - i).map(
               (year) => (
-                <option key={year} value={year}>
+                <option className="txt-black" key={year} value={year}>
                   {year}
                 </option>
               )
             )}
           </select>
-        </label>
-      </div>
 
-      <h2>
-        Ventas de {monthNames[selectedMonth]} {selectedYear}
-      </h2>
-      <p>Total Bruto: {totalBruto.toFixed(2)}€</p>
-      <p>Total Neto: {totalNeto.toFixed(2)}€</p>
-
-      {ventasDelMes.map((venta) => (
-        <div key={venta._id}>
-          <p>Cliente: {venta.cliente}</p>
-          <p>Cantidad Bruta: {venta.cantidadBruta}</p>
-          <p>Cantidad Neta: {venta.cantidadNeta}</p>
-          <button onClick={() => generarPdf(venta.factura)}>
-            Descargar Factura
-          </button>
-          <hr />
+          <div className="netoybrutoHistorialV">
+            <span className="netoybrutoTextoV">Bruto</span>
+            <span className="netoybrutoNumeroV">{roundedBruto}€</span>{" "}
+          </div>
+          <div className="netoybrutoHistorialV">
+            <span className="netoybrutoTextoV">Neto</span>
+            <span className="netoybrutoNumeroV">{roundedNeto}€</span>{" "}
+          </div>
         </div>
-      ))}
-    </div>
+      </header>
+      <div className="containerHistorialVentas">
+        {ventasDelMes.map((venta) => (
+          <div className="ventaHistorialV" key={venta._id}>
+            <div className="vHVNombre">
+              <span>{venta.nombreCliente}</span>
+            </div>
+            <div className="vHVBruto">
+              Bruto: <span>{venta.cantidadBruta}</span>
+            </div>
+            <div className="vHVNeto">
+              Neto: <span>{venta.cantidadNeta}</span>
+            </div>
+            <ul className="vHVContainerP">
+              <div className="vHVTittleP">Productos</div>
+              {venta.productos.map((producto, index) => (
+                <li className="vHVProducto" key={index}>
+                  {producto}
+                </li>
+              ))}
+            </ul>
+            <ul className="vHVContainerS">
+              <div className="vHVTittleS">Servicios</div>
+              {venta.servicios.map((servicio, index) => (
+                <li className="vHVServicio" key={index}>
+                  {servicio}
+                </li>
+              ))}
+            </ul>
+            <div className="buttonContainerHV">
+              {" "}
+              <button
+                className="buttonFacturas"
+                onClick={() => generarPdf(venta.factura)}
+              >
+                Factura
+                <span><AiOutlineDownload/></span>
+              </button>
+            </div>
+
+            <hr />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
