@@ -1,0 +1,189 @@
+.sectionHistorialG {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    width: 95%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .headerHistorialG {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .h2HeaderHistorialG {
+    width: 100%;
+    font-size: 2.7vw;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    margin-bottom: 3vh;
+    font-weight: 500;
+  }
+  .headerRowHistorialG {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  .selectorsHistorialG {
+    width: 24%;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+    border-radius: 15px;
+    padding: 0.2vw;
+  }
+  .netoybrutoHistorialG {
+    width: 24%;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+    border-radius: 15px;
+    display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .netoybrutoNumeroG {
+      font-weight: 600;
+    color: green;
+    display: flex;
+    height: 100%;
+    border-radius: 15px;
+    padding-left: 0.7vw;
+    padding-right: 0.5vw;
+    align-items: center;
+  }
+  .netoybrutoTextoG {
+    padding-left: 0.7vw;
+    align-items: center;
+  }
+  .txt-black {
+    color: black;
+  }
+  .containerHistorialGastos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+  .gastoHistorialG {
+    width: 49%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgb(196, 196, 196);
+    border-radius: 15px;
+    justify-content: space-evenly;
+    margin-bottom: 1vh;
+  }
+  .gHGNombre {
+    font-size: 1.5vw;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 0.5vh;
+  }
+  .gHGBruto {
+    font-size: 1vw;
+    justify-content: center;
+    display: flex;
+    width: 31%;
+    align-items: center;
+    margin-bottom: 0.5vh;
+  }
+  .gHGNeto {
+    font-size: 1vw;
+    justify-content: center;
+    display: flex;
+    width: 31%;
+    align-items: center;
+    margin-bottom: 0.5vh;
+  }
+  .gHGNombre span {
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+  }
+  .gHGBruto span {
+    padding-left: 0.4vw;
+    font-weight: 600;
+    color: green;
+  }
+  .gHGNeto span {
+    padding-left: 0.4vw;
+    font-weight: 600;
+    color: green;
+  }
+  .gHGContainerP {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 46%;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.285);
+  }
+  .gHGTittleP {
+      text-align: center;
+      font-size: 1vw;
+      font-weight: 600;
+    width: 100%;
+
+  }
+  .gHGProducto {
+    width: 100%;
+    text-align: center;
+    font-size: 1vw;
+  }
+  .gHGContainerS {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 46%;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.285);
+  }
+  .gHGTittleS {
+      text-align: center;
+      font-size: 1vw;
+      font-weight: 600;
+    width: 100%;
+  }
+  .gHGServicio {
+    width: 100%;
+    text-align: center;
+    font-size: 1vw;
+  }
+  .buttonContainerHV {
+    display: flex;
+    width: 100%;
+    margin-top: 1vh;
+  }
+  .buttonFacturas {
+    background-color: white;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: 0.5vw;
+    margin-bottom: 1vh;
+    padding-left: 0.7vw;
+    padding-right: 0.7vw;
+    display: flex;
+    font-size: 1vw;
+    justify-content: center;
+    align-items: center;
+  }
+  .buttonFacturas span {
+    color: green;
+    font-size: 1.5vw;
+    margin-left: 0.4vw;
+  }
+  

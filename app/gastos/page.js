@@ -18,22 +18,22 @@ export default function Gastos() {
   return (
     <main className="home">
       <div className="parent">
-        <div className="div1">
+        <div className="div1G">
           {" "}
           <ResumenGastos />
         </div>
-        <div className="div2">
+        <div className="div2G">
           {" "}
           <ComparacionGastos />
         </div>
-        <div className="div3">
+        <div className="div3G">
           <MasComprado />
         </div>
-        <div className="div4">
+        <div className="div4G">
           {" "}
           <HistorialGastosFijos />
         </div>
-        <div className="div5">
+        <div className="div5G">
           <HistorialGastos />
         </div>
       </div>

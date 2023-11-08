@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import useServicios from "app/hooks/useServicios.js";
 import useProductos from "app/hooks/useProductos.js";
 import useGastos from "app/hooks/useGastos.js";
-import "./historialGastos.css";
+import "./historialGastosFijos.css";
+import { AiOutlineDownload } from "react-icons/ai";
 
 function HistorialGastosFijos() {
   const { gastos, singleVenta, setSingleVenta, loading, error, getGastos } =
@@ -84,54 +85,77 @@ function HistorialGastosFijos() {
     (sum, gasto) => sum + gasto.cantidadNeta,
     0
   );
+  const roundedBruto = Math.round(totalBruto);
+  const roundedNeto = Math.round(totalNeto);
 
   return (
-    <div>
-      <h2>Historial de gastos</h2>
-      <div>
-        <label>
-          Mes:
-          <select value={selectedMonth} onChange={handleMonthChange}>
+    <section className="sectionHistorialGF">
+      <header className="headerHistorialGF">
+        <h2 className="h2HeaderHistorialGF">Gastos Fijos</h2>
+        <div className="headerRowHistorialGF">
+          <select
+            className="selectorsHistorialGF"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+          >
             {monthNames.map((month, index) => (
-              <option key={index} value={index}>
+              <option className="txt-black" key={index} value={index}>
                 {month}
               </option>
             ))}
           </select>
-        </label>
-        <label>
-          Año:
-          <select value={selectedYear} onChange={handleYearChange}>
+
+          <select
+            className="selectorsHistorialGF"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
             {/* Rango de años (puedes adaptarlo) */}
             {Array.from({ length: 10 }, (_, i) => currentYear - i).map(
               (year) => (
-                <option key={year} value={year}>
+                <option className="txt-black" key={year} value={year}>
                   {year}
                 </option>
               )
             )}
           </select>
-        </label>
-      </div>
 
-      <h2>
-        GAstos de {monthNames[selectedMonth]} {selectedYear}
-      </h2>
-      <p>Total Bruto: {totalBruto.toFixed(2)}€</p>
-      <p>Total Neto: {totalNeto.toFixed(2)}€</p>
-
-      {gastosDelMes.map((gasto) => (
-        <div key={gasto._id}>
-          <p>Proveedor: {gasto.nombreProveedor}</p>
-          <p>Cantidad Bruta: {gasto.cantidadBruta}</p>
-          <p>Cantidad Neta: {gasto.cantidadNeta}</p>
-          <button onClick={() => generarPdf(gasto.factura)}>
-            Descargar Factura
-          </button>
-          <hr />
+          <div className="netoybrutoHistorialGF">
+            <span className="netoybrutoTextoGF">Bruto</span>
+            <span className="netoybrutoNumeroGF">{roundedBruto}€</span>{" "}
+          </div>
+          <div className="netoybrutoHistorialGF">
+            <span className="netoybrutoTextoGF">Neto</span>
+            <span className="netoybrutoNumeroGF">{roundedNeto}€</span>{" "}
+          </div>
         </div>
-      ))}
-    </div>
+      </header>
+      <div className="containerHistorialGastos">
+        {gastosDelMes.map((gasto) => (
+          <div className="gastoHistorialGF" key={gasto._id}>
+              {gasto.servicios.map((servicio, index) => (
+              <div className="gHGFServicio" key={index}>
+                {servicio.nombre}
+              </div>
+            ))}{" "}
+            <div className="gHGFNombre">
+              <span>{gasto.nombreProveedor}</span>
+            </div>
+            <div className="gHGFNeto">{gasto.cantidadNeta}</div>
+          
+            <button
+              className="buttonFacturasGF"
+              onClick={() => generarPdf(gasto.factura)}
+            >
+              <span>
+                <AiOutlineDownload />
+              </span>
+            </button>
+         
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

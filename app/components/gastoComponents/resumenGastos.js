@@ -12,6 +12,20 @@ function ResumenGastos() {
   const { gastos, singleVenta, setSingleVenta, loading, error, getGastos } =
     useGastos();
 
+  const nombresDeMeses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
   const serviciosOrdenados = [...servicios].sort(
     (a, b) => b.vecesVendido - a.vecesVendido
   );
@@ -35,30 +49,48 @@ function ResumenGastos() {
     (acc, gasto) => acc + (gasto.cantidadNeta || 0),
     0
   );
+  const roundedGastos = Math.round(totalNetaDelMes);
+
+  const gastosFijosDelMes = gastosDelMes?.filter(
+    (gasto) => gasto.tipo === "fijo"
+  );
+
+  const totalGastosFijosDelMes = gastosFijosDelMes?.reduce(
+    (acc, gasto) => acc + (gasto.cantidadNeta || 0),
+    0
+  );
+  const roundedGastosFijos = Math.round(totalGastosFijosDelMes);
+  const numeroDeGastosEsteMes = gastosDelMes?.length;
+
+  const totalProductosComprados = gastosDelMes?.reduce((acc, gasto) => {
+    return acc + (gasto.productos?.length || 0);
+  }, 0);
 
   return (
-    <div>
-      <h2>Resumen</h2>
-      <h3>Total de gastos este mes: {totalNetaDelMes?.toFixed(2) || "0.00"}</h3>
-      <h3>Servicio más vendido</h3>
-      <div>
-        {serviciosOrdenados?.[0]?.nombre || "No hay servicios disponibles"}
+    <section className="sectionResumenG">
+      <h2 className="h2G">Resumen</h2>
+      <div className="containerTexto1G">
+        <h3 className="texto1G"> Gastos {nombresDeMeses[mesActual]} </h3>
+
+        <span className="number1G">
+          {roundedGastos} <span className="euro1G">€</span>
+        </span>
       </div>
-      <h3>Producto más vendido</h3>
-      <div>
-        {productosOrdenados?.[0]?.nombre || "No hay productos disponibles"}
+      <div className="containerTexto2G">
+        <h3 className="texto2G"> Gastos fijos </h3>
+        <span className="number1G">
+          {roundedGastosFijos} <span className="euro1G">€</span>
+        </span>
       </div>
-      {gastos &&
-        gastos.slice(0, 5).map((gasto) => (
-          <div key={gasto._id} className="gastoItem">
-            <p>Descripción de la gasto: {gasto.descripcion}</p>
-            <p>Proveedor: {gasto.nombreProveedor}</p>
-            <button onClick={() => generarPdf(gasto.factura)}>
-              Descargar Factura
-            </button>
-          </div>
-        ))}
-    </div>
+      <div className="containerTexto2G">
+        <h3 className="texto2G"> Nº de gastos </h3>
+        <span className="number2G">{numeroDeGastosEsteMes}</span>
+      </div>
+      <div className="containerTexto2G">
+        <h3 className="texto2G"> Nuevos productos </h3>
+        <span className="number2G">{totalProductosComprados}</span>
+      </div>
+    </section>
   );
 }
 

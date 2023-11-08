@@ -1,48 +1,49 @@
-.sectionHistorialV {
+.sectionHistorialGF {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-wrap: wrap;
   overflow-y: auto;
-  width: 90%;
+  width: 95%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
 }
-.headerHistorialV {
+.headerHistorialGF {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.h2HeaderHistorialV {
+.h2HeaderHistorialGF {
   width: 100%;
-  font-size: 2.7vw;
+  font-size: 1.5vw;
   text-align: center;
   background-color: rgb(196, 196, 196);
   color: rgb(0, 0, 0);
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
-  margin-bottom: 3vh;
+  margin-bottom: 0.5vh;
   font-weight: 500;
 }
-.headerRowHistorialV {
+.headerRowHistorialGF {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-evenly;
 }
-.selectorsHistorialV {
-  width: 24%;
+.selectorsHistorialGF {
+  width: 48%;
   font-size: 1.5vw;
   text-align: center;
   background-color: rgb(196, 196, 196);
   border-radius: 15px;
   padding: 0.2vw;
+  margin-bottom: 0.5vh;
 }
-.netoybrutoHistorialV {
-  width: 24%;
+.netoybrutoHistorialGF {
+  width: 48%;
   font-size: 1.5vw;
   text-align: center;
   background-color: rgb(196, 196, 196);
@@ -52,138 +53,102 @@
   justify-content: space-between;
   align-items: center;
 }
-.netoybrutoNumeroV {
-    font-weight: 600;
+.netoybrutoNumeroGF {
+  font-weight: 600;
   color: green;
   display: flex;
-  height: 100%;
   border-radius: 15px;
   padding-left: 0.7vw;
   padding-right: 0.5vw;
   align-items: center;
 }
-.netoybrutoTextoV {
+.netoybrutoTextoGF {
   padding-left: 0.7vw;
   align-items: center;
 }
 .txt-black {
   color: black;
 }
-.containerHistorialVentas {
+.containerHistorialGastos {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   overflow-y: auto;
 }
-.ventaHistorialV {
-  width: 49%;
+.gastoHistorialGF {
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   background-color: rgb(196, 196, 196);
   border-radius: 15px;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  align-items: center;
   margin-bottom: 1vh;
 }
-.vHVNombre {
-  font-size: 1.5vw;
+.gHGFNombre {
+  font-size: 1.1vw;
   justify-content: center;
   display: flex;
-  width: 100%;
+  width: auto;
   align-items: center;
-  margin-top: 0.5vh;
 }
-.vHVBruto {
+.gHGFNeto {
   font-size: 1vw;
   justify-content: center;
   display: flex;
   width: 31%;
   align-items: center;
-  margin-bottom: 0.5vh;
 }
-.vHVNeto {
-  font-size: 1vw;
-  justify-content: center;
-  display: flex;
-  width: 31%;
-  align-items: center;
-  margin-bottom: 0.5vh;
-}
-.vHVNombre span {
-  font-weight: 600;
+.gHGFNombre span {
+  font-style: italic;
   color: rgb(0, 0, 0);
 }
-.vHVBruto span {
-  padding-left: 0.4vw;
+.gHGFNeto {
   font-weight: 600;
+  font-size: 1.5vw;
   color: green;
 }
-.vHVNeto span {
-  padding-left: 0.4vw;
-  font-weight: 600;
-  color: green;
-}
-.vHVContainerP {
+.gHGFContainerS {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 46%;
+  width: auto;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.285);
 }
-.vHVTittleP {
-    text-align: center;
-    font-size: 1vw;
-    font-weight: 600;
-  width: 100%;
-
-}
-.vHVProducto {
-  width: 100%;
+.gHGFTittleS {
   text-align: center;
   font-size: 1vw;
-}
-.vHVContainerS {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 46%;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.285);
-}
-.vHVTittleS {
-    text-align: center;
-    font-size: 1vw;
-    font-weight: 600;
+  font-weight: 600;
   width: 100%;
-
 }
-.vHVServicio {
-  width: 100%;
+.gHGFServicio {
+  width: auto;
   text-align: center;
-  font-size: 1vw;
-}
-.buttonContainerHV {
+  font-size: 1.5vw;
+  font-weight: 600;
+  align-items: center;
   display: flex;
-  width: 100%;
-  margin-top: 1vh;
 }
-.buttonFacturas {
+
+.buttonFacturasGF {
+  width: auto;
   background-color: white;
   border-radius: 15px;
-  margin-left: auto;
-  margin-right: 0.5vw;
-  margin-bottom: 1vh;
-  padding-left: 0.7vw;
-  padding-right: 0.7vw;
   display: flex;
   font-size: 1vw;
   justify-content: center;
   align-items: center;
+  height: 70%;
 }
-.buttonFacturas span {
+.buttonFacturasGF span {
   color: green;
   font-size: 1.5vw;
-  margin-left: 0.4vw;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  
 }

@@ -12,7 +12,7 @@ const gastoSchema = new mongoose.Schema({
   },
   tipo: {
     type: String,
-    enum: ["fijo","proveedor"],
+    enum: ["fijo", "proveedor"],
     required: false,
   },
   cantidadNeta: {
