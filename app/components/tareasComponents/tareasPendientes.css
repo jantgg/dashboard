@@ -1,0 +1,88 @@
+.tittletareasTP {
+  width: 95%;
+  font-size: 2.7vw;
+  text-align: center;
+background-color: rgb(125, 125, 125);
+color: rgb(0, 0, 0);
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  margin-bottom: 1vh;
+  font-weight: 500;
+}
+
+.listatareasTP {
+  width: 95%;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: auto;
+  margin-bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+}
+.tareaTP {
+  display: flex;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+  margin-bottom: 1vh;
+  background-color: rgba(255, 255, 255, 0.098);
+}
+.warningTP {
+  color: rgb(255, 0, 0);
+  font-size: 1.5vw;
+  margin-left: 0.7vw;
+}
+.tarealeftcontainerTP {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.tareanombreTP {
+  width: 100%;
+  margin-left: 0.7vw;
+  font-size: 1.4vw;
+  color: white;
+}
+.tareadescripcionTP {
+  width: 100%;
+  margin-left: 0.7vw;
+  font-size: 1.2vw;
+}
+.checkTP {
+  font-size: 1.3vw;
+  background-color: rgba(255, 255, 255, 0.154);
+  padding-right: 0.7vw;
+  padding-left: 0.7vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 15px;
+  transition: background-color 0.3s ease-in;
+}
+.checkTP:hover {
+  background-color: rgba(51, 255, 0, 0.694);
+}
+
+.trashTP {
+  font-size: 1.3vw;
+  background-color: rgba(255, 255, 255, 0.154);
+  padding-right: 0.7vw;
+  padding-left: 0.7vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 15px;
+  margin-left: 0.5vw;
+  transition: background-color 0.3s ease-in;
+}
+.trashTP:hover {
+  background-color: rgba(255, 0, 0, 0.693);
+}
+
+.buttonstareaTP {
+  margin-right: 0.4vw;
+  
+}
