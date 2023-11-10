@@ -1,7 +1,8 @@
-"useClient"
+"useClient";
 import React, { useState, useEffect } from "react";
 import useVentas from "app/hooks/useVentas.js"; // Asegúrate de tener este hook
 import "./singleCliente.css";
+import { AiOutlineDownload } from "react-icons/ai";
 
 function SingleCliente({ cliente }) {
   const { ventas, getVentas, loading } = useVentas();
@@ -12,8 +13,6 @@ function SingleCliente({ cliente }) {
   const currentYear = currentDate.getFullYear();
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(currentYear);
-
-
 
   const monthNames = [
     "Enero",
@@ -29,6 +28,10 @@ function SingleCliente({ cliente }) {
     "Noviembre",
     "Diciembre",
   ];
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString("es-ES", options);
+  };
 
   const ventasDelClienteYMes = ventas.filter((venta) => {
     const fechaVenta = new Date(venta.fecha);
@@ -40,54 +43,80 @@ function SingleCliente({ cliente }) {
   });
 
   return (
-    <div>
-      {/* Aquí está el código de tu cliente */}
-      <div>
-        Nombre:
-        {cliente.nombre}
-      </div>
-      {/* ...resto del código... */}
-      
-      <div>
-        <h2>Compras de {cliente.nombre}</h2>
-        <div>
-          <label>
-            Mes:
-            <select value={selectedMonth} onChange={(e) => setSelectedMonth(Number(e.target.value))}>
-              {monthNames.map((month, index) => (
-                <option key={index} value={index}>
-                  {month}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Año:
-            <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
-              {/* Rango de años (puedes adaptarlo) */}
-              {Array.from({ length: 10 }, (_, i) => currentYear - i).map(
-                (year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                )
-              )}
-            </select>
-          </label>
-        </div>
+    <section className="sectionSC">
+      <header className="headerSC">
+        <div className="Cnombre">{cliente.nombre}</div>
+        <div className="Ccif">{cliente.cif}</div>
+        <div className="Ctelefono">{cliente.telefono}</div>
+        <div className="Cemail">{cliente.email}</div>
+        <div className="Cfecha">{cliente.fechaRegistro}</div>{" "}
+        <div className="Cdireccion">{cliente.direccion}</div>
+        <div className="Cventastotales">{cliente.ventasTotales}€</div>
+      </header>
+      <div className="historialventasSC">
+        <h2 className="historialtittleSC">Historial</h2>
+        <div className="selectorscontainerSC">
+          <select
+            className="selectorsSC"
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(Number(e.target.value))}
+          >
+            {monthNames.map((month, index) => (
+              <option key={index} value={index}>
+                {month}
+              </option>
+            ))}
+          </select>
 
+          <select
+            className="selectorsSC"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+          >
+            {Array.from({ length: 10 }, (_, i) => currentYear - i).map(
+              (year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+      </div>{" "}
+      <div className="ventascontainerSC">
         {ventasDelClienteYMes.map((venta) => (
-          <div key={venta._id}>
-            <p>Cantidad Bruta: {venta.cantidadBruta}</p>
-            <p>Cantidad Neta: {venta.cantidadNeta}</p>
-            <button onClick={() => generarPdf(venta.factura)}>
-              Descargar Factura
-            </button>
+          <div className="ventaHistorialSC" key={venta._id}>
+            <div className="leftcontainerhistorialSC">
+              <div className="SCNeto">
+                <span>{venta.cantidadNeta}€</span>
+              </div>
+              <div className="SCTittleP">
+                Productos: {venta.productos.length}
+              </div>
+              <div className="SCTittleS">
+                Servicios: {venta.servicios.length}
+              </div>{" "}
+            </div>
+            <div className="rightcontainerhistorialSC">
+              <div className="SCNombre">
+                <span>{formatDate(venta.fecha)}</span>
+              </div>
+              <button
+                className="buttonFacturasSC"
+                onClick={() => generarPdf(venta.factura)}
+              >
+                Factura
+                <span>
+                  <AiOutlineDownload />
+                </span>
+              </button>
+            </div>
+
             <hr />
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

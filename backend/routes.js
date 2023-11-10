@@ -303,15 +303,26 @@ router.delete("/servicio/:id", verifyToken, async (req, res) => {
 // Obtener todas los clientes del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/clients", verifyToken, async (req, res) => {
   try {
-    const client = await Cliente.find({ usuario: req.userId });
-    res.status(200).json(client);
+    // Utilizar lean() para obtener objetos JavaScript simples
+    let clients = await Cliente.find({ usuario: req.userId }).lean();
+
+    for (let client of clients) {
+      // Obtener todas las ventas asociadas al cliente y sumar las cantidades netas
+      const ventas = await Venta.find({ cliente: client._id });
+      const ventasTotales = ventas.reduce((sum, venta) => sum + venta.cantidadNeta, 0);
+
+      // Añadir ventasTotales al objeto del cliente
+      client.ventasTotales = ventasTotales;
+    }
+
+    res.status(200).json(clients);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error de servidor al obtener los clientes" });
+    res.status(500).json({ message: "Error de servidor al obtener los clientes" });
   }
 });
+
+
 // Crear una nuevo Cliente--------------------------------------------------------------------------------------------------------------
 router.post("/clients", verifyToken, async (req, res) => {
   try {

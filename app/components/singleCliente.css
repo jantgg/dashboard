@@ -1,0 +1,203 @@
+.sectionSC {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 95%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.headerSC {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(196, 196, 196);
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+.Cnombre {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 33.33%;
+  font-size: 2vw;
+  font-weight: 600;
+}
+.Ccif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.33%;
+  font-size: 1.3vw;
+}
+.Ctelefono {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 33.33%;
+  font-size: 1.3vw;
+}
+.Cemail {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 50%;
+  font-size: 1.3vw;
+}
+.Cfecha {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 50%;
+  font-size: 1.3vw;
+}
+.Cdireccion {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 70%;
+  font-size: 1.3vw;
+}
+.Cventastotales {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 30%;
+  font-size: 2vw;
+  color: green;
+  font-weight: 600;
+}
+
+.historialventasSC {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(196, 196, 196);
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+.historialtittleSC {
+  width: 50%;
+  font-size: 2vw;
+  font-weight: 600;
+}
+.selectorscontainerSC {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.selectorsSC {
+  width: 48%;
+  font-size: 1vw;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 15px;
+  padding: 5px;
+  margin-top: 0.2vh;
+  margin-bottom: 0.2vh;
+}
+.ventascontainerSC {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+.leftcontainerhistorialSC {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.rightcontainerhistorialSC {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.ventaHistorialSC {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(196, 196, 196);
+  border-radius: 15px;
+  justify-content: space-evenly;
+  margin-top: 1vh;
+}
+.SCNombre {
+  font-size: 1.5vw;
+  justify-content: right;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-right: 0.7vw;
+}
+.SCNombre span {
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+}
+.SCNeto {
+  font-size: 2vw;
+  justify-content: left;
+  display: flex;
+  width: 100%;
+  align-items: left;
+  margin-left: 0.7vw;
+  margin-top: 0.1vh;
+}
+
+.SCNeto span {
+  padding-left: 0.4vw;
+  font-weight: 600;
+  color: green;
+}
+.SCTittleP {
+  text-align: center;
+  font-size: 1vw;
+  font-weight: 600;
+  width: 50%;
+  margin-bottom: 0.7vh;
+}
+
+.SCTittleS {
+  text-align: center;
+  font-size: 1vw;
+  font-weight: 600;
+  width: 50%;
+  margin-bottom: 0.7vh;
+}
+
+.buttonFacturasSC {
+  background-color: white;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: 0.5vw;
+  margin-bottom: 1vh;
+  padding-left: 0.7vw;
+  padding-right: 0.7vw;
+  display: flex;
+  font-size: 1vw;
+  justify-content: center;
+  align-items: center;
+}
+.buttonFacturasSC span {
+  color: green;
+  font-size: 1.5vw;
+  margin-left: 0.4vw;
+}

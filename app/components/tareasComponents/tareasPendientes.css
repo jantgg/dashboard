@@ -2,8 +2,8 @@
   width: 95%;
   font-size: 2.7vw;
   text-align: center;
-background-color: rgb(125, 125, 125);
-color: rgb(0, 0, 0);
+  background-color: rgb(125, 125, 125);
+  color: rgb(0, 0, 0);
   margin-top: 2vh;
   margin-left: auto;
   margin-right: auto;
@@ -47,6 +47,7 @@ color: rgb(0, 0, 0);
   margin-left: 0.7vw;
   font-size: 1.4vw;
   color: white;
+  font-weight: 600;
 }
 .tareadescripcionTP {
   width: 100%;
@@ -84,5 +85,4 @@ color: rgb(0, 0, 0);
 
 .buttonstareaTP {
   margin-right: 0.4vw;
-  
 }
