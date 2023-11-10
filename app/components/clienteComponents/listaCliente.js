@@ -1,20 +1,15 @@
 "useClient";
 import React, { useState, useEffect } from "react";
 import useClientes from "app/hooks/useClientes.js"; // Asegúrate de tener este hook
-import "./listaCliente.css";
+import  {useClientesContext}  from 'app/hooks/ClientesContext.js';
 import { IoMdRefresh } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
+import "./listaCliente.css"
 
-function ListaCliente({ cliente }) {
-  const {
-    clientes,
-    singleCliente,
-    setSingleCliente,
-    loading,
-    error,
-    getClientes,
-  } = useClientes();
+
+function ListaCliente() {
+  const { clientes, singleCliente, setSingleCliente, fetchClientes } = useClientesContext();
 
   // delete de cliiente-----------------------------------------------------------------------
   const deleteCliente = async (tareaId) => {

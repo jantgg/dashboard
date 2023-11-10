@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import useVentas from "app/hooks/useVentas.js"; // Asegúrate de tener este hook
 import "./singleCliente.css";
 import { AiOutlineDownload } from "react-icons/ai";
+import  {useClientesContext}  from 'app/hooks/ClientesContext.js';
 
-function SingleCliente({ cliente }) {
+function SingleCliente() {
   const { ventas, getVentas, loading } = useVentas();
+  const {  singleCliente } = useClientesContext();
 
   // Estados para el mes y año seleccionados
   const currentDate = new Date();
@@ -36,7 +38,7 @@ function SingleCliente({ cliente }) {
   const ventasDelClienteYMes = ventas.filter((venta) => {
     const fechaVenta = new Date(venta.fecha);
     return (
-      venta.cliente === cliente._id &&
+      venta.cliente === singleCliente._id &&
       fechaVenta.getMonth() === selectedMonth &&
       fechaVenta.getFullYear() === selectedYear
     );
@@ -45,13 +47,13 @@ function SingleCliente({ cliente }) {
   return (
     <section className="sectionSC">
       <header className="headerSC">
-        <div className="Cnombre">{cliente.nombre}</div>
-        <div className="Ccif">{cliente.cif}</div>
-        <div className="Ctelefono">{cliente.telefono}</div>
-        <div className="Cemail">{cliente.email}</div>
-        <div className="Cfecha">{cliente.fechaRegistro}</div>{" "}
-        <div className="Cdireccion">{cliente.direccion}</div>
-        <div className="Cventastotales">{cliente.ventasTotales}€</div>
+        <div className="Cnombre">{singleCliente.nombre}</div>
+        <div className="Ccif">{singleCliente.cif}</div>
+        <div className="Ctelefono">{singleCliente.telefono}</div>
+        <div className="Cemail">{singleCliente.email}</div>
+        <div className="Cfecha">{singleCliente.fechaRegistro}</div>{" "}
+        <div className="Cdireccion">{singleCliente.direccion}</div>
+        <div className="Cventastotales">{singleCliente.ventasTotales}€</div>
       </header>
       <div className="historialventasSC">
         <h2 className="historialtittleSC">Historial</h2>
