@@ -1,0 +1,121 @@
+.sectionaddC {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sectionaddC h2 {
+  width: 100%;
+  text-align: center;
+  background-color: rgb(196, 196, 196);
+  font-size: 2vw;
+  border-radius: 15px;
+  margin-top: 2vh;
+}
+/* .spanAC1 {
+  width: 30%;
+  font-size: 1.5vw;
+  margin-top: 1vh;
+}
+.inputAC1 {
+  width: 70%;
+  padding-left: 0.7vw;
+  border-radius: 15px;
+  font-size: 1.3vw;
+  margin-top: 1vh;
+}
+.spanAC2 {
+  width: 30%;
+  font-size: 1.5vw;
+  margin-top: 1vh;
+}
+.inputAC2 {
+  width: 70%;
+  padding-left: 0.7vw;
+  border-radius: 15px;
+  font-size: 1.3vw;
+  margin-top: 1vh;
+}
+.spanAC3 {
+  width: 30%;
+  font-size: 1.5vw;
+  margin-top: 1vh;
+}
+.inputAC3 {
+  width: 70%;
+  padding-left: 0.7vw;
+  border-radius: 15px;
+  font-size: 1.3vw;
+  margin-top: 1vh;
+}
+.spanAC4 {
+  width: 30%;
+  font-size: 1.5vw;
+  margin-top: 1vh;
+}
+.inputAC4 {
+  width: 70%;
+  padding-left: 0.7vw;
+  border-radius: 15px;
+  font-size: 1.3vw;
+  margin-top: 1vh;
+}
+.spanAC5 {
+  width: 30%;
+  font-size: 1.5vw;
+  margin-top: 1vh;
+}
+.inputAC5 {
+  width: 70%;
+  padding-left: 0.7vw;
+  border-radius: 15px;
+  font-size: 1.3vw;
+  margin-top: 1vh;
+} */
+
+.inputgroupAC {
+  width: 100%;
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 1.5vw;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgb(196, 196, 196);
+}
+.iconAC {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: rgb(127, 127, 127);
+}
+.inputAC {
+  width: 85%;
+  padding-left: 0.7vw;
+  background-color: rgb(196, 196, 196);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+.inputAC:focus{
+    outline: none;
+}
+
+.buttonAC {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5vw;
+  background-color: rgb(196, 196, 196);
+  border-radius: 15px;
+  margin-top: 2vh;
+  padding:1vh 0.7vw 1vh 0.7vw;
+  transition: background-color 0.3s ease-in-out;
+}
+.buttonAC:hover{
+    background-color: rgba(51, 255, 0, 0.538);
+}

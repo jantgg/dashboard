@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "./page.css";
 import { useEffect, useState } from "react";
-import ClienteNuevo from "../components/crearCliente.js";
+import ClienteNuevo from "../components/clienteComponents/crearCliente.js";
 import SingleCliente from "app/components/clienteComponents/singleCliente.js";
 import ComparacionClientes from "../components/comparacionClientes.js";
 import ListaCliente from "../components/clienteComponents/listaCliente.js";

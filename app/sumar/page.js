@@ -3,7 +3,7 @@ import "./page.css";
 import VentaNueva from "../components/crearVenta";
 import GastoNuevo from "../components/crearGasto";
 import CrearTarea from "../components/crearTarea";
-import CrearCliente from "../components/crearCliente";
+import CrearCliente from "../components/clienteComponents/crearCliente";
 import CrearProveedor from "../components/crearProveedor";
 
 
