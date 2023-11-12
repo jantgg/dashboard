@@ -3,11 +3,13 @@ import Image from "next/image";
 import "./page.css";
 import { useEffect, useState } from "react";
 import ProductoNuevo from "../components/crearProducto.js";
-import SingleProducto from "../components/singleProducto.js";
+import SingleProducto from "../components/productoComponents/singleProducto.js";
 import MasVendido from "../components/ventaComponents/masVendido.js";
 import MasVendidoS from "../components/ventaComponents/masVendidoS.js";
+import ListaProducto from "../components/productoComponents/listaProducto.js";
 import useProductos from "../hooks/useProductos";
 import { Toaster, toast } from "sonner";
+import { ProductosProvider } from "../hooks/ProductosContext";
 
 export default function Productos() {
   const { productos, singleProducto, loading, error, getProductos } =
@@ -52,42 +54,28 @@ export default function Productos() {
   };
 
   return (
-    <main className="home">
-      <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
-      <div className="parent">
-        <div className="div1">
-          {" "}
-          <h2>Lista de productos y Stock total</h2>
-          <ul>
-            {productos.map((producto) => (
-              <li key={producto._id}>
-                {producto.nombre}
-                <button onClick={() => handleDeleteProducto(producto._id)}>
-                  Borrar
-                </button>
-              </li>
-            ))}
-          </ul>
+    <ProductosProvider>
+      {" "}
+      <main className="home">
+        <div className="parent">
+          <div className="div1PR">
+            {" "}
+            <ListaProducto />
+          </div>
+          <div className="div4PR">
+            <MasVendido />
+          </div>
+          <div className="div5PR">
+            <MasVendidoS />
+          </div>
+          <div className="div3PR">
+            <ProductoNuevo />
+          </div>
+          <div className="div2PR">
+            <SingleProducto producto={singleProducto} />
+          </div>
         </div>
-        <div className="div2"> Productos mas vendidos
-        <MasVendido/>
-        
-        </div>
-        <div className="div3"> Servicios mas solicitados 
-        <MasVendidoS/>
-        
-        </div>
-        <div className="div4">
-          {" "}
-          <h2>Añadir producto</h2>
-          <ProductoNuevo />
-        </div>
-        <div className="div5">
-          {" "}
-          <h2>Detalles del producto</h2>
-          <SingleProducto producto={singleProducto} />
-        </div>
-      </div>
-    </main>
+      </main>
+    </ProductosProvider>
   );
 }

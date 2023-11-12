@@ -1,40 +1,45 @@
+"use client"
 import React, { useState } from "react";
 import "./singleProducto.css";
+import  {useProductosContext}  from 'app/hooks/ProductosContext.js';
 
-function SingleProducto({ producto }) {
+
+
+function SingleProducto() {
+  const {  singleProducto } = useProductosContext();
   return (
     <div>
       <div>
         Nombre:
-        {producto.nombre}
+        {singleProducto.nombre}
       </div>
 
       <div>
         Descripción:
-        {producto.descripcion}
+        {singleProducto.descripcion}
       </div>
 
       <div>
         Precio de compra sin IVA
-        {producto.precioCompra}
+        {singleProducto.precioCompra}
       </div>
 
       <div>
         Precio de venta sin IVA
-        {producto.precioVenta}
+        {singleProducto.precioVenta}
       </div>
 
       <div>
         IVA
-        {producto.iva}
+        {singleProducto.iva}
       </div>
       <div>
         Numero de serie
-        {producto.numeroSerie}
+        {singleProducto.numeroSerie}
       </div>
       <div>
         Stock
-        {producto.stock}
+        {singleProducto.stock}
       </div>
     </div>
   );

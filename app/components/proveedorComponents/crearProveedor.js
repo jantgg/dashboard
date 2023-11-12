@@ -1,19 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import "./crearProveedor.css";
-import useProveedores from "../../hooks/useProveedores";
 import { Toaster, toast } from "sonner";
+import { useClientesContext } from "app/hooks/ClientesContext.js";
+import { BsFillPersonFill } from "react-icons/bs";
+import { FaRegAddressCard } from "react-icons/fa";
+import { BsHouseDoorFill } from "react-icons/bs";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { TbMailFilled } from "react-icons/tb";
 
 function ProveedorNuevo() {
-  const {
-    proveedores,
-    singleProveedor,
-    setSingleProveedor,
-    loading,
-    error,
-    getProveedores,
-  } = useProveedores();
-
+  const { fetchClientes } = useClientesContext();
   const [proveedorData, setProveedorData] = useState({
     nombre: "",
     cif: "",
@@ -25,7 +22,6 @@ function ProveedorNuevo() {
   const addProveedor = async (proveedorData) => {
     try {
       const token = localStorage.getItem("token"); // Recuperar el token del localStorage
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/suppliers`,
         {
@@ -49,6 +45,7 @@ function ProveedorNuevo() {
           telefono: "",
           email: "",
         });
+        fetchProveedores();
         toast.success("Proveedor añadido con éxito!");
       } else {
         throw new Error(data.message);
@@ -60,22 +57,30 @@ function ProveedorNuevo() {
   };
 
   return (
-    <div>
-      <Toaster/>
-      <label>
-        Nombre:
+    <section className="sectionaddP">
+      <h2>Añadir Proveedor</h2>
+      <div className="inputgroupAP">
+        <span className="iconAP">
+          <BsFillPersonFill />
+        </span>
         <input
+          placeholder="Nombre"
+          className="inputAP"
           type="text"
           value={proveedorData.nombre}
           onChange={(e) =>
             setProveedorData((prev) => ({ ...prev, nombre: e.target.value }))
           }
+          autoComplete="nope"
         />
-      </label>
-
-      <label>
-        cif:
-        <textarea
+      </div>
+      <div className="inputgroupAP">
+        <span className="iconAP">
+          <FaRegAddressCard />
+        </span>
+        <input
+          placeholder="Cif"
+          className="inputAP"
           value={proveedorData.cif}
           onChange={(e) =>
             setProveedorData((prev) => ({
@@ -83,12 +88,16 @@ function ProveedorNuevo() {
               cif: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
-      </label>
-
-      <label>
-        direccion:
+      </div>
+      <div className="inputgroupAP">
+        <span className="iconAP">
+          <BsHouseDoorFill />
+        </span>
         <input
+          placeholder="Dirección"
+          className="inputAP"
           value={proveedorData.direccion}
           onChange={(e) =>
             setProveedorData((prev) => ({
@@ -96,12 +105,16 @@ function ProveedorNuevo() {
               direccion: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
-      </label>
-
-      <label>
-        telefono:
+      </div>
+      <div className="inputgroupAP">
+        <span className="iconAP">
+          <BsFillTelephoneFill />
+        </span>
         <input
+          placeholder="Teléfono"
+          className="inputAP"
           value={proveedorData.telefono}
           onChange={(e) =>
             setProveedorData((prev) => ({
@@ -109,12 +122,16 @@ function ProveedorNuevo() {
               telefono: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
-      </label>
-
-      <label>
-        email:
+      </div>
+      <div className="inputgroupAP">
+        <span className="iconAP">
+          <TbMailFilled />
+        </span>
         <input
+          placeholder="Email"
+          className="inputAP"
           value={proveedorData.email}
           onChange={(e) =>
             setProveedorData((prev) => ({
@@ -122,13 +139,14 @@ function ProveedorNuevo() {
               email: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
-      </label>
+      </div>
 
-      <button onClick={() => addProveedor(proveedorData)}>
-        Añadir Proveedor
+      <button className="buttonAP" onClick={() => addProveedor(proveedorData)}>
+        Añadir
       </button>
-    </div>
+    </section>
   );
 }
 export default ProveedorNuevo;

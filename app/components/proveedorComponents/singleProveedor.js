@@ -6,7 +6,7 @@ import useGastos from "app/hooks/useGastos.js";
 import generarPdf from "app/hooks/generarPdf";
 import "./singleProveedor.css";
 
-function SingleProveedor({ proveedor }) {
+function SingleProveedor() {
   const { gastos } = useGastos();
   const {  singleProveedor } = useProveedoresContext();
  // Estados para el mes y año seleccionados

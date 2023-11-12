@@ -1,0 +1,112 @@
+.sectionLPR {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 95%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headerLPR {
+  display: flex;
+  width: 100%;
+  font-size: 2vw;
+  text-align: center;
+  background-color: rgb(149, 149, 149);
+  color: rgb(0, 0, 0);
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  margin-bottom: 1vh;
+  font-weight: 500;
+  justify-content: space-between;
+}
+.tittleLPR {
+  padding-left: 0.7vw;
+}
+.refreshLPR {
+  font-size: 1.3vw;
+  background-color: rgba(255, 255, 255, 0.336);
+  padding-right: 0.7vw;
+  padding-left: 0.7vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 15px;
+  transition: background-color 0.3s ease-in;
+}
+.refreshLPR:hover {
+  background-color: rgb(255, 255, 255);
+}
+.listaLPR {
+  width: 100%;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: auto;
+  margin-bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+}
+.productoLPR {
+  display: flex;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+  margin-bottom: 1vh;
+  background-color: rgba(255, 255, 255, 0.098);
+}
+
+.listaleftcontainerLPR {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.listanombreLPR {
+  width: 100%;
+  margin-left: 0.7vw;
+  font-size: 1.4vw;
+  color: white;
+  font-weight: 600;
+}
+.listadescripcionLPR {
+  width: 100%;
+  margin-left: 0.7vw;
+  font-size: 1vw;
+  color: rgb(0, 225, 0);
+}
+.detailsLPR {
+  font-size: 1.3vw;
+  background-color: rgba(255, 255, 255, 0.154);
+  padding-right: 0.7vw;
+  padding-left: 0.7vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 15px;
+  transition: background-color 0.3s ease-in;
+}
+.detailsLPR:hover {
+  background-color: rgba(51, 255, 0, 0.538);
+}
+
+.trashLPR {
+  font-size: 1.3vw;
+  background-color: rgba(255, 255, 255, 0.154);
+  padding-right: 0.7vw;
+  padding-left: 0.7vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 15px;
+  margin-left: 0.5vw;
+  transition: background-color 0.3s ease-in;
+}
+.trashLPR:hover {
+  background-color: rgba(255, 0, 0, 0.595);
+}
+
+.buttonscontainerLPR {
+  margin-right: 0.4vw;
+}

@@ -1,0 +1,40 @@
+.sectionGastosRVG {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  
+  .tittleGastosRVG {
+    width: 90%;
+    font-size: 2vw;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+    color: rgb(0, 0, 0);
+    border-radius: 15px;
+    font-weight: 500;
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+  }
+  .containerSelectorGastosRVG {
+    width: 90%;
+    display: flex;
+  }
+  
+  .selectorGastosRVG {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1vw;
+    font-weight: 600;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+    color: rgb(0, 0, 0);
+    border-radius: 15px;
+    padding: 5px;
+  }
+  
