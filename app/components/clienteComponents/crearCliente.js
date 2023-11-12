@@ -78,6 +78,7 @@ function ClienteNuevo() {
           onChange={(e) =>
             setClienteData((prev) => ({ ...prev, nombre: e.target.value }))
           }
+          autoComplete="nope"
         />
       </div>
       <div className="inputgroupAC">
@@ -94,6 +95,7 @@ function ClienteNuevo() {
               cif: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
       </div>
       <div className="inputgroupAC">
@@ -110,6 +112,7 @@ function ClienteNuevo() {
               direccion: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
       </div>
       <div className="inputgroupAC">
@@ -126,6 +129,7 @@ function ClienteNuevo() {
               telefono: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
       </div>
       <div className="inputgroupAC">
@@ -142,6 +146,7 @@ function ClienteNuevo() {
               email: e.target.value,
             }))
           }
+          autoComplete="nope"
         />
       </div>
 

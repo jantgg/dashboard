@@ -1,0 +1,34 @@
+.clientesgraficasection {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+.clientesgrafica {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.clientesgrafica h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 2vw;
+  font-weight: 500;
+  background-color: grey;
+  border-radius: 15px;
+  margin-top: 2vh;
+}
+.clientesgrafica select {
+  width: 40%;
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 500;
+  background-color:rgb(196, 196, 196);
+  border-radius: 15px;
+  margin-top: 2vh;
+
+}

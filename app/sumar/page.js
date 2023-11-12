@@ -4,7 +4,7 @@ import VentaNueva from "../components/crearVenta";
 import GastoNuevo from "../components/crearGasto";
 import CrearTarea from "../components/crearTarea";
 import CrearCliente from "../components/clienteComponents/crearCliente";
-import CrearProveedor from "../components/crearProveedor";
+import CrearProveedor from "../components/proveedorComponents/crearProveedor";
 
 
 export default function Sumar() {

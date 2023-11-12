@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "./crearProveedor.css";
-import useProveedores from "../hooks/useProveedores";
+import useProveedores from "../../hooks/useProveedores";
 import { Toaster, toast } from "sonner";
 
 function ProveedorNuevo() {

@@ -1,4 +1,4 @@
-.sectionSC {
+.sectionSP {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -7,7 +7,7 @@
   margin-right: auto;
   padding-bottom: 1vh;
 }
-.headerSC {
+.headerSP {
   line-height: 1.2;
   width: 95%;
   display: flex;
@@ -23,50 +23,51 @@
   margin-left: auto;
   margin-right: auto;
 }
-.Cnombre {
+.Pnombre {
   display: flex;
   justify-content: left;
   align-items: center;
-  width: 33.33%;
+  width: 60%;
   font-size: 2vw;
   font-weight: 500;
 }
-.Ccif {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33.33%;
-  font-size: 1.3vw;
-}
-.Ctelefono {
+.Pcif {
   display: flex;
   justify-content: right;
   align-items: center;
-  width: 33.33%;
+  width: 40%;
+  font-size: 1.3vw;
+  padding-left: 0.7vw;
+}
+.Ptelefono {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
   font-size: 1.3vw;
 }
-.Cemail {
+.Pemail {
   display: flex;
   justify-content: left;
   align-items: center;
   width: 50%;
   font-size: 1.3vw;
 }
-.Cfecha {
+.Pfecha {
   display: flex;
   justify-content: right;
   align-items: center;
   width: 50%;
   font-size: 1.3vw;
 }
-.Cdireccion {
+.Pdireccion {
   display: flex;
   justify-content: left;
   align-items: center;
   width: 70%;
   font-size: 1.3vw;
 }
-.Cventastotales {
+.Pgastostotales {
   display: flex;
   justify-content: right;
   align-items: center;
@@ -76,10 +77,10 @@
   font-weight: 500;
 }
 
-.historialventasSC {
+.historialgastosSP {
   width: 95%;
   margin-left: auto;
-   margin-right: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -90,12 +91,12 @@
   padding-right: 0.5vw;
   margin-bottom: 1vh;
 }
-.historialtittleSC {
+.historialtittleSP {
   width: 50%;
   font-size: 2vw;
   font-weight: 500;
 }
-.selectorscontainerSC {
+.selectorscontainerSP {
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -105,7 +106,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.selectorsSC {
+.selectorsSP {
   width: 48%;
   font-size: 1vw;
   text-align: center;
@@ -116,32 +117,31 @@
   margin-top: 0.2vh;
   margin-bottom: 0.2vh;
 }
-.ventascontainerSC {
+.gastoscontainerSP {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   overflow-y: auto;
   width: 95%;
- margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   padding-right: 5px;
-
 }
-.leftcontainerhistorialSC {
+.leftcontainerhistorialSP {
   width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-.rightcontainerhistorialSC {
+.rightcontainerhistorialSP {
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-.ventaHistorialSC {
+.gastoHistorialSP {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -151,7 +151,7 @@
   justify-content: space-evenly;
   margin-top: 1vh;
 }
-.SCNombre {
+.SPNombre {
   font-size: 1.5vw;
   justify-content: right;
   display: flex;
@@ -159,11 +159,11 @@
   align-items: center;
   padding-right: 0.7vw;
 }
-.SCNombre span {
+.SPNombre span {
   font-weight: 600;
   color: rgb(0, 0, 0);
 }
-.SCNeto {
+.SPNeto {
   font-size: 2vw;
   justify-content: left;
   display: flex;
@@ -173,12 +173,12 @@
   margin-top: 0.1vh;
 }
 
-.SCNeto span {
+.SPNeto span {
   padding-left: 0.4vw;
   font-weight: 600;
   color: green;
 }
-.SCTittleP {
+.SPTittleP {
   text-align: center;
   font-size: 1vw;
   font-weight: 600;
@@ -187,7 +187,7 @@
   padding-left: 0.5vw;
 }
 
-.SCTittleS {
+.SPTittleS {
   text-align: center;
   font-size: 1vw;
   font-weight: 600;
@@ -195,7 +195,7 @@
   margin-bottom: 0.7vh;
 }
 
-.buttonFacturasSC {
+.buttonFacturasSP {
   background-color: white;
   border-radius: 15px;
   margin-left: auto;
@@ -208,31 +208,31 @@
   justify-content: center;
   align-items: center;
 }
-.buttonFacturasSC span {
+.buttonFacturasSP span {
   color: green;
   font-size: 1.5vw;
   margin-left: 0.4vw;
 }
 /* Estilo para la barra de desplazamiento */
-.ventascontainerSC::-webkit-scrollbar {
+.gastoscontainerSP::-webkit-scrollbar {
   border-radius: 10px;
   width: 10px; /* Ancho de la barra de desplazamiento */
 }
 
 /* Estilo para la pista (track) de la barra */
-.ventascontainerSC::-webkit-scrollbar-track {
+.gastoscontainerSP::-webkit-scrollbar-track {
   border-radius: 10px;
   background: #f1f1f1; /* Color de fondo de la pista */
 }
 
 /* Estilo para el control deslizante (thumb) de la barra */
-.ventascontainerSC::-webkit-scrollbar-thumb {
+.gastoscontainerSP::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #888; /* Color del control deslizante */
 }
 
 /* Estilo para el control deslizante al pasar el mouse */
-.ventascontainerSC::-webkit-scrollbar-thumb:hover {
+.gastoscontainerSP::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   background: #555; /* Color al pasar el mouse */
 }

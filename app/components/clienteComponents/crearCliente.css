@@ -13,68 +13,8 @@
   font-size: 2vw;
   border-radius: 15px;
   margin-top: 2vh;
+  font-weight: 500;
 }
-/* .spanAC1 {
-  width: 30%;
-  font-size: 1.5vw;
-  margin-top: 1vh;
-}
-.inputAC1 {
-  width: 70%;
-  padding-left: 0.7vw;
-  border-radius: 15px;
-  font-size: 1.3vw;
-  margin-top: 1vh;
-}
-.spanAC2 {
-  width: 30%;
-  font-size: 1.5vw;
-  margin-top: 1vh;
-}
-.inputAC2 {
-  width: 70%;
-  padding-left: 0.7vw;
-  border-radius: 15px;
-  font-size: 1.3vw;
-  margin-top: 1vh;
-}
-.spanAC3 {
-  width: 30%;
-  font-size: 1.5vw;
-  margin-top: 1vh;
-}
-.inputAC3 {
-  width: 70%;
-  padding-left: 0.7vw;
-  border-radius: 15px;
-  font-size: 1.3vw;
-  margin-top: 1vh;
-}
-.spanAC4 {
-  width: 30%;
-  font-size: 1.5vw;
-  margin-top: 1vh;
-}
-.inputAC4 {
-  width: 70%;
-  padding-left: 0.7vw;
-  border-radius: 15px;
-  font-size: 1.3vw;
-  margin-top: 1vh;
-}
-.spanAC5 {
-  width: 30%;
-  font-size: 1.5vw;
-  margin-top: 1vh;
-}
-.inputAC5 {
-  width: 70%;
-  padding-left: 0.7vw;
-  border-radius: 15px;
-  font-size: 1.3vw;
-  margin-top: 1vh;
-} */
-
 .inputgroupAC {
   width: 100%;
   margin-top: 1vh;

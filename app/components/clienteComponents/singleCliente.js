@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import useVentas from "app/hooks/useVentas.js"; // Asegúrate de tener este hook
 import "./singleCliente.css";
+import generarPdf from "app/hooks/generarPdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import  {useClientesContext}  from 'app/hooks/ClientesContext.js';
 

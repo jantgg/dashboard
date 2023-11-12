@@ -9,7 +9,7 @@ import "./listaCliente.css"
 
 
 function ListaCliente() {
-  const { clientes, singleCliente, setSingleCliente, fetchClientes } = useClientesContext();
+  const { clientes, setSingleCliente, fetchClientes } = useClientesContext();
 
   // delete de cliiente-----------------------------------------------------------------------
   const deleteCliente = async (tareaId) => {
@@ -29,7 +29,7 @@ function ListaCliente() {
       const data = await response.json();
 
       if (response.ok) {
-        getClientes();
+        fetchClientes();
         toast.success("Cliente eliminado con éxito!");
       } else {
         throw new Error(data.message);
