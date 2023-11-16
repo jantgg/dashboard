@@ -72,7 +72,7 @@ export default function Productos() {
             <ProductoNuevo />
           </div>
           <div className="div2PR">
-            <SingleProducto producto={singleProducto} />
+            <SingleProducto />
           </div>
         </div>
       </main>
