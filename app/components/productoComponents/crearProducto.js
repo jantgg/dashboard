@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import "./crearProducto.css";
 import { Toaster, toast } from "sonner";
-import useProductos from "../hooks/useProductos";
-import useServicios from "../hooks/useServicios";
-import useProveedores from "../hooks/useProveedores";
+import useProductos from "../../hooks/useProductos";
+import useServicios from "../../hooks/useServicios";
+import useProveedores from "../../hooks/useProveedores";
+import { BsFillPersonFill } from "react-icons/bs";
 
 function ProductoNuevo() {
   const [itsProduct, setItsProduct] = useState(true);
@@ -20,7 +21,7 @@ function ProductoNuevo() {
     numeroSerie: "",
     stock: "",
     vecesComprado: "",
-    proveedor:"",
+    proveedor: "",
   });
   const [servicioData, setServicioData] = useState({
     usuario: "",
@@ -57,7 +58,7 @@ function ProductoNuevo() {
           iva: "",
           numeroSerie: "",
           stock: "",
-          proveedor:"",
+          proveedor: "",
         });
         getProductos();
         // Mostrar una notificación de éxito
@@ -121,65 +122,82 @@ function ProductoNuevo() {
   };
 
   return (
-    <div>
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="product"
-            checked={itsProduct}
-            onChange={handleSelectionChange}
-          />
-          Producto
-        </label>
+    <section className="sectionCPR">
+      <h2>Crear producto</h2>
+      <div className="typeselectorCPR">
+        <input
+          id="product"
+          type="radio"
+          name="type"
+          value="product"
+          checked={itsProduct}
+          onChange={handleSelectionChange}
+        />
+        <label for="product">Producto</label>
 
-        <label>
-          <input
-            type="radio"
-            value="service"
-            checked={!itsProduct}
-            onChange={handleSelectionChange}
-          />
-          Servicio
-        </label>
+        <input
+          id="service"
+          type="radio"
+          name="type"
+          value="service"
+          checked={!itsProduct}
+          onChange={handleSelectionChange}
+        />
+        <label for="service">Servicio</label>
       </div>
       <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
       {itsProduct ? (
         <>
           {" "}
-          <label>
-            Nombre:
+          <div className="inputgroupCPR">
+            <span className="iconCPR">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR"
+              placeholder="Nombre"
+              autoComplete="nope"
               type="text"
               value={productoData.nombre}
               onChange={(e) =>
                 setProductoData((prev) => ({ ...prev, nombre: e.target.value }))
               }
             />
-          </label>
-          <label>
-          Proveedor:
-          <select
-            value={productoData.proveedor ? productoData.proveedor._id : ""}
-            onChange={(e) => {
-              const selectedProveedor = proveedores.find(
-                (proveedor) => proveedor._id === e.target.value
-              );
-              setProductoData((prev) => ({ ...prev, proveedor: selectedProveedor }));
-            }}
-          >
-            <option value="">Seleccione un proveedor</option>
-            {Array.isArray(proveedores) &&
-              proveedores.map((proveedor) => (
-                <option key={proveedor._id} value={proveedor._id}>
-                  {proveedor.nombre}
-                </option>
-              ))}
-          </select>
-        </label>
-          <label>
-            Descripción:
+          </div>
+          <div className="inputgroupCPR">
+            <span className="iconCPR">
+              <BsFillPersonFill />
+            </span>
+            <select
+              className="inputCPR"
+              value={productoData.proveedor ? productoData.proveedor._id : ""}
+              onChange={(e) => {
+                const selectedProveedor = proveedores.find(
+                  (proveedor) => proveedor._id === e.target.value
+                );
+                setProductoData((prev) => ({
+                  ...prev,
+                  proveedor: selectedProveedor,
+                }));
+              }}
+            >
+              <option value="">Seleccione un proveedor</option>
+              {Array.isArray(proveedores) &&
+                proveedores.map((proveedor) => (
+                  <option key={proveedor._id} value={proveedor._id}>
+                    {proveedor.nombre}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="inputgroupCPR">
+            <span className="iconCPR">
+              <BsFillPersonFill />
+            </span>
             <textarea
+              className="inputCPR"
+              placeholder="Descripción"
+              autoComplete="nope"
               value={productoData.descripcion}
               onChange={(e) =>
                 setProductoData((prev) => ({
@@ -188,10 +206,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            Precio de compra con IVA
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR-h"
+              placeholder="€ compra c/IVA"
+              autoComplete="nope"
+              type="text"
               value={productoData.precioCompra}
               onChange={(e) =>
                 setProductoData((prev) => ({
@@ -200,10 +224,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            Precio de venta con IVA
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR-h"
+              placeholder="€ venta c/IVA"
+              autoComplete="nope"
+              type="text"
               value={productoData.precioVenta}
               onChange={(e) =>
                 setProductoData((prev) => ({
@@ -212,10 +242,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            IVA
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR-h"
+              placeholder="IVA"
+              autoComplete="nope"
+              type="text"
               value={productoData.iva}
               onChange={(e) =>
                 setProductoData((prev) => ({
@@ -224,22 +260,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            Numero de serie
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
-              value={productoData.numeroSerie}
-              onChange={(e) =>
-                setProductoData((prev) => ({
-                  ...prev,
-                  numeroSerie: e.target.value,
-                }))
-              }
-            />
-          </label>
-          <label>
-            Numero de unidades
-            <input
+              className="inputCPR-h"
+              placeholder="Nº unidades"
+              autoComplete="nope"
+              type="text"
               value={productoData.stock}
               onChange={(e) =>
                 setProductoData((prev) => ({
@@ -249,27 +279,57 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <button onClick={() => addProducto(productoData)}>
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCPR-h"
+              placeholder="Nº serie"
+              autoComplete="nope"
+              type="text"
+              value={productoData.numeroSerie}
+              onChange={(e) =>
+                setProductoData((prev) => ({
+                  ...prev,
+                  numeroSerie: e.target.value,
+                }))
+              }
+            />
+          </div>
+       
+          <button className="buttonCPR" onClick={() => addProducto(productoData)}>
             Añadir Producto
           </button>
         </>
       ) : (
         <>
           {" "}
-          <label>
-            Nombre:
+          <div className="inputgroupCPR">
+            <span className="iconCPR">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR"
+              placeholder="Nombre"
+              autoComplete="nope"
               type="text"
               value={servicioData.nombre}
               onChange={(e) =>
                 setServicioData((prev) => ({ ...prev, nombre: e.target.value }))
               }
             />
-          </label>
-          <label>
-            Descripción:
+          </div>
+         
+          <div className="inputgroupCPR">
+            <span className="iconCPR">
+              <BsFillPersonFill />
+            </span>
             <textarea
+              className="inputCPR"
+              placeholder="Descripción"
+              autoComplete="nope"
               value={servicioData.descripcion}
               onChange={(e) =>
                 setServicioData((prev) => ({
@@ -278,10 +338,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            Precio de venta con IVA
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR-h"
+              placeholder="€ venta c/IVA"
+              autoComplete="nope"
+              type="text"
               value={servicioData.precioVenta}
               onChange={(e) =>
                 setServicioData((prev) => ({
@@ -290,10 +356,16 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <label>
-            IVA
+          </div>
+          <div className="inputgroupCPR-h">
+            <span className="iconCPR-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCPR-h"
+              placeholder="IVA"
+              autoComplete="nope"
+              type="text"
               value={servicioData.iva}
               onChange={(e) =>
                 setServicioData((prev) => ({
@@ -302,13 +374,14 @@ function ProductoNuevo() {
                 }))
               }
             />
-          </label>
-          <button onClick={() => addServicio(servicioData)}>
+          </div>
+
+          <button className="buttonCPR-s" onClick={() => addServicio(servicioData)}>
             Añadir Servicio
           </button>
         </>
       )}
-    </div>
+    </section>
   );
 }
 export default ProductoNuevo;

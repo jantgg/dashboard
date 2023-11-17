@@ -38,50 +38,50 @@
   padding-left: 0.7vw;
   font-weight: 500;
 }
-.preciocSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.preciocSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.span1SPR{
-    width: 50%;
-    font-size: 1vw; 
-    padding-left: 0.7vw;
+.span1SPR {
+  width: 50%;
+  font-size: 1vw;
+  padding-left: 0.7vw;
 }
-.span2SPR{
-    width: 50%;
-    font-size: 1.2vw; 
-    font-weight: 500;
-    color: green;
-    padding-left: 0.7vw;
+.span2SPR {
+  width: 50%;
+  font-size: 1.2vw;
+  font-weight: 500;
+  color: green;
+  padding-left: 0.7vw;
 }
-.preciovSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.preciovSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.ivaSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.ivaSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.numeroSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.numeroSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.stockSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.stockSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.vcSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.vcSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
-.vvSPR{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.vvSPR {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }

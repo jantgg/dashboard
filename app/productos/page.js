@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "./page.css";
 import { useEffect, useState } from "react";
-import ProductoNuevo from "../components/crearProducto.js";
+import ProductoNuevo from "../components/productoComponents/crearProducto.js";
 import SingleProducto from "../components/productoComponents/singleProducto.js";
 import MasVendido from "../components/ventaComponents/masVendido.js";
 import MasVendidoS from "../components/ventaComponents/masVendidoS.js";
