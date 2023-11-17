@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import "./crearProducto.css";
+import "./crearVenta.css";
 import { Toaster, toast } from "sonner";
 import useVentas from "../hooks/useVentas";
 import useClientes from "../hooks/useClientes";
