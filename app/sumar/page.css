@@ -3,7 +3,7 @@
   height: 100vh;
   padding: 3vh 2vw 3vh 0vw;
 }
-.parent {
+.parentSumar {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(9, 1fr);

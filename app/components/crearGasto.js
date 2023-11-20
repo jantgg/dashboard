@@ -7,6 +7,7 @@ import useProveedores from "../hooks/useProveedores";
 import useProductos from "../hooks/useProductos";
 import useServiciosProveedor from "../hooks/useServiciosProveedor";
 import generarPdfP from "../hooks/generarPdfProveedor";
+import { BsFillPersonFill } from "react-icons/bs";
 
 function GastoNuevo() {
   const productoRef = useRef(null);
@@ -230,14 +231,19 @@ function GastoNuevo() {
 
   return (
     <section className="sectionCG">
+      <h2 className="tittleCG">Añadir nuevo Gasto</h2>
       <div className="sectionCG-child">
         {" "}
         <div>
           {" "}
           <h2>Datos del Gasto</h2>
-          <label>
-            Proveedor:
+   
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
             <select
+              className="inputCG"
               value={gastoData.proveedor ? gastoData.proveedor._id : ""}
               onChange={(e) => {
                 const selectedProveedor = proveedores.find(
@@ -269,12 +275,13 @@ function GastoNuevo() {
                   </option>
                 ))}
             </select>
-          </label>
+          </div>
           <div>
-            {" "}
-            <label>
-              Producto:
-              <select ref={productoRef}>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
+            <select ref={productoRef} className="inputCG">
                 <option value="">Seleccione un producto</option>
                 {Array.isArray(productos) &&
                   productos.map((producto) => (
@@ -283,7 +290,7 @@ function GastoNuevo() {
                     </option>
                   ))}
               </select>
-            </label>
+          </div>
             <label>
               Cantidad:
               <input type="number" ref={cantidadRef} min="1" />
@@ -330,7 +337,6 @@ function GastoNuevo() {
             />
             <button type="submit">Agregar Servicio</button>
           </form>
-   
           <label>
             Gasto Fijo:
             <input
@@ -479,18 +485,18 @@ function GastoNuevo() {
           </ul>
         </div>
         <div>
-            <h3>Servicios seleccionados:</h3>
-            <ul>
-              {gastoData.servicios.map((servicio, index) => (
-                <li key={servicio._id}>
-                  {servicio.nombre}
-                  <button onClick={() => handleRemoveServicio(index)}>
-                    Eliminar
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h3>Servicios seleccionados:</h3>
+          <ul>
+            {gastoData.servicios.map((servicio, index) => (
+              <li key={servicio._id}>
+                {servicio.nombre}
+                <button onClick={() => handleRemoveServicio(index)}>
+                  Eliminar
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

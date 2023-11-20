@@ -6,7 +6,7 @@ import GastoNuevo from "../components/crearGasto";
 export default function Sumar() {
   return (
     <main className="home">
-      <div class="parent">
+      <div class="parentSumar">
         <div class="div1Sumar">
           <GastoNuevo />
         </div>
