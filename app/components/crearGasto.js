@@ -233,86 +233,130 @@ function GastoNuevo() {
     <section className="sectionCG">
       <h2 className="tittleCG">Añadir nuevo Gasto</h2>
       <div className="sectionCG-child">
-        {" "}
-        <div>
-          {" "}
-          <h2>Datos del Gasto</h2>
-   
-          <div className="inputgroupCG">
-            <span className="iconCG">
-              <BsFillPersonFill />
-            </span>
-            <select
-              className="inputCG"
-              value={gastoData.proveedor ? gastoData.proveedor._id : ""}
-              onChange={(e) => {
-                const selectedProveedor = proveedores.find(
-                  (prov) => prov._id === e.target.value
-                );
+        <div className="inputgroupCG">
+          <span className=" inputcheckCG"> ¿Gasto fijo?</span>
+          <input
+            className="checkboxCG"
+            type="checkbox"
+            checked={gastoData.tipo === "fijo"}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setGastoData((prev) => ({ ...prev, tipo: "fijo" }));
+              } else {
+                setGastoData((prev) => ({ ...prev, tipo: "proveedor" }));
+              }
+            }}
+          />{" "}
+        </div>{" "}
+        <div className="inputgroupCG">
+          <span className="iconCG">
+            <BsFillPersonFill />
+          </span>
+          <select
+            className="inputCG"
+            value={gastoData.proveedor ? gastoData.proveedor._id : ""}
+            onChange={(e) => {
+              const selectedProveedor = proveedores.find(
+                (prov) => prov._id === e.target.value
+              );
 
-                // Actualizar el gastoData y facturaProveedorData con el proveedor seleccionado
-                setGastoData((prev) => ({
-                  ...prev,
-                  proveedor: selectedProveedor,
-                }));
-                setFacturaProveedorData((prev) => ({
-                  ...prev,
-                  proveedor: selectedProveedor,
-                }));
+              // Actualizar el gastoData y facturaProveedorData con el proveedor seleccionado
+              setGastoData((prev) => ({
+                ...prev,
+                proveedor: selectedProveedor,
+              }));
+              setFacturaProveedorData((prev) => ({
+                ...prev,
+                proveedor: selectedProveedor,
+              }));
 
-                // Actualizar el campo proveedor del estado servicio con el ID del proveedor seleccionado
-                setServicio((prev) => ({
-                  ...prev,
-                  proveedor: e.target.value,
-                }));
-              }}
-            >
-              <option value="">Seleccione un Proveedor</option>
-              {Array.isArray(proveedores) &&
-                proveedores.map((proveedor) => (
-                  <option key={proveedor._id} value={proveedor._id}>
-                    {proveedor.nombre}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div>
+              // Actualizar el campo proveedor del estado servicio con el ID del proveedor seleccionado
+              setServicio((prev) => ({
+                ...prev,
+                proveedor: e.target.value,
+              }));
+            }}
+          >
+            <option value="">Seleccione un Proveedor</option>
+            {Array.isArray(proveedores) &&
+              proveedores.map((proveedor) => (
+                <option key={proveedor._id} value={proveedor._id}>
+                  {proveedor.nombre}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="producto-group">
+          <h2 className="h2-servicio">Añadir producto</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
               <BsFillPersonFill />
             </span>
             <select ref={productoRef} className="inputCG">
-                <option value="">Seleccione un producto</option>
-                {Array.isArray(productos) &&
-                  productos.map((producto) => (
-                    <option key={producto._id} value={producto._id}>
-                      {producto.nombre}
-                    </option>
-                  ))}
-              </select>
+              <option value="">Seleccione un producto</option>
+              {Array.isArray(productos) &&
+                productos.map((producto) => (
+                  <option key={producto._id} value={producto._id}>
+                    {producto.nombre}
+                  </option>
+                ))}
+            </select>
           </div>
-            <label>
-              Cantidad:
-              <input type="number" ref={cantidadRef} min="1" />
-            </label>
-            <button onClick={handleAddProducto}>Añadir Producto</button>
-          </div>
-          <form onSubmit={handleSubmit}>
+          <div className="inputgroupCG-h">
+            <span className="iconCG-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCG-h"
+              placeholder="Cantidad"
+              autoComplete="nope"
+              type="number"
+              ref={cantidadRef}
+              min="1"
+            />
+          </div>
+          <button className="buttonCG" onClick={handleAddProducto}>
+            Añadir
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="producto-group">
+          <h2 className="h2-servicio">Añadir servicio</h2>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCG"
+              placeholder="Nombre"
+              autoComplete="nope"
               type="text"
               name="nombre"
               value={servicio.nombre}
               onChange={handleChange}
-              placeholder="Nombre"
               required
             />
+          </div>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
             <textarea
+              className="inputCG"
+              autoComplete="nope"
               name="descripcion"
               value={servicio.descripcion}
               onChange={handleChange}
               placeholder="Descripción"
             />
+          </div>
+
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCG"
+              autoComplete="nope"
               type="number"
               name="precioCompra"
               value={servicio.precioCompra}
@@ -320,7 +364,15 @@ function GastoNuevo() {
               placeholder="Precio de Compra"
               required
             />
+          </div>
+
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCG"
+              autoComplete="nope"
               type="number"
               name="iva"
               value={servicio.iva}
@@ -328,36 +380,37 @@ function GastoNuevo() {
               placeholder="IVA"
               required
             />
+          </div>
+
+          <div className="inputgroupCG-h">
+            <span className="iconCG-h">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCG-h"
+              autoComplete="nope"
               type="number"
               name="vecesComprado"
               value={servicio.vecesComprado}
               onChange={handleChange}
               placeholder="Unidades"
             />
-            <button type="submit">Agregar Servicio</button>
-          </form>
-          <label>
-            Gasto Fijo:
-            <input
-              type="checkbox"
-              checked={gastoData.tipo === "fijo"}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setGastoData((prev) => ({ ...prev, tipo: "fijo" }));
-                } else {
-                  setGastoData((prev) => ({ ...prev, tipo: "proveedor" }));
-                }
-              }}
-            />
-          </label>
-        </div>
-        <div>
-          <h2>Datos de la Factura</h2>
+          </div>
 
-          <label>
-            Numero Factura:
+          <button className="buttonCG" type="submit">
+            Añadir
+          </button>
+        </form>
+        <div className="producto-group">
+          <h2 className="h2-servicio">Datos factura</h2>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCG"
+              placeholder="Numero factura"
+              autoComplete="nope"
               type="text"
               value={facturaProveedorData.numeroFactura}
               onChange={(e) =>
@@ -367,68 +420,12 @@ function GastoNuevo() {
                 }))
               }
             />
-          </label>
-          <div className="input-group">
-            <label>
-              Fecha de Emisión:
-              <input
-                type="date"
-                value={facturaProveedorData.fechaEmision}
-                onChange={(e) =>
-                  setFacturaProveedorData((prev) => ({
-                    ...prev,
-                    fechaEmision: e.target.value,
-                  }))
-                }
-              />
-            </label>
-
-            <label>
-              Fecha de Operación:
-              <input
-                type="date"
-                value={facturaProveedorData.fechaOperacion}
-                onChange={(e) => {
-                  setFacturaProveedorData((prev) => ({
-                    ...prev,
-                    fechaOperacion: e.target.value,
-                  }));
-                  setGastoData((prev) => ({
-                    ...prev,
-                    fecha: e.target.value,
-                  }));
-                }}
-              />
-            </label>
-            <label>
-              IVA:
-              <input
-                type="number"
-                value={facturaProveedorData.iva}
-                onChange={(e) =>
-                  setFacturaProveedorData((prev) => ({
-                    ...prev,
-                    iva: parseFloat(e.target.value),
-                  }))
-                }
-              />
-            </label>
-
-            <label>
-              Detalles:
-              <textarea
-                value={facturaProveedorData.detalles}
-                onChange={(e) =>
-                  setFacturaProveedorData((prev) => ({
-                    ...prev,
-                    detalles: e.target.value,
-                  }))
-                }
-              />
-            </label>
-            <label>
-              Estado:
-              <select
+          </div>
+          <div className="inputgroupCG-f">
+            <span className="iconCG-f">
+            Estado
+            </span>
+            <select className="inputCG-f"
                 value={facturaProveedorData.estado}
                 onChange={(e) =>
                   setFacturaProveedorData((prev) => ({
@@ -441,12 +438,97 @@ function GastoNuevo() {
                 <option value="pendiente">Pendiente</option>
                 <option value="vencida">Vencida</option>
               </select>
-            </label>
+          </div>
+          <div className="inputgroupCG-f">
+            <span className="iconCG-f">
+            Emisión
+            </span>
+            <input
+              className="inputCG-f"
+              placeholder="Fecha emision"
+              autoComplete="nope"
+              type="date"
+              value={facturaProveedorData.fechaEmision}
+              onChange={(e) =>
+                setFacturaProveedorData((prev) => ({
+                  ...prev,
+                  fechaEmision: e.target.value,
+                }))
+              }
+            />
+          </div>
+      
+          <div className="inputgroupCG-f">
+            <span className="iconCG-f">
+            Operación
+            </span>
+            <input
+              className="inputCG-f"
+              placeholder="Fecha operación"
+              autoComplete="nope"
+              type="date"
+              value={facturaProveedorData.fechaOperacion}
+              onChange={(e) => {
+                setFacturaProveedorData((prev) => ({
+                  ...prev,
+                  fechaOperacion: e.target.value,
+                }));
+                setGastoData((prev) => ({
+                  ...prev,
+                  fecha: e.target.value,
+                }));
+              }}
+            />
+          </div>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
+            <textarea
+              className="inputCG"
+              autoComplete="nope"
+              name="descripcion"
+              value={facturaProveedorData.detalles}
+                onChange={(e) =>
+                  setFacturaProveedorData((prev) => ({
+                    ...prev,
+                    detalles: e.target.value,
+                  }))
+                }
+              placeholder="Descripción"
+            />
+          </div>
 
-            <label>
-              Cuota Tributaria:
-              <input
-                type="text"
+
+
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCG"
+              autoComplete="nope"
+              type="text"
+              value={facturaProveedorData.iva}
+              onChange={(e) =>
+                setFacturaProveedorData((prev) => ({
+                  ...prev,
+                  iva: parseFloat(e.target.value),
+                }))
+              }
+              placeholder="IVA"
+              required
+            />
+          </div>
+          <div className="inputgroupCG">
+            <span className="iconCG">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCG"
+              autoComplete="nope"
+              type="text"
+          
                 value={facturaProveedorData.cuotaTributaria}
                 onChange={(e) =>
                   setFacturaProveedorData((prev) => ({
@@ -454,20 +536,16 @@ function GastoNuevo() {
                     cuotaTributaria: e.target.value,
                   }))
                 }
-              />
-            </label>
+              placeholder="Cuota Tributaria"
+              required
+            />
           </div>
+      
+   
 
-          <label>
-            Cantidad Bruta:
-            <span>{facturaProveedorData.cantidadBruta.toFixed(2)}</span>
-          </label>
-          <label>
-            Cantidad Neta:
-            <span>{facturaProveedorData.cantidadNeta.toFixed(2)}</span>
-          </label>
+
         </div>
-        <button onClick={addGastoYFactura}>Añadir Gasto y Factura</button>
+ 
       </div>
       <div className="sectionCG-child">
         {" "}
@@ -497,6 +575,15 @@ function GastoNuevo() {
             ))}
           </ul>
         </div>
+        <label>
+            Cantidad Bruta:
+            <span>{facturaProveedorData.cantidadBruta.toFixed(2)}</span>
+          </label>
+          <label>
+            Cantidad Neta:
+            <span>{facturaProveedorData.cantidadNeta.toFixed(2)}</span>
+          </label>
+        <button onClick={addGastoYFactura}>Añadir Gasto y Factura</button>
       </div>
     </section>
   );
