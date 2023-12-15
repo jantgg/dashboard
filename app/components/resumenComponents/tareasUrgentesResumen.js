@@ -81,7 +81,7 @@ function TareasUrgentesResumen() {
   };
   return (
     <section>
-      <h2 className="tittletareasRVG">Tareas urgentes</h2>
+      <h2 className="tittletareasRVG orange-bg">Tareas urgentes</h2>
       <ul className="listatareasRVG">
         {tareasUrgentes.map((tarea) => (
           <li key={tarea._id} className="tareaRVG">

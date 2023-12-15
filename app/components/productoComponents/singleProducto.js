@@ -12,7 +12,7 @@ function SingleProducto() {
 
   return (
     <section className="sectionSPR">
-      <h2 className="">Detalles de producto</h2>
+      <h2 className="pink-bg">Detalles de producto</h2>
       <div className="contentSPR">
         {" "}
         <div className="nombreSPR">{singleProducto.nombre}</div>

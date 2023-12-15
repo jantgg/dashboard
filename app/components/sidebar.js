@@ -9,34 +9,34 @@ const Sidebar = () => {
     <section className="sidebar-father">
       {" "}
       <div className="sidebar">
-        <div className="list-son">
-          <a href="/resumen">Resumen</a>
-        </div>
-        <div className="list-son">
-          <Link href="/ventas">Ventas</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/gastos">Gastos</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/tareas">Tareas</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/clientes">Clientes</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/proveedores">Proveedores</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/productos">Productos</Link>
-        </div>
+       
+          <Link className="list-son" href="/resumen">Resumen</Link>
+      
+       
+          <Link className="list-son" href="/ventas">Ventas</Link>
+      
+  
+          <Link className="list-son" href="/gastos">Gastos</Link>
+      
+       
+          <Link className="list-son" href="/tareas">Tareas</Link>
+      
+       
+          <Link className="list-son" href="/clientes">Clientes</Link>
+      
+       
+          <Link className="list-son" href="/proveedores">Proveedores</Link>
+      
+       
+          <Link className="list-son" href="/productos">Productos</Link>
+      
    
-        <div className="list-son">
-          <Link href="/sumar">Añadir</Link>
-        </div>
-        <div className="list-son">
-          <Link href="/">Cerrar</Link>
-        </div>
+       
+          <Link className="list-son" href="/sumar">Añadir</Link>
+      
+       
+          <Link className="list-son" href="/">Cerrar</Link>
+      
       </div>
     </section>
   );

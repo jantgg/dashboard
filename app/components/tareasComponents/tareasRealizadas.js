@@ -79,7 +79,7 @@ function TareasRealizadas() {
   };
   return (
     <section>
-    <h2 className="tittletareasTR">Tareas realizadas</h2>
+    <h2 className="tittletareasTR pink-bg">Tareas realizadas</h2>
     <ul className="listatareasTR">
       {tareasRealizadas.map((tarea) => (
         <li key={tarea._id} className="tareaTR">

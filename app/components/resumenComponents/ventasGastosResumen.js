@@ -80,7 +80,7 @@ function VentasGastosResumen() {
 
   return (
     <section className="sectionRVG">
-      <h2 className="h2RVG">Balance general</h2>
+      <h2 className="h2RVG grey-bg text-black">Balance general</h2>
       <div className="selectorscontainer1RVG">
         <select
           className="selectors1SVG"

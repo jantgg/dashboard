@@ -56,87 +56,87 @@ input {
 }
 
 .inputgroupCPR {
-    width: 100%;
-    margin-top: 1vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 1vw;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: rgb(196, 196, 196);
-  }
-  .iconCPR {
-    width: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    background-color: rgb(127, 127, 127);
-  }
-  .inputCPR {
-    width: 90%;
-    padding-left: 0.7vw;
-    background-color: rgb(196, 196, 196);
-    padding-top: 0.5vh;
-    padding-bottom: 0.5vh;
-  }
-  .inputCPR:focus{
-      outline: none;
-  }
+  width: 100%;
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 1vw;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgb(196, 196, 196);
+}
+.iconCPR {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: rgb(127, 127, 127);
+}
+.inputCPR {
+  width: 90%;
+  padding-left: 0.7vw;
+  background-color: rgb(196, 196, 196);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+.inputCPR:focus {
+  outline: none;
+}
 
-  .inputgroupCPR-h {
-    width: 48%;
-    margin-top: 1vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 1vw;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: rgb(196, 196, 196);
-  }
-  .iconCPR-h {
-    width: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    background-color: rgb(127, 127, 127);
-  }
-  .inputCPR-h {
-    width: 85%;
-    padding-left: 0.7vw;
-    background-color: rgb(196, 196, 196);
-    padding-top: 0.5vh;
-    padding-bottom: 0.5vh;
-  }
-  .inputCPR-h:focus{
-      outline: none;
-  }
-  .buttonCPR {
-    width: 48%;
-    font-size: 1vw;
-    background-color: rgb(33, 169, 33);
-    border-radius: 15px;
-    font-weight: 500;
-    transition: background-color 0.3s ease-in-out;
-    margin-top: 1vh;
-  }
-  .buttonCPR:hover{
-      background-color: rgba(35, 176, 0, 0.538);
-  }
-  .buttonCPR-s {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.5vw;
-    background-color: rgb(196, 196, 196);
-    border-radius: 15px;
-    margin-top: 2vh;
-    padding:1vh 0.7vw 1vh 0.7vw;
-    transition: background-color 0.3s ease-in-out;
-  }
-  .buttonCPR-s:hover{
-      background-color: rgba(51, 255, 0, 0.538);
-  }
+.inputgroupCPR-h {
+  width: 48%;
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 1vw;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgb(196, 196, 196);
+}
+.iconCPR-h {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: rgb(127, 127, 127);
+}
+.inputCPR-h {
+  width: 85%;
+  padding-left: 0.7vw;
+  background-color: rgb(196, 196, 196);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+.inputCPR-h:focus {
+  outline: none;
+}
+.buttonCPR {
+  width: 48%;
+  font-size: 1vw;
+  background-color: rgb(33, 169, 33);
+  border-radius: 15px;
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 1vh;
+}
+.buttonCPR:hover {
+  background-color: rgba(35, 176, 0, 0.538);
+}
+.buttonCPR-s {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5vw;
+  background-color: rgb(196, 196, 196);
+  border-radius: 15px;
+  margin-top: 2vh;
+  padding: 1vh 0.7vw 1vh 0.7vw;
+  transition: background-color 0.3s ease-in-out;
+}
+.buttonCPR-s:hover {
+  background-color: rgba(51, 255, 0, 0.538);
+}

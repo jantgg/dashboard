@@ -83,7 +83,7 @@ const numeroDeClientesEsteMes = clientesDelMes.length;
 
   return (
     <section className="sectionResumenV">
-      <h2 className="h2V">Resumen</h2>
+      <h2 className="h2V grey-bg text-black">Resumen</h2>
       <div className="containerTexto1V">
         <h3 className="texto1V"> Ventas {nombresDeMeses[mesActual]} </h3>
 

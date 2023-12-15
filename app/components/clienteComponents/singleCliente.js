@@ -47,7 +47,7 @@ function SingleCliente() {
 
   return (
     <section className="sectionSC">
-      <header className="headerSC">
+      <header className="headerSC blue-bg">
         <div className="Cnombre">{singleCliente.nombre}</div>
         <div className="Ccif">{singleCliente.cif}</div>
         <div className="Ctelefono">{singleCliente.telefono}</div>

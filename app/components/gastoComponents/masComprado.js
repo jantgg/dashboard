@@ -13,7 +13,7 @@ function MasComprado() {
 
   return (
     <section>
-      <h2 className="tittleproductosG">Más comprados</h2>
+      <h2 className="tittleproductosG blue-bg">Más comprados</h2>
       <div className="listaproductosG">
         {" "}
         {productosOrdenados.map((producto) => (

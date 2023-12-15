@@ -68,7 +68,7 @@ function ResumenGastos() {
 
   return (
     <section className="sectionResumenG">
-      <h2 className="h2G">Resumen</h2>
+      <h2 className="h2G grey-bg text-black">Resumen</h2>
       <div className="containerTexto1G">
         <h3 className="texto1G"> Gastos {nombresDeMeses[mesActual]} </h3>
 

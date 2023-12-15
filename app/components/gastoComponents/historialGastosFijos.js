@@ -91,7 +91,7 @@ function HistorialGastosFijos() {
   return (
     <section className="sectionHistorialGF">
       <header className="headerHistorialGF">
-        <h2 className="h2HeaderHistorialGF">Gastos Fijos</h2>
+        <h2 className="h2HeaderHistorialGF orange-bg">Gastos Fijos</h2>
         <div className="headerRowHistorialGF">
           <select
             className="selectorsHistorialGF"

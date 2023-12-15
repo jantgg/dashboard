@@ -45,10 +45,10 @@ function ComparacionGastos() {
   console.log(chartData);
 
   return (
-    <section className="sectionGastosRVG">
+    <section className="sectionGastosRVG ">
 
         {" "}
-        <h2 className="tittleGastosRVG"> Resumen Mensual de Gastos</h2>
+        <h2 className="tittleGastosRVG pink-bg"> Resumen Mensual de Gastos</h2>
         <div className="containerSelectorGastosRVG">   <select
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}

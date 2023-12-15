@@ -65,7 +65,7 @@ function ClienteNuevo() {
 
   return (
     <section className="sectionaddC">
-      <h2>Añadir cliente</h2>
+      <h2 className="green-bg">Añadir cliente</h2>
       <div className="inputgroupAC">
         <span className="iconAC">
           <BsFillPersonFill />
@@ -150,7 +150,7 @@ function ClienteNuevo() {
         />
       </div>
 
-      <button className="buttonAC" onClick={() => addCliente(clienteData)}>
+      <button className="buttonAC green-bg" onClick={() => addCliente(clienteData)}>
         Añadir
       </button>
     </section>

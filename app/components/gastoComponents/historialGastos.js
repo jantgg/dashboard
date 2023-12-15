@@ -87,7 +87,7 @@ function HistorialGastos() {
   return (
     <section className="sectionHistorialG">
       <header className="headerHistorialG">
-        <h2 className="h2HeaderHistorialG">Historial de gastos</h2>
+        <h2 className="h2HeaderHistorialG orange-bg">Historial de gastos</h2>
         <div className="headerRowHistorialG">
           <select
             className="selectorsHistorialG"

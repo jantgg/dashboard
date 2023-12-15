@@ -7,6 +7,9 @@ import useClientes from "../hooks/useClientes";
 import useProductos from "../hooks/useProductos";
 import useServicios from "../hooks/useServicios";
 import generarPdf from "../hooks/generarPdf";
+import { BsFillPersonFill } from "react-icons/bs";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BsCheckCircle } from "react-icons/bs";
 
 function VentaNueva() {
   const productoRef = useRef(null);
@@ -34,7 +37,7 @@ function VentaNueva() {
     fecha: obtenerFechaActual(),
     cantidadNeta: 0,
     cantidadBruta: 0,
-    iva: 0,
+    iva: "",
     detalles: "",
   });
 
@@ -47,13 +50,13 @@ function VentaNueva() {
     fechaOperacion: "",
     cantidadNeta: 0,
     cantidadBruta: 0,
-    iva: 0,
+    iva: "",
     detalles: "",
     pdfFactura: "",
     estado: "pagada",
     cuotaTributaria: "",
     servicio: "",
-    valorServicio: 0,
+    valorServicio: "",
   });
   useEffect(() => {
     // Cantidad bruta será equivalente a la suma de cantidadNeta y valorServicio
@@ -86,7 +89,11 @@ function VentaNueva() {
     const neta = totalSP + facturaClienteData.valorServicio;
     setFacturaClienteData((prev) => ({ ...prev, cantidadNeta: neta }));
     setVentaData((prev) => ({ ...prev, cantidadNeta: neta }));
-  }, [ventaData.productos, facturaClienteData.valorServicio, ventaData.servicios ]);
+  }, [
+    ventaData.productos,
+    facturaClienteData.valorServicio,
+    ventaData.servicios,
+  ]);
 
   const handleAddProducto = () => {
     const selectedProducto = productos.find(
@@ -222,14 +229,15 @@ function VentaNueva() {
   };
 
   return (
-    <div>
-      <Toaster />
-      <div>
-        {" "}
-        <h2>Datos de la Venta</h2>
-        <label>
-          Cliente:
+    <section className="sectionCV">
+      <h2 className="tittleCV green-bg">Añadir nueva Venta</h2>
+      <div className="sectionCV-child">
+        <div className="inputgroupCV">
+          <span className="iconCV">
+            <BsFillPersonFill />
+          </span>
           <select
+            className="inputCV"
             value={ventaData.cliente ? ventaData.cliente._id : ""}
             onChange={(e) => {
               const selectedCliente = clientes.find(
@@ -250,12 +258,15 @@ function VentaNueva() {
                 </option>
               ))}
           </select>
-        </label>
-        <div>
-          {" "}
-          <label>
-            Producto:
-            <select ref={productoRef}>
+        </div>
+
+        <div className="producto-group">
+          <h2 className="h2-servicio blue-bg">Añadir producto</h2>
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
+            <select ref={productoRef} className="inputCV">
               <option value="">Seleccione un producto</option>
               {Array.isArray(productos) &&
                 productos.map((producto) => (
@@ -264,31 +275,33 @@ function VentaNueva() {
                   </option>
                 ))}
             </select>
-          </label>
-          <label>
-            Cantidad:
-            <input type="number" ref={cantidadRef} min="1" />
-          </label>
-          <button onClick={handleAddProducto}>Añadir Producto</button>
-          <div>
-            <h3>Productos seleccionados:</h3>
-            <ul>
-              {ventaData.productos.map((producto, index) => (
-                <li key={producto._id}>
-                  {producto.nombre}
-                  <button onClick={() => handleRemoveProducto(index)}>
-                    Eliminar
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
+
+          <div className="inputgroupCV-h">
+            <span className="iconCV-h">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCV-h"
+              placeholder="Cantidad"
+              autoComplete="nope"
+              type="number"
+              ref={cantidadRef}
+              min="1"
+            />
+          </div>
+          <button className="buttonCV" onClick={handleAddProducto}>
+            Añadir
+          </button>
         </div>
-        <div>
-          {" "}
-          <label>
-            SErvicio:
-            <select ref={servicioRef}>
+
+        <div className="producto-group">
+          <h2 className="h2-servicio blue-bg">Añadir servicio</h2>
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
+            <select ref={servicioRef} className="inputCV">
               <option value="">Seleccione un servicio</option>
               {Array.isArray(servicios) &&
                 servicios.map((servicio) => (
@@ -297,101 +310,50 @@ function VentaNueva() {
                   </option>
                 ))}
             </select>
-          </label>
-          <label>
-            Cantidad:
-            <input type="number" ref={cantidadServicioRef} min="1" />
-          </label>
-          <button onClick={handleAddServicio}>Añadir Servicio</button>
-          <div>
-            <h3>Servicios seleccionados:</h3>
-            <ul>
-              {ventaData.servicios.map((servicio, index) => (
-                <li key={servicio._id}>
-                  {servicio.nombre}
-                  <button onClick={() => handleRemoveServicio(index)}>
-                    Eliminar
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
-        </div>
-      </div>
 
-      <div>
-        <h2>Datos de la Factura</h2>
-
-        <label>
-          Numero Factura:
-          <input
-            type="text"
-            value={facturaClienteData.numeroFactura}
-            onChange={(e) =>
-              setFacturaClienteData((prev) => ({
-                ...prev,
-                numeroFactura: e.target.value,
-              }))
-            }
-          />
-        </label>
-        <div className="input-group">
-          <label>
-            Fecha de Emisión:
+          <div className="inputgroupCV-h">
+            <span className="iconCV-h">
+              <BsFillPersonFill />
+            </span>
             <input
-              type="date"
-              value={facturaClienteData.fechaEmision}
-              onChange={(e) =>
-                setFacturaClienteData((prev) => ({
-                  ...prev,
-                  fechaEmision: e.target.value,
-                }))
-              }
-            />
-          </label>
-
-          <label>
-            Fecha de Operación:
-            <input
-              type="date"
-              value={facturaClienteData.fechaOperacion}
-              onChange={(e) =>
-                setFacturaClienteData((prev) => ({
-                  ...prev,
-                  fechaOperacion: e.target.value,
-                }))
-              }
-            />
-          </label>
-          <label>
-            IVA:
-            <input
+              className="inputCV-h"
+              placeholder="Cantidad"
               type="number"
-              value={facturaClienteData.iva}
+              autoComplete="nope"
+              ref={cantidadServicioRef}
+              min="1"
+            />
+          </div>
+          <button className="buttonCV" onClick={handleAddServicio}>
+            Añadir
+          </button>
+        </div>
+        <div className="producto-group">
+          <h2 className="h2-servicio blue-bg">Datos factura</h2>
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCV"
+              placeholder="Numero factura"
+              autoComplete="nope"
+              type="text"
+              value={facturaClienteData.numeroFactura}
               onChange={(e) =>
                 setFacturaClienteData((prev) => ({
                   ...prev,
-                  iva: parseFloat(e.target.value),
+                  numeroFactura: e.target.value,
                 }))
               }
             />
-          </label>
+          </div>
 
-          <label>
-            Detalles:
-            <textarea
-              value={facturaClienteData.detalles}
-              onChange={(e) =>
-                setFacturaClienteData((prev) => ({
-                  ...prev,
-                  detalles: e.target.value,
-                }))
-              }
-            />
-          </label>
-          <label>
-            Estado:
+          <div className="inputgroupCV-f">
+            <span className="iconCV-f">Estado</span>
             <select
+              className="inputCV-f"
               value={facturaClienteData.estado}
               onChange={(e) =>
                 setFacturaClienteData((prev) => ({
@@ -404,11 +366,85 @@ function VentaNueva() {
               <option value="pendiente">Pendiente</option>
               <option value="vencida">Vencida</option>
             </select>
-          </label>
-
-          <label>
-            Cuota Tributaria:
+          </div>
+          <div className="inputgroupCV-f">
+            <span className="iconCV-f">Emisión</span>
             <input
+              className="inputCV-f"
+              placeholder="Fecha emision"
+              autoComplete="nope"
+              type="date"
+              value={facturaClienteData.fechaEmision}
+              onChange={(e) =>
+                setFacturaClienteData((prev) => ({
+                  ...prev,
+                  fechaEmision: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          <div className="inputgroupCV-f">
+            <span className="iconCV-f">Operación</span>
+            <input
+              className="inputCV-f"
+              placeholder="Fecha operación"
+              autoComplete="nope"
+              type="date"
+              value={facturaClienteData.fechaOperacion}
+              onChange={(e) =>
+                setFacturaClienteData((prev) => ({
+                  ...prev,
+                  fechaOperacion: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
+            <textarea
+              className="inputCV"
+              autoComplete="nope"
+              value={facturaClienteData.detalles}
+              onChange={(e) =>
+                setFacturaClienteData((prev) => ({
+                  ...prev,
+                  detalles: e.target.value,
+                }))
+              }
+              placeholder="Descripción"
+            />
+          </div>
+
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              IVA
+            </span>
+            <input
+              className="inputCV"
+              placeholder="IVA"
+              autoComplete="nope"
+              type="text"
+              value={facturaClienteData.iva}
+              onChange={(e) =>
+                setFacturaClienteData((prev) => ({
+                  ...prev,
+                  iva: parseFloat(e.target.value),
+                }))
+              }
+           
+              required
+            />
+          </div>
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCV"
+              autoComplete="nope"
               type="text"
               value={facturaClienteData.cuotaTributaria}
               onChange={(e) =>
@@ -417,12 +453,18 @@ function VentaNueva() {
                   cuotaTributaria: e.target.value,
                 }))
               }
+              placeholder="Cuota Tributaria"
+              required
             />
-          </label>
+          </div>
 
-          <label>
-            Servicio:
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
             <input
+              className="inputCV"
+              autoComplete="nope"
               type="text"
               value={facturaClienteData.servicio}
               onChange={(e) =>
@@ -431,13 +473,19 @@ function VentaNueva() {
                   servicio: e.target.value,
                 }))
               }
+              placeholder="Servicio adicional"
+              required
             />
-          </label>
+          </div>
 
-          <label>
-            Valor del Servicio:
+          <div className="inputgroupCV">
+            <span className="iconCV">
+              <BsFillPersonFill />
+            </span>
             <input
-              type="number"
+              className="inputCV"
+              autoComplete="nope"
+              type="text"
               value={facturaClienteData.valorServicio}
               onChange={(e) =>
                 setFacturaClienteData((prev) => ({
@@ -445,24 +493,76 @@ function VentaNueva() {
                   valorServicio: parseFloat(e.target.value),
                 }))
               }
+              placeholder="Precio servicio"
+              required
             />
-          </label>
+          </div>
         </div>
-
-        <label>
-          Cantidad Bruta:
-          <span>{facturaClienteData.cantidadBruta.toFixed(2)}</span>
-          {/* toFixed(2) muestra el valor con 2 decimales */}
-        </label>
-        <label>
-          Cantidad Neta:
-          <span>{facturaClienteData.cantidadNeta.toFixed(2)}</span>
-          {/* toFixed(2) muestra el valor con 2 decimales */}
-        </label>
       </div>
 
-      <button onClick={addVentaYFactura}>Añadir Venta y Factura</button>
-    </div>
+
+
+
+      <div className="sectionCV-child">
+        {" "}
+        <div className="selectedproductsCV">
+          <h3 className="pink-bg">Productos seleccionados</h3>
+          <ul className="listaproductosCV-s">
+            {ventaData.productos.map((producto, index) => (
+              <li className="productoCV-s" key={producto._id}>
+              <span className="productonombreCV-s">     {producto.nombre}</span>
+            <div className="buttonsproductoCV-s">
+              {" "}
+              <button className="trashCV-s" onClick={() => handleRemoveProducto(index)}>
+                <FaRegTrashAlt  />
+              </button>
+            </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="selectedproductsCV">
+        <h3 className="pink-bg">Servicios seleccionados</h3>
+          <ul className="listaproductosCV-s">
+            {ventaData.servicios.map((servicio, index) => (
+              <li className="productoCV-s" key={servicio._id}>
+              <span className="productonombreCV-s">     {servicio.nombre}</span>
+            <div className="buttonsproductoCV-s">
+              {" "}
+              <button className="trashCV-s" onClick={() => handleRemoveServicio(index)}>
+                <FaRegTrashAlt  />
+              </button>
+            </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
+
+     
+        <div className="totaldegastosCV">  
+        <label className="tgCV-child">
+        <span className="name-tgCV-child">Cantidad Bruta</span>
+            
+            <span className="valor-tgCV-child green-bg">{facturaClienteData.cantidadBruta}</span>
+          </label>
+          <label className="tgCV-child">
+          <span className="name-tgCV-child">  Cantidad Neta</span>
+          
+            <span className="valor-tgCV-child green-bg">{facturaClienteData.cantidadNeta}</span>
+          </label>
+        <button className="button-tgCV-child green-bg" onClick={addVentaYFactura}>Añadir Venta y Factura</button>
+        </div>
+      
+      </div>
+
+
+
+
+   
+
+    </section>
   );
 }
 export default VentaNueva;

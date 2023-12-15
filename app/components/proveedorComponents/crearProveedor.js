@@ -58,7 +58,7 @@ function ProveedorNuevo() {
 
   return (
     <section className="sectionaddP">
-      <h2>Añadir Proveedor</h2>
+      <h2 className="green-bg">Añadir Proveedor</h2>
       <div className="inputgroupAP">
         <span className="iconAP">
           <BsFillPersonFill />
@@ -143,7 +143,7 @@ function ProveedorNuevo() {
         />
       </div>
 
-      <button className="buttonAP" onClick={() => addProveedor(proveedorData)}>
+      <button className="buttonAP green-bg" onClick={() => addProveedor(proveedorData)}>
         Añadir
       </button>
     </section>

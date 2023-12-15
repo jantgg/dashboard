@@ -5,9 +5,9 @@ import { Toaster, toast } from "sonner";
 import useGastos from "../hooks/useGastos";
 import useProveedores from "../hooks/useProveedores";
 import useProductos from "../hooks/useProductos";
-import useServiciosProveedor from "../hooks/useServiciosProveedor";
 import generarPdfP from "../hooks/generarPdfProveedor";
 import { BsFillPersonFill } from "react-icons/bs";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 function GastoNuevo() {
   const productoRef = useRef(null);
@@ -23,7 +23,7 @@ function GastoNuevo() {
     descripcion: "",
     precioCompra: "",
     iva: "",
-    vecesComprado: 1,
+    vecesComprado: "",
     proveedor: "",
   });
 
@@ -231,7 +231,7 @@ function GastoNuevo() {
 
   return (
     <section className="sectionCG">
-      <h2 className="tittleCG">Añadir nuevo Gasto</h2>
+      <h2 className="tittleCG orange-bg">Añadir nuevo Gasto</h2>
       <div className="sectionCG-child">
         <div className="inputgroupCG">
           <span className=" inputcheckCG"> ¿Gasto fijo?</span>
@@ -248,6 +248,8 @@ function GastoNuevo() {
             }}
           />{" "}
         </div>{" "}
+
+
         <div className="inputgroupCG">
           <span className="iconCG">
             <BsFillPersonFill />
@@ -286,8 +288,11 @@ function GastoNuevo() {
               ))}
           </select>
         </div>
+
+
+
         <div className="producto-group">
-          <h2 className="h2-servicio">Añadir producto</h2>
+          <h2 className="h2-servicio blue-bg">Añadir producto</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
               <BsFillPersonFill />
@@ -302,6 +307,7 @@ function GastoNuevo() {
                 ))}
             </select>
           </div>
+
           <div className="inputgroupCG-h">
             <span className="iconCG-h">
               <BsFillPersonFill />
@@ -319,8 +325,9 @@ function GastoNuevo() {
             Añadir
           </button>
         </div>
+
         <form onSubmit={handleSubmit} className="producto-group">
-          <h2 className="h2-servicio">Añadir servicio</h2>
+          <h2 className="h2-servicio blue-bg">Añadir servicio</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
               <BsFillPersonFill />
@@ -401,8 +408,65 @@ function GastoNuevo() {
             Añadir
           </button>
         </form>
+ 
+        <div className="totaldegastosCG">  
+        <label className="tgCG-child">
+        <span className="name-tgCG-child">Cantidad Bruta</span>
+            
+            <span className="valor-tgCG-child green-bg">{facturaProveedorData.cantidadBruta.toFixed(2)}</span>
+          </label>
+          <label className="tgCG-child">
+          <span className="name-tgCG-child">  Cantidad Neta</span>
+          
+            <span className="valor-tgCG-child green-bg">{facturaProveedorData.cantidadNeta.toFixed(2)}</span>
+          </label>
+        <button className="button-tgCG-child green-bg" onClick={addGastoYFactura}>Añadir Gasto y Factura</button>
+        </div>
+      </div>
+
+
+
+
+
+      <div className="sectionCG-child">
+        {" "}
+        <div className="selectedproductsCG">
+          <h3 className="pink-bg">Productos seleccionados</h3>
+          <ul className="listaproductosCG-s">
+            {gastoData.productos.map((producto, index) => (
+              <li className="productoCG-s" key={producto._id}>
+              <span className="productonombreCG-s">     {producto.nombre}</span>
+            <div className="buttonsproductoCG-s">
+              {" "}
+              <button className="trashCG-s" onClick={() => handleRemoveProducto(index)}>
+                <FaRegTrashAlt  />
+              </button>
+            </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="selectedproductsCG">
+        <h3 className="pink-bg">Servicios seleccionados</h3>
+          <ul className="listaproductosCG-s">
+            {gastoData.servicios.map((servicio, index) => (
+              <li className="productoCG-s" key={servicio._id}>
+              <span className="productonombreCG-s">     {servicio.nombre}</span>
+            <div className="buttonsproductoCG-s">
+              {" "}
+              <button className="trashCG-s" onClick={() => handleRemoveServicio(index)}>
+                <FaRegTrashAlt  />
+              </button>
+            </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
+
         <div className="producto-group">
-          <h2 className="h2-servicio">Datos factura</h2>
+          <h2 className="h2-servicio blue-bg">Datos factura</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
               <BsFillPersonFill />
@@ -421,6 +485,7 @@ function GastoNuevo() {
               }
             />
           </div>
+
           <div className="inputgroupCG-f">
             <span className="iconCG-f">
             Estado
@@ -540,50 +605,8 @@ function GastoNuevo() {
               required
             />
           </div>
+        </div>
       
-   
-
-
-        </div>
- 
-      </div>
-      <div className="sectionCG-child">
-        {" "}
-        <div>
-          <h3>Productos seleccionados:</h3>
-          <ul>
-            {gastoData.productos.map((producto, index) => (
-              <li key={producto._id}>
-                {producto.nombre}
-                <button onClick={() => handleRemoveProducto(index)}>
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Servicios seleccionados:</h3>
-          <ul>
-            {gastoData.servicios.map((servicio, index) => (
-              <li key={servicio._id}>
-                {servicio.nombre}
-                <button onClick={() => handleRemoveServicio(index)}>
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <label>
-            Cantidad Bruta:
-            <span>{facturaProveedorData.cantidadBruta.toFixed(2)}</span>
-          </label>
-          <label>
-            Cantidad Neta:
-            <span>{facturaProveedorData.cantidadNeta.toFixed(2)}</span>
-          </label>
-        <button onClick={addGastoYFactura}>Añadir Gasto y Factura</button>
       </div>
     </section>
   );

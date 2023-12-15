@@ -30,3 +30,29 @@ position:relative;
 .rocker{
   font-family: 'New Rocker', cursive;
 }
+
+/* BACKGROUND COLORS */
+.blue-bg{
+  background-color: #388D7C !important;
+}
+.orange-bg{
+  background-color: #DC8C58 !important;
+}
+.green-bg{
+  background-color: #66BB4B !important;
+}
+.grey-bg{
+  background-color: rgb(125, 125, 125) !important;
+}
+.pink-bg{
+  background-color: #D25465 !important;
+}
+
+.text-black{
+  color: black !important;
+}
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

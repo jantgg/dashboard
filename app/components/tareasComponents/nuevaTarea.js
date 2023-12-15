@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Toaster, toast } from "sonner";
-import useTareas from "../hooks/useTareas";
+import useTareas from "app/hooks/useTareas.js";
+import { BsFillPersonFill } from "react-icons/bs";
+import "./nuevaTarea.css";
+import { MdOutlineDescription } from "react-icons/md";
+
 
 function CrearTarea() {
   const { tareas, loading, error, getTareas } = useTareas();
@@ -54,52 +58,54 @@ function CrearTarea() {
   };
 
   return (
-    <div className="">
+    <section className="sectionCTA">
       {" "}
-      <h2>Añadir tareas</h2>
-      <div className="task-inputs">
-        <label>
-          Título:
-          <input
-            type="text"
-            value={tareaData.titulo}
-            onChange={(e) =>
-              setTareaData((prev) => ({ ...prev, titulo: e.target.value }))
-            }
-          />
-        </label>
+      <h2 className="green-bg">Añadir tareas</h2>
 
-        <label>
-          Descripción:
-          <textarea
-            value={tareaData.descripcion}
-            onChange={(e) =>
-              setTareaData((prev) => ({
-                ...prev,
-                descripcion: e.target.value,
-              }))
-            }
-          />
-        </label>
 
-        <label>
-          ¿Es urgente?
-          <input
-            type="checkbox"
-            checked={tareaData.urgente}
-            onChange={(e) =>
-              setTareaData((prev) => ({
-                ...prev,
-                urgente: e.target.checked,
-              }))
-            }
-          />
-        </label>
+      <div className="inputgroupCTA">
+            <span className="iconCTA">
+              <BsFillPersonFill />
+            </span>
+            <input
+              className="inputCTA"
+              placeholder="Nombre"
+              autoComplete="nope"
+              type="text"
+              value={tareaData.titulo}
+              onChange={(e) =>
+                setTareaData((prev) => ({ ...prev, titulo: e.target.value }))
+              }
+            />
+          </div>
 
-        <label>
-          Fecha de vencimiento:
+          <div className="inputgroupCTA">
+            <span className="iconCTA">
+            <MdOutlineDescription />
+            </span>
+            <textarea
+               className="inputCTA"
+               placeholder="Descripción"
+               autoComplete="nope"
+               value={tareaData.descripcion}
+               onChange={(e) =>
+                 setTareaData((prev) => ({
+                   ...prev,
+                   descripcion: e.target.value,
+                 }))
+               }
+            />
+          </div>
+
+       
+
+        <div className="inputgroupCTA-f">
+            <span className="iconCTA-f">Fecha objetivo</span>
           <input
-            type="date"
+              className="inputCTA-f"
+              placeholder="Fecha objetivo"
+              autoComplete="nope"
+              type="date"
             value={tareaData.fechaVencimiento.toISOString().split("T")[0]}
             onChange={(e) =>
               setTareaData((prev) => ({
@@ -108,11 +114,28 @@ function CrearTarea() {
               }))
             }
           />
-        </label>
+        </div>
 
-        <label>
-          ¿Está completada?
+        <div className="inputgroupCTA-h">
+          <span className=" inputcheckCTA">  ¿Es urgente?</span>
           <input
+            className="checkboxCTA"
+            type="checkbox"
+            checked={tareaData.urgente}
+            onChange={(e) =>
+              setTareaData((prev) => ({
+                ...prev,
+                urgente: e.target.checked,
+              }))
+            }
+          />{" "}
+        </div>{" "}
+
+
+        <div className="inputgroupCTA-h">
+          <span className=" inputcheckCTA">    ¿Está completada?</span>
+          <input
+            className="checkboxCTA"
             type="checkbox"
             checked={tareaData.completada}
             onChange={(e) =>
@@ -121,12 +144,12 @@ function CrearTarea() {
                 completada: e.target.checked,
               }))
             }
-          />
-        </label>
+          />{" "}
+        </div>{" "}
 
-        <button onClick={() => addTarea(tareaData)}>Añadir tarea</button>
-      </div>
-    </div>
+        <button className="buttonCTA green-bg" onClick={() => addTarea(tareaData)}>Añadir</button>
+
+    </section>
   );
 }
 export default CrearTarea;

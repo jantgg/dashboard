@@ -90,7 +90,7 @@ function HistorialVentas() {
   return (
     <section className="sectionHistorialV">
       <header className="headerHistorialV">
-        <h2 className="h2HeaderHistorialV">Historial de ventas</h2>
+        <h2 className="h2HeaderHistorialV green-bg">Historial de ventas</h2>
         <div className="headerRowHistorialV">
           <select
             className="selectorsHistorialV"

@@ -13,7 +13,7 @@ function MasVendidoS() {
 
   return (
     <section>
-      <h2 className="tittleserviciosRVG">Servicios mas vendidos</h2>
+      <h2 className="tittleserviciosRVG blue-bg">Servicios mas vendidos</h2>
       <div className="listaserviciosRVG">
         {" "}
         {serviciosOrdenados.map((servicio) => (

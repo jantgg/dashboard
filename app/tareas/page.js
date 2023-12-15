@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import "./page.css";
 import useTareas from "../hooks/useTareas";
-import CrearTarea from "../components/crearTarea";
+import CrearTarea from "../components/tareasComponents/nuevaTarea";
 import TareasUrgentes from "../components/tareasComponents/tareasUrgentes.js";
 import TareasHoy from "../components/tareasComponents/tareasHoy.js";
 import TareasPendientes from "../components/tareasComponents/tareasPendientes.js";

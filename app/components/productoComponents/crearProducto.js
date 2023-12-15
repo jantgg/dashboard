@@ -6,6 +6,12 @@ import useProductos from "../../hooks/useProductos";
 import useServicios from "../../hooks/useServicios";
 import useProveedores from "../../hooks/useProveedores";
 import { BsFillPersonFill } from "react-icons/bs";
+import { GrUserWorker } from "react-icons/gr";
+import { MdOutlineDescription } from "react-icons/md";
+import { TbReceiptTax } from "react-icons/tb";
+import { AiOutlineFieldNumber } from "react-icons/ai";
+
+
 
 function ProductoNuevo() {
   const [itsProduct, setItsProduct] = useState(true);
@@ -123,7 +129,7 @@ function ProductoNuevo() {
 
   return (
     <section className="sectionCPR">
-      <h2>Crear producto</h2>
+      <h2 className="green-bg">Crear producto</h2>
       <div className="typeselectorCPR">
         <input
           id="product"
@@ -145,7 +151,6 @@ function ProductoNuevo() {
         />
         <label for="service">Servicio</label>
       </div>
-      <Toaster /> {/* Asegúrate de incluir Toaster en tu componente */}
       {itsProduct ? (
         <>
           {" "}
@@ -166,7 +171,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR">
             <span className="iconCPR">
-              <BsFillPersonFill />
+            <GrUserWorker />
             </span>
             <select
               className="inputCPR"
@@ -192,7 +197,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR">
             <span className="iconCPR">
-              <BsFillPersonFill />
+            <MdOutlineDescription />
             </span>
             <textarea
               className="inputCPR"
@@ -209,7 +214,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+            €
             </span>
             <input
               className="inputCPR-h"
@@ -227,7 +232,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+           €
             </span>
             <input
               className="inputCPR-h"
@@ -245,7 +250,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+            <TbReceiptTax />
             </span>
             <input
               className="inputCPR-h"
@@ -263,7 +268,8 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+     
+<AiOutlineFieldNumber />
             </span>
             <input
               className="inputCPR-h"
@@ -282,7 +288,8 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+     
+<AiOutlineFieldNumber />
             </span>
             <input
               className="inputCPR-h"
@@ -299,7 +306,7 @@ function ProductoNuevo() {
             />
           </div>
        
-          <button className="buttonCPR" onClick={() => addProducto(productoData)}>
+          <button className="buttonCPR green-bg" onClick={() => addProducto(productoData)}>
             Añadir Producto
           </button>
         </>
@@ -324,7 +331,7 @@ function ProductoNuevo() {
          
           <div className="inputgroupCPR">
             <span className="iconCPR">
-              <BsFillPersonFill />
+            <MdOutlineDescription />
             </span>
             <textarea
               className="inputCPR"
@@ -341,7 +348,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+             €
             </span>
             <input
               className="inputCPR-h"
@@ -359,7 +366,7 @@ function ProductoNuevo() {
           </div>
           <div className="inputgroupCPR-h">
             <span className="iconCPR-h">
-              <BsFillPersonFill />
+            <TbReceiptTax />
             </span>
             <input
               className="inputCPR-h"
@@ -376,7 +383,7 @@ function ProductoNuevo() {
             />
           </div>
 
-          <button className="buttonCPR-s" onClick={() => addServicio(servicioData)}>
+          <button className="buttonCPR-s green-bg" onClick={() => addServicio(servicioData)}>
             Añadir Servicio
           </button>
         </>

@@ -1,4 +1,305 @@
-div {
+.sectionCV {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sectionCV-child {
+    width: 49%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .child-div-1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .producto-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: rgb(220, 220, 220);
+    margin-top: 1vh;
+  
+    border-radius: 15px;
+  }
+  .tittleCV {
+    width: 100%;
+    background-color: grey;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 500;
+    border-radius: 15px;
+    margin-top: 2vh;
+  }
+  
+  .inputgroupCV {
+      justify-content: space-between;
+    width: 100%;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 1vw;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: rgb(196, 196, 196);
+  }
+  .iconCV {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: rgb(127, 127, 127);
+  }
+  .inputCV {
+    width: 90%;
+    padding-left: 0.7vw;
+    background-color: rgb(196, 196, 196);
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+  }
+  .inputCV:focus {
+    outline: none;
+  }
+  
+  .inputgroupCV-h {
+    width: 48%;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 1vw;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: rgb(196, 196, 196);
+  }
+  .iconCV-h {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: rgb(127, 127, 127);
+  }
+  .inputCV-h {
+    width: 80%;
+    padding-left: 0.7vw;
+    background-color: rgb(196, 196, 196);
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+  }
+  .inputCV-h:focus {
+    outline: none;
+  }
+  .buttonCV {
+    width: 48%;
+    font-size: 1vw;
+    background-color: rgb(169, 169, 169);
+    border-radius: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 1vh;
+  }
+  .buttonCV:hover {
+    background-color: rgba(35, 176, 0, 0.538);
+  }
+  .w100 {
+    width: 100%;
+  }
+  .h2-servicio {
+    width: 100%;
+    background-color: rgb(198, 198, 198);
+    border-radius: 15px;
+    font-size: 1.1vw;
+    text-align: center;
+    font-weight: 500;
+  }
+  .inputcheckCV{
+   
+      padding-left: 0.7vw;
+      background-color: rgb(196, 196, 196);
+      padding-top: 0.5vh;
+      padding-bottom: 0.5vh;
+  }
+  .checkboxCV {
+    appearance: none; /* Remueve el estilo predeterminado */
+    width: 2.3vw;
+    border-radius: 15px; /* Radio de la esquina redondeada */
+    border: 1px solid rgb(0, 0, 0); /* Borde rojo cuando no está marcado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(254, 0, 0, 0.556);
+    cursor: pointer;
+  }
+  
+  .checkboxCV:checked {
+    background-color: green; /* Fondo verde cuando está marcado */
+    border-color: green; /* Borde verde cuando está marcado */
+  }
+  .inputgroupCV-f {
+  justify-content: space-between;
+    width: 100%;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 1vw;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: rgb(196, 196, 196);
+  }
+  .iconCV-f {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: rgb(127, 127, 127);
+  }
+  .inputCV-f {
+    width: 50%;
+    padding-left: 0.7vw;
+    background-color: rgb(196, 196, 196);
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+  }
+  .inputCV-f:focus {
+    outline: none;
+  }
+  .selectedproductsCV{
+    width: 100%;
+  }
+  .selectedproductsCV h3{
+    width: 100%;
+    font-size: 1.2vw;
+    background-color: rgb(169, 169, 169);
+    border-radius: 15px;
+    margin-top: 1vh;
+    text-align: center;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+  }
+  .listaproductosCV-s{
+    width: 100%;
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+  
     display: flex;
     flex-direction: column;
-}
+  }
+  .productoCV-s{
+    display: flex;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin-top: 1vh;
+    background-color: rgb(196, 196, 196);
+  }
+  .productonombreCV-s{
+    margin-left: 0.7vw;
+    font-size: 1vw;
+  }
+  .buttonsproductoCV-s{
+    margin-right: 0.4vw;
+  }
+  .trashCV-s{
+    font-size: 1vw;
+    background-color: rgba(255, 255, 255, 0.804);
+    padding-right: 0.3vw;
+    padding-left: 0.3vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    border-radius: 15px;
+    margin-left: 0.5vw;
+    transition: background-color 0.3s ease-in;
+  }
+  .trashCV-s:hover{
+    background-color: rgba(255, 0, 0, 0.693);
+  }
+  .totaldegastosCV{
+    margin-top: 1vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(32, 32, 32);
+      border-radius: 10px;
+      padding-left: 0.7vw;
+      padding-right: 0.7vw;
+      max-height: 17vh;
+      margin-top: auto;
+  }
+  .tgCV-child{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 1vh;
+  }
+  .name-tgCV-child{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 58%;
+    background-color: rgba(255, 255, 255, 0.098);
+    border-radius: 10px;
+    color: #ddd;
+    align-items: center;
+    font-size: 1vw;
+    text-align: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .valor-tgCV-child{
+    width: 40%;
+    padding-top: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1.3vw;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    background-color: green;
+    border-radius: 15px;
+  }
+  .button-tgCV-child{
+    width: 100%;
+    padding-top: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1.3vw;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    background-color: green;
+    border-radius: 15px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    transition: background-color 0.3s ease;
+  }
+  .button-tgCV-child:hover{
+    width: 100%;
+    padding-top: 0;
+    color: rgb(0, 0, 0);
+    font-size: 1.3vw;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(255, 153, 0);
+    border-radius: 15px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }

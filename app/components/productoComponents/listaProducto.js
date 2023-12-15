@@ -49,9 +49,9 @@ function ListaProducto() {
 
   return (
     <section className="sectionLPR">
-      <header className="headerLPR">
+      <header className="headerLPR grey-bg">
         {" "}
-        <h2 className="tittleLPR">Lista de Productos </h2>
+        <h2 className="tittleLPR ">Lista de Productos </h2>
         <button
           className="refreshLPR"
           onClick={() => {

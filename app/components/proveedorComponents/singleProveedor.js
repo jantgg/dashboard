@@ -46,7 +46,7 @@ function SingleProveedor() {
 
   return (
     <section className="sectionSP">
-      <header className="headerSP">
+      <header className="headerSP blue-bg">
         <div className="Pnombre">{singleProveedor.nombre}</div>
         <div className="Pcif">{singleProveedor.cif}</div>
         <div className="Ptelefono">{singleProveedor.telefono}</div>

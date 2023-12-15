@@ -45,7 +45,7 @@ function ResumenClientes() {
     <section className="clientesgraficasection">
       <header className="clientesgrafica">
         {" "}
-        <h2>Resumen de Clientes</h2>
+        <h2 className="orange-bg">Resumen de Clientes</h2>
         <select
           id="anioSelector"
           onChange={(e) => setAnioSeleccionado(parseInt(e.target.value))}

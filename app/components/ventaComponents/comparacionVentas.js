@@ -45,7 +45,7 @@ function ComparacionVentas() {
   return (
     <section className="sectionVentasRVG">
       {" "}
-      <h2 className="tittleVentasRVG"> Resumen Mensual de Ventas</h2>
+      <h2 className="tittleVentasRVG green-bg"> Resumen Mensual de Ventas</h2>
       <div className="containerSelectorVentasRVG">
         {" "}
         <select
