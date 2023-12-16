@@ -10,6 +10,15 @@ import generarPdf from "../hooks/generarPdf";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BsCheckCircle } from "react-icons/bs";
+import { FaPerson } from "react-icons/fa6";
+import { GrUserWorker } from "react-icons/gr";
+import { MdOutlineDescription } from "react-icons/md";
+import { TbReceiptTax } from "react-icons/tb";
+import { AiOutlineFieldNumber } from "react-icons/ai";
+import { LuBox } from "react-icons/lu";
+import { FaHandHoldingUsd } from "react-icons/fa";
+
+
 
 function VentaNueva() {
   const productoRef = useRef(null);
@@ -234,7 +243,7 @@ function VentaNueva() {
       <div className="sectionCV-child">
         <div className="inputgroupCV">
           <span className="iconCV">
-            <BsFillPersonFill />
+          <FaPerson />
           </span>
           <select
             className="inputCV"
@@ -264,7 +273,7 @@ function VentaNueva() {
           <h2 className="h2-servicio blue-bg">Añadir producto</h2>
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+              <LuBox />
             </span>
             <select ref={productoRef} className="inputCV">
               <option value="">Seleccione un producto</option>
@@ -279,7 +288,7 @@ function VentaNueva() {
 
           <div className="inputgroupCV-h">
             <span className="iconCV-h">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCV-h"
@@ -299,7 +308,7 @@ function VentaNueva() {
           <h2 className="h2-servicio blue-bg">Añadir servicio</h2>
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+            <FaHandHoldingUsd />
             </span>
             <select ref={servicioRef} className="inputCV">
               <option value="">Seleccione un servicio</option>
@@ -314,7 +323,7 @@ function VentaNueva() {
 
           <div className="inputgroupCV-h">
             <span className="iconCV-h">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCV-h"
@@ -333,7 +342,7 @@ function VentaNueva() {
           <h2 className="h2-servicio blue-bg">Datos factura</h2>
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCV"
@@ -402,7 +411,7 @@ function VentaNueva() {
           </div>
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+              <MdOutlineDescription />
             </span>
             <textarea
               className="inputCV"
@@ -420,7 +429,7 @@ function VentaNueva() {
 
           <div className="inputgroupCV">
             <span className="iconCV">
-              IVA
+            <TbReceiptTax />
             </span>
             <input
               className="inputCV"
@@ -440,7 +449,7 @@ function VentaNueva() {
           </div>
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+            <TbReceiptTax />
             </span>
             <input
               className="inputCV"
@@ -460,7 +469,7 @@ function VentaNueva() {
 
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+              <FaHandHoldingUsd />
             </span>
             <input
               className="inputCV"
@@ -480,7 +489,7 @@ function VentaNueva() {
 
           <div className="inputgroupCV">
             <span className="iconCV">
-              <BsFillPersonFill />
+              € 
             </span>
             <input
               className="inputCV"

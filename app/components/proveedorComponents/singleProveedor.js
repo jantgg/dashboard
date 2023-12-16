@@ -53,7 +53,7 @@ function SingleProveedor() {
         <div className="Pemail">{singleProveedor.email}</div>
         <div className="Pfecha">{singleProveedor.fechaRegistro}</div>{" "}
         <div className="Pdireccion">{singleProveedor.direccion}</div>
-        <div className="Pgastostotales">{singleProveedor.gastosTotales}€</div>
+        <div className="Pgastostotales">{singleProveedor.totalGastado}€</div>
       </header>
       <div className="historialgastosSP">
         <h2 className="historialtittleSP">Historial</h2>

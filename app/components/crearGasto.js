@@ -8,6 +8,12 @@ import useProductos from "../hooks/useProductos";
 import generarPdfP from "../hooks/generarPdfProveedor";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { GrUserWorker } from "react-icons/gr";
+import { MdOutlineDescription } from "react-icons/md";
+import { TbReceiptTax } from "react-icons/tb";
+import { AiOutlineFieldNumber } from "react-icons/ai";
+import { LuBox } from "react-icons/lu";
+
 
 function GastoNuevo() {
   const productoRef = useRef(null);
@@ -85,7 +91,7 @@ function GastoNuevo() {
     fechaOperacion: "",
     cantidadNeta: 0,
     cantidadBruta: 0,
-    iva: 0,
+    iva: "",
     detalles: "",
     pdfFactura: "",
     estado: "pagada",
@@ -252,7 +258,7 @@ function GastoNuevo() {
 
         <div className="inputgroupCG">
           <span className="iconCG">
-            <BsFillPersonFill />
+            <GrUserWorker />
           </span>
           <select
             className="inputCG"
@@ -295,7 +301,7 @@ function GastoNuevo() {
           <h2 className="h2-servicio blue-bg">Añadir producto</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <LuBox /> 
             </span>
             <select ref={productoRef} className="inputCG">
               <option value="">Seleccione un producto</option>
@@ -310,7 +316,7 @@ function GastoNuevo() {
 
           <div className="inputgroupCG-h">
             <span className="iconCG-h">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCG-h"
@@ -345,7 +351,7 @@ function GastoNuevo() {
           </div>
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <MdOutlineDescription />
             </span>
             <textarea
               className="inputCG"
@@ -359,7 +365,7 @@ function GastoNuevo() {
 
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              €
             </span>
             <input
               className="inputCG"
@@ -375,7 +381,7 @@ function GastoNuevo() {
 
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <TbReceiptTax />
             </span>
             <input
               className="inputCG"
@@ -391,7 +397,7 @@ function GastoNuevo() {
 
           <div className="inputgroupCG-h">
             <span className="iconCG-h">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCG-h"
@@ -469,7 +475,7 @@ function GastoNuevo() {
           <h2 className="h2-servicio blue-bg">Datos factura</h2>
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <AiOutlineFieldNumber />
             </span>
             <input
               className="inputCG"
@@ -547,7 +553,7 @@ function GastoNuevo() {
           </div>
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <MdOutlineDescription />
             </span>
             <textarea
               className="inputCG"
@@ -568,7 +574,7 @@ function GastoNuevo() {
 
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+              <TbReceiptTax />
             </span>
             <input
               className="inputCG"
@@ -587,7 +593,7 @@ function GastoNuevo() {
           </div>
           <div className="inputgroupCG">
             <span className="iconCG">
-              <BsFillPersonFill />
+            <TbReceiptTax />
             </span>
             <input
               className="inputCG"

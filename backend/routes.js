@@ -339,18 +339,89 @@ router.post("/clients", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error de servidor al crear el Cliente" });
   }
 });
+
+// DELETE Cliente y restaurar stock de productos y servicios
+router.delete("/clients/:clienteId", verifyToken, async (req, res) => {
+  const clienteId = req.params.clienteId;
+
+  try {
+    // Iniciar una sesión de transacción
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      // Encontrar y eliminar todas las ventas asociadas al cliente
+      const ventas = await Venta.find({ cliente: clienteId }).session(session);
+
+      for (const venta of ventas) {
+        // Restaurar el stock de productos y servicios en cada venta
+        for (const productoId of venta.productos) {
+          await Producto.findByIdAndUpdate(
+            productoId,
+            { $inc: { vecesVendido: -1, stock: 1 } },
+            { session }
+          );
+        }
+
+        for (const servicioId of venta.servicios) {
+          await Servicio.findByIdAndUpdate(
+            servicioId,
+            { $inc: { vecesVendido: -1 } },
+            { session }
+          );
+        }
+
+        // Eliminar la venta
+        await Venta.findByIdAndDelete(venta._id, { session });
+      }
+
+      // Eliminar el cliente
+      await Cliente.findByIdAndDelete(clienteId, { session });
+
+      // Comprometer la transacción
+      await session.commitTransaction();
+
+      res.status(200).json({ message: "Cliente y ventas asociadas eliminadas con éxito" });
+    } catch (error) {
+      // Abortar la transacción en caso de error
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      // Finalizar la sesión
+      session.endSession();
+    }
+  } catch (error) {
+    console.error("Error al eliminar Cliente y ventas asociadas:", error);
+    res.status(500).json({ message: "Error de servidor al eliminar el Cliente y ventas asociadas" });
+  }
+});
+
+
+
+
 // Obtener todas los proveedor  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/suppliers", verifyToken, async (req, res) => {
   try {
-    const proveedor = await Proveedor.find({ usuario: req.userId });
-    res.status(200).json(proveedor);
+    const proveedores = await Proveedor.find({ usuario: req.userId }).lean();
+
+    for (let proveedor of proveedores) {
+      // Obtener todos los gastos asociados al proveedor
+      const gastos = await Gasto.find({ proveedor: proveedor._id });
+
+      // Calcular la suma total de cantidadNeta para los gastos
+      const totalGastado = gastos.reduce((suma, gasto) => suma + gasto.cantidadNeta, 0);
+
+      // Añadir totalGastado al objeto del proveedor
+      proveedor.totalGastado = totalGastado;
+    }
+
+    res.status(200).json(proveedores);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error de servidor al obtener los proveedores" });
+    res.status(500).json({ message: "Error de servidor al obtener los proveedores" });
   }
 });
+
 // Crear una nuevo proveedor --------------------------------------------------------------------------------------------------------------
 router.post("/suppliers", verifyToken, async (req, res) => {
   try {
@@ -370,6 +441,61 @@ router.post("/suppliers", verifyToken, async (req, res) => {
       .json({ message: "Error de servidor al crear el Proveedor" });
   }
 });
+
+// DELETE Proveedor y ajustar stock de productos y servicios
+router.delete("/suppliers/:proveedorId", verifyToken, async (req, res) => {
+  const proveedorId = req.params.proveedorId;
+
+  try {
+    // Iniciar una sesión de transacción
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      // Encontrar y eliminar todos los gastos asociados al proveedor
+      const gastos = await Gasto.find({ proveedor: proveedorId }).session(session);
+
+      for (const gasto of gastos) {
+        // Ajustar el stock de productos en cada gasto
+        for (const productoId of gasto.productos) {
+          await Producto.findByIdAndUpdate(
+            productoId,
+            { $inc: { vecesComprado: -1, stock: -1 } },
+            { session }
+          );
+        }
+
+        // Eliminar los servicios de proveedor en cada gasto
+        for (const servicioId of gasto.servicios) {
+          await ServicioProveedor.findByIdAndDelete(servicioId, { session });
+        }
+
+        // Eliminar el gasto
+        await Gasto.findByIdAndDelete(gasto._id, { session });
+      }
+
+      // Eliminar el proveedor
+      await Proveedor.findByIdAndDelete(proveedorId, { session });
+
+      // Comprometer la transacción
+      await session.commitTransaction();
+
+      res.status(200).json({ message: "Proveedor y gastos asociados eliminados con éxito" });
+    } catch (error) {
+      // Abortar la transacción en caso de error
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      // Finalizar la sesión
+      session.endSession();
+    }
+  } catch (error) {
+    console.error("Error al eliminar Proveedor y gastos asociados:", error);
+    res.status(500).json({ message: "Error de servidor al eliminar el Proveedor y gastos asociados" });
+  }
+});
+
+
 
 // Obtener todas los GASTOS  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/expenses", verifyToken, async (req, res) => {

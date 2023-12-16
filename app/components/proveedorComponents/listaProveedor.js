@@ -5,6 +5,7 @@ import { IoMdRefresh } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 import "./listaProveedor.css"
+import {toast } from "sonner";
 
 
 function ListaProveedor() {
@@ -68,7 +69,7 @@ function ListaProveedor() {
                 <span className="listanombreLP"> {proveedor.nombre}</span>
                 <span className="listadescripcionLP">
                   {" "}
-                  {proveedor.ventasTotales}€
+                  {proveedor.totalGastado}€
                 </span>
               </div>
               <div className="buttonscontainerLP">

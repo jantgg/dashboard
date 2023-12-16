@@ -6,6 +6,7 @@ import { IoMdRefresh } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 import "./listaCliente.css"
+import {toast } from "sonner";
 
 
 function ListaCliente() {
