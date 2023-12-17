@@ -1,8 +1,6 @@
 .sectionHistorialG {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
     overflow-y: auto;
     width: 95%;
     height: 100%;
@@ -13,6 +11,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
   }
   .h2HeaderHistorialG {
     width: 100%;
@@ -70,6 +70,7 @@
     color: black;
   }
   .containerHistorialGastos {
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

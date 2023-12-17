@@ -130,19 +130,19 @@ function HistorialGastosFijos() {
           </div>
         </div>
       </header>
-      <div className="containerHistorialGastos">
+      <div className="containerHistorialGastosF">
         {gastosDelMes.map((gasto) => (
           <div className="gastoHistorialGF" key={gasto._id}>
-              {gasto.servicios.map((servicio, index) => (
+            {gasto.servicios.map((servicio, index) => (
               <div className="gHGFServicio" key={index}>
                 {servicio.nombre}
               </div>
-            ))}{" "}
+            ))}{" "}  
+             <div className="gHGFNeto">{gasto.cantidadNeta}</div>
             <div className="gHGFNombre">
               <span>{gasto.nombreProveedor}</span>
             </div>
-            <div className="gHGFNeto">{gasto.cantidadNeta}</div>
-          
+        
             <button
               className="buttonFacturasGF"
               onClick={() => generarPdf(gasto.factura)}
@@ -151,7 +151,6 @@ function HistorialGastosFijos() {
                 <AiOutlineDownload />
               </span>
             </button>
-         
           </div>
         ))}
       </div>

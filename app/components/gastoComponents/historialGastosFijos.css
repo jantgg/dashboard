@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
 margin-top: 2vh;
-  flex-wrap: wrap;
-  overflow-y: auto;
   width: 95%;
   height: 100%;
   margin-left: auto;
@@ -13,6 +11,7 @@ margin-top: 2vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: 1vh;
 }
 .h2HeaderHistorialGF {
   width: 100%;
@@ -35,7 +34,7 @@ margin-top: 2vh;
 }
 .selectorsHistorialGF {
   width: 48%;
-  font-size: 1.5vw;
+  font-size: 1vw;
   text-align: center;
   background-color: rgb(196, 196, 196);
   border-radius: 15px;
@@ -44,7 +43,7 @@ margin-top: 2vh;
 }
 .netoybrutoHistorialGF {
   width: 48%;
-  font-size: 1.5vw;
+  font-size: 1vw;
   text-align: center;
   background-color: rgb(196, 196, 196);
   border-radius: 15px;
@@ -69,12 +68,11 @@ margin-top: 2vh;
 .txt-black {
   color: black;
 }
-.containerHistorialGastos {
+.containerHistorialGastosF {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   overflow-y: auto;
+  height: 15vh;
 }
 .gastoHistorialGF {
   width: 100%;
@@ -95,22 +93,22 @@ margin-top: 2vh;
   display: flex;
   width: auto;
   align-items: center;
+
+
 }
 .gHGFNeto {
   font-size: 1vw;
   justify-content: center;
   display: flex;
-  width: 31%;
+  width: 20%;
   align-items: center;
+  font-weight: 600;
+  font-size: 1.5vw;
+  color: green;
 }
 .gHGFNombre span {
   font-style: italic;
   color: rgb(0, 0, 0);
-}
-.gHGFNeto {
-  font-weight: 600;
-  font-size: 1.5vw;
-  color: green;
 }
 .gHGFContainerS {
   display: flex;
@@ -133,6 +131,7 @@ margin-top: 2vh;
   font-weight: 600;
   align-items: center;
   display: flex;
+  width: 80%;
 }
 
 .buttonFacturasGF {
@@ -143,7 +142,9 @@ margin-top: 2vh;
   font-size: 1vw;
   justify-content: center;
   align-items: center;
-  height: 70%;
+  height: 4vh;
+  margin-right: 0.7vw;
+  margin-bottom: 1vh;
 }
 .buttonFacturasGF span {
   color: green;
