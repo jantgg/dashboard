@@ -309,7 +309,10 @@ router.get("/clients", verifyToken, async (req, res) => {
     for (let client of clients) {
       // Obtener todas las ventas asociadas al cliente y sumar las cantidades netas
       const ventas = await Venta.find({ cliente: client._id });
-      const ventasTotales = ventas.reduce((sum, venta) => sum + venta.cantidadNeta, 0);
+      const ventasTotales = ventas.reduce(
+        (sum, venta) => sum + venta.cantidadNeta,
+        0
+      );
 
       // Añadir ventasTotales al objeto del cliente
       client.ventasTotales = ventasTotales;
@@ -318,10 +321,11 @@ router.get("/clients", verifyToken, async (req, res) => {
     res.status(200).json(clients);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error de servidor al obtener los clientes" });
+    res
+      .status(500)
+      .json({ message: "Error de servidor al obtener los clientes" });
   }
 });
-
 
 // Crear una nuevo Cliente--------------------------------------------------------------------------------------------------------------
 router.post("/clients", verifyToken, async (req, res) => {
@@ -381,7 +385,9 @@ router.delete("/clients/:clienteId", verifyToken, async (req, res) => {
       // Comprometer la transacción
       await session.commitTransaction();
 
-      res.status(200).json({ message: "Cliente y ventas asociadas eliminadas con éxito" });
+      res
+        .status(200)
+        .json({ message: "Cliente y ventas asociadas eliminadas con éxito" });
     } catch (error) {
       // Abortar la transacción en caso de error
       await session.abortTransaction();
@@ -392,12 +398,13 @@ router.delete("/clients/:clienteId", verifyToken, async (req, res) => {
     }
   } catch (error) {
     console.error("Error al eliminar Cliente y ventas asociadas:", error);
-    res.status(500).json({ message: "Error de servidor al eliminar el Cliente y ventas asociadas" });
+    res
+      .status(500)
+      .json({
+        message: "Error de servidor al eliminar el Cliente y ventas asociadas",
+      });
   }
 });
-
-
-
 
 // Obtener todas los proveedor  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/suppliers", verifyToken, async (req, res) => {
@@ -409,7 +416,10 @@ router.get("/suppliers", verifyToken, async (req, res) => {
       const gastos = await Gasto.find({ proveedor: proveedor._id });
 
       // Calcular la suma total de cantidadNeta para los gastos
-      const totalGastado = gastos.reduce((suma, gasto) => suma + gasto.cantidadNeta, 0);
+      const totalGastado = gastos.reduce(
+        (suma, gasto) => suma + gasto.cantidadNeta,
+        0
+      );
 
       // Añadir totalGastado al objeto del proveedor
       proveedor.totalGastado = totalGastado;
@@ -418,7 +428,9 @@ router.get("/suppliers", verifyToken, async (req, res) => {
     res.status(200).json(proveedores);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error de servidor al obtener los proveedores" });
+    res
+      .status(500)
+      .json({ message: "Error de servidor al obtener los proveedores" });
   }
 });
 
@@ -453,7 +465,9 @@ router.delete("/suppliers/:proveedorId", verifyToken, async (req, res) => {
 
     try {
       // Encontrar y eliminar todos los gastos asociados al proveedor
-      const gastos = await Gasto.find({ proveedor: proveedorId }).session(session);
+      const gastos = await Gasto.find({ proveedor: proveedorId }).session(
+        session
+      );
 
       for (const gasto of gastos) {
         // Ajustar el stock de productos en cada gasto
@@ -480,7 +494,9 @@ router.delete("/suppliers/:proveedorId", verifyToken, async (req, res) => {
       // Comprometer la transacción
       await session.commitTransaction();
 
-      res.status(200).json({ message: "Proveedor y gastos asociados eliminados con éxito" });
+      res
+        .status(200)
+        .json({ message: "Proveedor y gastos asociados eliminados con éxito" });
     } catch (error) {
       // Abortar la transacción en caso de error
       await session.abortTransaction();
@@ -491,11 +507,14 @@ router.delete("/suppliers/:proveedorId", verifyToken, async (req, res) => {
     }
   } catch (error) {
     console.error("Error al eliminar Proveedor y gastos asociados:", error);
-    res.status(500).json({ message: "Error de servidor al eliminar el Proveedor y gastos asociados" });
+    res
+      .status(500)
+      .json({
+        message:
+          "Error de servidor al eliminar el Proveedor y gastos asociados",
+      });
   }
 });
-
-
 
 // Obtener todas los GASTOS  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/expenses", verifyToken, async (req, res) => {
@@ -538,21 +557,21 @@ router.get("/expenses", verifyToken, async (req, res) => {
 router.get("/sales", verifyToken, async (req, res) => {
   try {
     const ventas = await Venta.find({ usuario: req.userId })
-      .populate('cliente', 'nombre') // Traer el campo 'nombre' del modelo Cliente
-      .populate('productos', 'nombre') // Asumiendo que 'nombre' es el campo que quieres del modelo Producto
-      .populate('servicios', 'nombre') // Asumiendo que 'nombre' es el campo que quieres del modelo Servicio
+      .populate("cliente", "nombre") // Traer el campo 'nombre' del modelo Cliente
+      .populate("productos", "nombre") // Asumiendo que 'nombre' es el campo que quieres del modelo Producto
+      .populate("servicios", "nombre") // Asumiendo que 'nombre' es el campo que quieres del modelo Servicio
       .exec();
 
     const ventasConNombres = ventas.map((venta) => {
       const ventaObj = venta.toObject();
-      
+
       // Reemplaza el ID del cliente por su nombre
       ventaObj.nombreCliente = venta.cliente.nombre;
       ventaObj.cliente = venta.cliente._id.toString();
 
       // Mapea los productos y servicios para reemplazar los IDs con nombres
-      ventaObj.productos = venta.productos.map(producto => producto.nombre);
-      ventaObj.servicios = venta.servicios.map(servicio => servicio.nombre);
+      ventaObj.productos = venta.productos.map((producto) => producto.nombre);
+      ventaObj.servicios = venta.servicios.map((servicio) => servicio.nombre);
 
       return ventaObj;
     });
@@ -565,7 +584,6 @@ router.get("/sales", verifyToken, async (req, res) => {
       .json({ message: "Error de servidor al obtener las ventas" });
   }
 });
-
 
 // Obtener todas las facturas de cliente  del usuario autenticado--------------------------------------------------------------------------------------------------------------
 router.get("/clientbills", verifyToken, async (req, res) => {
@@ -598,45 +616,43 @@ router.post("/sales", verifyToken, async (req, res) => {
 
   try {
     const { venta, facturaCliente } = req.body;
-
     // Añadiendo el usuario a la información de factura
     facturaCliente.usuario = req.userId;
-
     // Creando la FacturaCliente
     const newFacturaCliente = new FacturaCliente(facturaCliente);
     savedFactura = await newFacturaCliente.save();
 
     // Actualizar stock y vecesVendido para cada producto vendido
     for (let producto of venta.productos) {
+      // Convertir el string _id a ObjectId
+      const productoId = new mongoose.Types.ObjectId(producto._id);
+
       await Producto.findOneAndUpdate(
-        { _id: producto._id },
+        { _id: productoId },
         {
           $inc: {
-            stock: -1, // Reducir stock en 1
-            vecesVendido: 1, // Incrementar vecesVendido en 1
+            stock: -1,
+            vecesVendido: 1,
           },
         }
       );
     }
-
-    // Actualizar vecesVendido para cada servicio vendido
+    // Similar para los servicios
     for (let servicio of venta.servicios) {
+      const servicioId = new mongoose.Types.ObjectId(servicio._id);
+
       await Servicio.findOneAndUpdate(
-        { _id: servicio._id },
+        { _id: servicioId },
         {
-          $inc: {
-            vecesVendido: 1, // Incrementar vecesVendido en 1
-          },
+          $inc: { vecesVendido: 1 },
         }
       );
     }
 
     // Asignar el ID de la factura a la venta
     venta.factura = savedFactura._id;
-
     // Añadiendo el usuario a la información de venta
     venta.usuario = req.userId;
-
     // Creando la Venta
     const newVenta = new Venta(venta);
     await newVenta.save();
@@ -897,7 +913,7 @@ router.get("/generatePDF/:facturaId", verifyToken, async (req, res) => {
       doc.text(`${serviceCounts[serviceName].precioVenta} €`, x, startY);
       x += columns[2].width;
 
-      startY += 5;
+      startY += 15; // Incrementa más la variable startY para evitar la superposición
     });
 
     // Dibujar contenido de la tabla desde facturaCliente.servicios
@@ -956,6 +972,7 @@ router.get("/generatePDF/:facturaId", verifyToken, async (req, res) => {
     });
   }
 });
+
 // GENERARA PDF PROVEEDOR -----------------------------------------------------------------------------------------------------------------------------------------------
 router.get("/generatePDFP/:facturaId", verifyToken, async (req, res) => {
   try {

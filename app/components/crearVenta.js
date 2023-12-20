@@ -68,15 +68,21 @@ function VentaNueva() {
     valorServicio: "",
   });
   useEffect(() => {
-    // Cantidad bruta será equivalente a la suma de cantidadNeta y valorServicio
-    // a esta suma se le restará el valor de iva (que siempre va a ser un porcentaje)
     const bruta =
       facturaClienteData.cantidadNeta + facturaClienteData.valorServicio;
     const valorIva = bruta * (facturaClienteData.iva / 100);
     const totalBruta = bruta - valorIva;
-
-    setFacturaClienteData((prev) => ({ ...prev, cantidadBruta: totalBruta }));
-    setVentaData((prev) => ({ ...prev, cantidadBruta: totalBruta }));
+  
+    const cantidadBrutaConDosDecimales = parseFloat(totalBruta.toFixed(2));
+  
+    setFacturaClienteData((prev) => ({
+      ...prev,
+      cantidadBruta: cantidadBrutaConDosDecimales
+    }));
+    setVentaData((prev) => ({
+      ...prev,
+      cantidadBruta: cantidadBrutaConDosDecimales
+    }));
   }, [
     facturaClienteData.cantidadNeta,
     facturaClienteData.valorServicio,
@@ -221,7 +227,7 @@ function VentaNueva() {
           iva: 0,
           detalles: "",
           pdfFactura: "",
-          estado: "",
+          estado: "pagada",
           cuotaTributaria: "",
           servicio: "",
           valorServicio: 0,
@@ -437,12 +443,17 @@ function VentaNueva() {
               autoComplete="nope"
               type="text"
               value={facturaClienteData.iva}
-              onChange={(e) =>
+              onChange={(e) => {
                 setFacturaClienteData((prev) => ({
-                  ...prev,
-                  iva: parseFloat(e.target.value),
-                }))
-              }
+                    ...prev,
+                    iva: parseFloat(e.target.value)
+                }));
+                setVentaData((prev) => ({
+                    ...prev,
+                    iva: parseFloat(e.target.value)
+                }));
+            }}
+            
            
               required
             />

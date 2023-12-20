@@ -35,7 +35,7 @@ function ProductoNuevo() {
     descripcion: "",
     precioVenta: "",
     iva: "",
-    vecesVendido: "", // Solo para servicios
+    vecesVendido: 0, // Solo para servicios
   });
 
   const addProducto = async (productoData) => {
