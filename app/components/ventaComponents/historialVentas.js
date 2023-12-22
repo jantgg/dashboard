@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import useServicios from "app/hooks/useServicios.js";
 import useProductos from "app/hooks/useProductos.js";
 import useVentas from "app/hooks/useVentas.js";
+import generarPdf from "app/hooks/generarPdf.js";
 import "./historialVentas.css";
 import {AiOutlineDownload} from "react-icons/ai";
 

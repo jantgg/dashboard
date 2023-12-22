@@ -21,7 +21,7 @@ app.prepare().then(() => {
     server.use(routes);  
 
     const password = process.env.MONGODB_PASSWORD;
-    const uri = `mongodb+srv://smosh360:${password}@clusterdashboard.sh8p1mx.mongodb.net/dashboarddata?retryWrites=true&w=majority`;
+    const uri = process.env.URI;
   
     
     mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
